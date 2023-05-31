@@ -1,0 +1,137 @@
+.homepage-container {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    left: 0px;
+    top: 0px;
+    background: linear-gradient(180deg, #8BCEED 32.81%, #FFFFFF 100%);
+    min-height: 100vh;
+  }
+  
+  .homepage-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 20px;
+  }
+  
+  .homepage-header {
+    position: absolute;
+    width: 215px;
+    height: 58px;
+    left: 648px;
+    top: 52px;
+    font-family: 'Lato', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 58px;
+    /* identical to box height */
+
+    text-align: center;
+
+    color: #FFFFFF;
+  }
+  
+  .homepage-logo {
+    position: absolute;
+
+    width: 770px;
+    height: 754px;
+    left: 752px;
+    top: 216px;
+
+  }
+
+  .homepage-title{
+    box-sizing: border-box;
+
+    position: absolute;
+    width: 934px;
+    height: 223px;
+    left: 285px;
+    top: 237px;
+
+    font-family: 'Lato', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 90px;
+    line-height: 108px;
+    text-align: center;
+
+    color: #FFFFFF;
+  }
+
+  .homepage-italics{
+    position: absolute;
+    width: 264px;
+    height: 58px;
+    left: 620px;
+    top: 516px;
+
+    font-family: 'Lato', sans-serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 58px;
+    /* identical to box height */
+
+    text-align: center;
+
+    color: #FFFFFF;
+
+  }
+
+  .homepage-waitlist{
+    position: absolute;
+    width: 340px;
+    height: 75px;
+    left: 584px;
+    top: 700px;
+
+    background: #00BFF6;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 19px;
+    z-index: 1;
+
+    font-family: 'Lato', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 38px;
+    text-align: center;
+
+    color: #FFFFFF;
+    border: none;
+  }
+
+  .homepage-instagram{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    left: 38px;
+    top: 1162px;
+  background-color: transparent;
+  border: none;
+  }
+
+  .homepage-instagram1{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    left: -1.9px;
+    top: -1.3px;
+    
+  }
+
+  .homepage-instagram2{
+    position: absolute;
+    width: 29.18;
+    height: 29.18;
+    top: 7px;
+    left:10px;
+    
+  }
+  
