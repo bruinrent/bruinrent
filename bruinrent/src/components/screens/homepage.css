@@ -4,45 +4,167 @@
     height: 100vh;
     left: 0px;
     top: 0px;
+    justify-content: flex-end; /* Adjust justify-content */
     background: linear-gradient(180deg, #8BCEED 32.81%, #FFFFFF 100%);
     min-height: 100vh;
   }
+
+  .homepage-boxtop {
+    box-sizing: border-box;
+    position: absolute;
+    width: 100%; /* Set the width to 100% to span across the entire top */
+    height: 126px;
+    left: 0;
+    top: 0;
+    background: #FFFFFF;  
+  }
+
+  .homepage-boxbot {
+    position: absolute;
+    top: calc(2 / 3 * 100vh); /* Position 2/3 down the page */
+    width: 100%;
+    bottom: 0;
+    background: #FFFFFF;
+  }
   
+
   .homepage-content {
-    display: flex;
+    /* display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100%;
+    padding: 20px; */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
     padding: 20px;
+
   }
   
-  .homepage-header {
-    position: absolute;
-    width: 215px;
-    height: 58px;
-    left: 648px;
-    top: 52px;
-    font-family: 'Lato', sans-serif;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 48px;
-    line-height: 58px;
-    /* identical to box height */
+.homepage-header {
+  box-sizing: border-box;
+  width: 100%;
+  height: 126px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 54px;
+  line-height: 76px;
+  text-align: center;
+  color: #000000;
+  margin-top: 50px; /* Add margin-top to create space between the white container and the header */
 
-    text-align: center;
+}
 
-    color: #FFFFFF;
-  }
+.homepage-button1 {
+  /* List With Us */
+
+/* position: absolute;
+width: 140px;
+height: 32.05px;
+left: 1202px;
+top: 55px; */
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 600;
+font-size: 24px;
+line-height: 29px;
+margin-left: 10px; /* Add margin to create spacing between the buttons */
+border: none; /* Remove border */
+background: #FFFFFF; /* Set background color to match the container */
+color: #00BFF6;
+
+}
+
+.homepage-button2 {
+  /* Sign In */
+/* position: absolute;
+width: 79px;
+height: 32.05px;
+left: 1369px;
+top: 55.26px; */
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 600;
+font-size: 24px;
+line-height: 29px;
+border: none;
+left: -5px; /* Adjust the left value as needed */
+margin-left: 10px; /* Add margin to create spacing between the buttons */
+background: #FFFFFF; /* Set background color to match the container */
+
+color: #00BFF6;
+}
+.homepage-button3 {
+  /* position: absolute;
+  width: 403px;
+  height: 72px;
+  left: 555px;
+  top: 520px;
+  border: none;
+
+  background: #00BFF6;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 19px;  */
   
+  position: absolute;
+  width: 403px;
+  height: 72px;
+  left: calc(50% - 201.5px); /* Center the button horizontally */
+  top: 520px;
+  border: none;
+  background: #00BFF6;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 19px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+
+}
+
+.homepage-button3text {
+  /* box-sizing: border-box;
+
+  position: absolute;
+  width: 424px;
+  height: 46px;
+  left: 544px;
+  top: 514px;
+  
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 38px;
+  text-align: center;
+  
+  color: #FFFFFF;   */
+  
+  box-sizing: border-box;
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 38px;
+  text-align: center;
+  color: #FFFFFF;
+  margin: 0;
+}
   .homepage-logo {
     position: absolute;
-
-    width: 770px;
-    height: 754px;
-    left: 752px;
-    top: 216px;
-
+    width: 85px;
+    height: 93.95px;
+    left: 21px;
+    top: 15px;
   }
 
   .homepage-title{
