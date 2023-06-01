@@ -17,16 +17,7 @@
     left: 0;
     top: 0;
     background: #FFFFFF;  
-  }
-
-  .homepage-boxbot {
-    position: absolute;
-    top: calc(2 / 3 * 100vh); /* Position 2/3 down the page */
-    width: 100%;
-    bottom: 0;
-    background: #FFFFFF;
-  }
-  
+  }  
 
   .homepage-content {
     /* display: flex;
@@ -119,7 +110,7 @@ color: #00BFF6;
   width: 403px;
   height: 72px;
   left: calc(50% - 201.5px); /* Center the button horizontally */
-  top: 520px;
+  top: 550px;
   border: none;
   background: #00BFF6;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -186,74 +177,42 @@ color: #00BFF6;
     color: #FFFFFF;
   }
 
-  .homepage-italics{
+  .homepage-boxbot {
+    box-sizing: border-box;
     position: absolute;
-    width: 264px;
-    height: 58px;
-    left: 620px;
-    top: 516px;
-
-    font-family: 'Lato', sans-serif;
-    font-style: italic;
-    font-weight: 600;
-    font-size: 48px;
-    line-height: 58px;
-    /* identical to box height */
-
-    text-align: center;
-
-    color: #FFFFFF;
-
+    width: 100%; /* Set the width to 100% to span across the entire top */
+    height: 500px;
+    left: 0;
+    bottom: 0;
+    top: 800px;
+    background: #FFFFFF;  
   }
 
-  .homepage-waitlist{
+  .homepage-populartext{
+    box-sizing: border-box;
     position: absolute;
-    width: 340px;
-    height: 75px;
-    left: 584px;
-    top: 700px;
-
-    background: #00BFF6;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 19px;
-    z-index: 1;
-
-    font-family: 'Lato', sans-serif;
+    width: 570px;
+    height: 50px;
+    left: 50px; /* Adjust the left spacing as needed */
+    top: 5%; /* Position the text in the vertical center */
+    transform: translateY(-50%); /* Center the text vertically */
+    font-family: 'Lato';
     font-style: normal;
-    font-weight: 600;
+    font-weight: 700;
     font-size: 32px;
     line-height: 38px;
-    text-align: center;
-
-    color: #FFFFFF;
-    border: none;
+    color: #00BFF6;
   }
 
-  .homepage-instagram{
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    left: 38px;
-    top: 1162px;
-  background-color: transparent;
-  border: none;
+  .homepage-image-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 100px; /*adjust image height*/
   }
-
-  .homepage-instagram1{
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    left: -1.9px;
-    top: -1.3px;
-    
-  }
-
-  .homepage-instagram2{
-    position: absolute;
-    width: 29.18;
-    height: 29.18;
-    top: 7px;
-    left:10px;
-    
+  
+  .homepage-image {
+    border-radius: 10px;
+    width: 415px;
+    height: 246px;
   }
   
