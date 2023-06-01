@@ -1,0 +1,21 @@
+.thankyou-container {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    left: 0px;
+    top: 0px;
+    background: linear-gradient(180deg, #8BCEED 32.81%, #FFFFFF 100%);
+    min-height: 100vh;
+  }
+
+
+.thankyou-logo{
+
+    position: absolute;
+    width: 770px;
+    height: 754px;
+    left: 752px;
+    top: 50px;
+
+    background: url(../../assets/BruinRentLogo.png);
+}
