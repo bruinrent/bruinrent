@@ -4,6 +4,7 @@ import apart1 from '../../assets/apart_1.png';
 import apart2 from '../../assets/apart_2.png';
 import apart3 from '../../assets/apart_3.png';
 import logo from '../../assets/logo_white.png';
+import circle from '../../assets/blue_circle.png';
 
 const Homepage = () => {
   return (
@@ -25,15 +26,19 @@ const Homepage = () => {
     <div className="homepage-image-container">
       <div className="homepage-image-item">
         <img className="homepage-image" src={apart1} alt="Apartment 1" />
-        <p className="homepage-image-address">123 Main St</p>
+        <p className="homepage-image-detail1">123 Main St</p>
+        <p className="homepage-image-detail2">3 bed | 2 bath</p>
+        <img className="circle-image" src={circle} alt="Circle" />
       </div>
       <div className="homepage-image-item">
         <img className="homepage-image" src={apart2} alt="Apartment 2" />
-        <p className="homepage-image-address">456 Elm St</p>
+        <p className="homepage-image-detail1">456 Elm St</p>
+        <p className="homepage-image-detail2">3 bed | 2 bath</p>
       </div>
       <div className="homepage-image-item">
         <img className="homepage-image" src={apart3} alt="Apartment 3" />
-        <p className="homepage-image-address">789 Oak St</p>
+        <p className="homepage-image-detail1">789 Oak St</p>
+        <p className="homepage-image-detail2">3 bed | 2 bath</p>
       </div>
     </div>
   </div>

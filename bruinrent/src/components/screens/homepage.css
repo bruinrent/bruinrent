@@ -216,3 +216,29 @@ color: #00BFF6;
     height: 246px;
   }
   
+  .homepage-image-detail1 {
+    margin-top: 10px;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 30px;
+    color: #000000;
+  }
+
+  .homepage-image-detail2 {
+    font-family: 'Lato';
+    font-style: italic;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 18px;    
+    color: #9D9D9D;
+  }
+
+  .circle-image {
+    position: absolute;
+    top: 370px;
+    width: 60px;
+    height: 60px;
+    left: 420px;
+  }
