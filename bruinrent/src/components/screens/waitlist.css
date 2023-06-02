@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700');
+
 .waitlist-container {
     position: absolute;
     width: 100vw;
@@ -22,7 +24,7 @@
     width: 215px;
     height: 58px;
     left: 648px;
-    top: 52px;
+    top: 0px;
     font-family: 'Lato', sans-serif;
     font-style: normal;
     font-weight: 700;
@@ -41,67 +43,67 @@
     width: 770px;
     height: 754px;
     left: 752px;
-    top: 216px;
+    top: 100px;
 
   }
 
   .waitlist-title{
-    box-sizing: border-box;
-
     position: absolute;
-    width: 934px;
-    height: 223px;
-    left: 285px;
-    top: 237px;
-
-    font-family: 'Lato', sans-serif;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 90px;
-    line-height: 108px;
-    text-align: center;
-
-    color: #FFFFFF;
-  }
-
-  .waitlist-italics{
-    position: absolute;
-    width: 264px;
-    height: 58px;
-    left: 620px;
-    top: 516px;
-
-    font-family: 'Lato', sans-serif;
+    width: 779px;
+    height: 120px;
+    left: 373px;
+    top: 190px;
+    
+    font-family: 'Lato';
     font-style: italic;
     font-weight: 600;
-    font-size: 48px;
-    line-height: 58px;
-    /* identical to box height */
-
+    font-size: 80px;
+    line-height: 96px;
     text-align: center;
-
+    
     color: #FFFFFF;
+    
+  }
+
+  .waitlist-email{
+    position: absolute;
+  width: 119.45px;
+  height: 45.83px;
+  left: 314px;
+  top: 360px;
+
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+  text-align: center;
+
+  color: #FFFFFF;
 
   }
 
   .waitlist-waitlist{
     position: absolute;
-    width: 340px;
-    height: 75px;
-    left: 584px;
-    top: 700px;
+  width: 195px;
+  height: 46px;
+  left: 1025px;
+  top: 371px;
 
-    background: #00BFF6;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 19px;
+  background: #00BFF6;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 19px;
     z-index: 1;
 
-    font-family: 'Lato', sans-serif;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 32px;
-    line-height: 38px;
-    text-align: center;
+    font-family: 'Lato';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+  text-align: center;
+
+color: #FFFFFF;
+
 
     color: #FFFFFF;
     border: none;
@@ -112,7 +114,7 @@
     width: 50px;
     height: 50px;
     left: 38px;
-    top: 1162px;
+    top: 760px;
   background-color: transparent;
   border: none;
   }
@@ -134,4 +136,95 @@
     left:10px;
     
   }
+  
+
+  .waitlist-bottom{
+    box-sizing: border-box;
+
+    position: absolute;
+    width: 450px;
+    height: 51px;
+    left: 531px;
+    top: 745px; /* old 745 */
+
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 26px;
+    text-align: center;
+
+    color: #00BFF6;
+  }
+
+  .waitlist-box{
+
+    position: absolute;
+    width: 561px;
+    height: 46px;
+    left: 413px;
+    top: 371px;
+
+    background: #FFFFFF;
+    border-radius: 20px;
+    border: none;
+  }
+
+  button:hover {
+    cursor: pointer;
+  }
+
+
+  .waitlist-input{
+    position: absolute;
+    width: 561px;
+    height: 46px;
+    left: 413px;
+    top: 371px;
+    border: none;
+    background: #FFFFFF;
+    border-radius: 20px;
+    z-index: 1;
+
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    padding-left: 18px; /* Add padding on the right side */
+
+    color: #333333;
+  }
+
+  .waitlist-input::placeholder {
+   
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 20px;
+line-height: 24px;
+color: #D9D9D9;
+  }
+
+  .thankyou-message{
+    position: absolute;
+width: 718px;
+height: 36px;
+left: 393px;
+top: 373px;
+
+font-family: 'Lato';
+font-style: italic;
+font-weight: 600;
+font-size: 30px;
+line-height: 36px;
+/* identical to box height */
+
+text-align: center;
+
+color: #FFFFFF;
+  }
+
+
   

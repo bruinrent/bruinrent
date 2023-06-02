@@ -112,9 +112,9 @@
     width: 50px;
     height: 50px;
     left: 38px;
-    top: 1162px;
-  background-color: transparent;
-  border: none;
+    top: 860px;
+    background-color: transparent;
+    border: none;
   }
 
   .homepage-instagram1{
@@ -133,5 +133,10 @@
     top: 7px;
     left:10px;
     
+  }
+  
+
+  button:hover {
+    cursor: pointer;
   }
   
