@@ -1,0 +1,244 @@
+.homepage-container {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    left: 0px;
+    top: 0px;
+    justify-content: flex-end; /* Adjust justify-content */
+    background: linear-gradient(180deg, #8BCEED 32.81%, #FFFFFF 100%);
+    min-height: 100vh;
+  }
+
+  .homepage-boxtop {
+    box-sizing: border-box;
+    position: absolute;
+    width: 100%; /* Set the width to 100% to span across the entire top */
+    height: 126px;
+    left: 0;
+    top: 0;
+    background: #FFFFFF;  
+  }  
+
+  .homepage-content {
+    /* display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 20px; */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+    padding: 20px;
+
+  }
+  
+.homepage-header {
+  box-sizing: border-box;
+  width: 100%;
+  height: 126px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 54px;
+  line-height: 76px;
+  text-align: center;
+  color: #000000;
+  margin-top: 50px; /* Add margin-top to create space between the white container and the header */
+
+}
+
+.homepage-button1 {
+  /* List With Us */
+
+/* position: absolute;
+width: 140px;
+height: 32.05px;
+left: 1202px;
+top: 55px; */
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 600;
+font-size: 24px;
+line-height: 29px;
+margin-left: 10px; /* Add margin to create spacing between the buttons */
+border: none; /* Remove border */
+background: #FFFFFF; /* Set background color to match the container */
+color: #00BFF6;
+
+}
+
+.homepage-button2 {
+  /* Sign In */
+/* position: absolute;
+width: 79px;
+height: 32.05px;
+left: 1369px;
+top: 55.26px; */
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 600;
+font-size: 24px;
+line-height: 29px;
+border: none;
+left: -5px; /* Adjust the left value as needed */
+margin-left: 10px; /* Add margin to create spacing between the buttons */
+background: #FFFFFF; /* Set background color to match the container */
+
+color: #00BFF6;
+}
+.homepage-button3 {
+  /* position: absolute;
+  width: 403px;
+  height: 72px;
+  left: 555px;
+  top: 520px;
+  border: none;
+
+  background: #00BFF6;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 19px;  */
+  
+  position: absolute;
+  width: 403px;
+  height: 72px;
+  left: calc(50% - 201.5px); /* Center the button horizontally */
+  top: 550px;
+  border: none;
+  background: #00BFF6;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 19px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+
+}
+
+.homepage-button3text {
+  /* box-sizing: border-box;
+
+  position: absolute;
+  width: 424px;
+  height: 46px;
+  left: 544px;
+  top: 514px;
+  
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 38px;
+  text-align: center;
+  
+  color: #FFFFFF;   */
+  
+  box-sizing: border-box;
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 38px;
+  text-align: center;
+  color: #FFFFFF;
+  margin: 0;
+}
+  .homepage-logo {
+    position: absolute;
+    width: 85px;
+    height: 93.95px;
+    left: 21px;
+    top: 15px;
+  }
+
+  .homepage-title{
+    box-sizing: border-box;
+
+    position: absolute;
+    width: 934px;
+    height: 223px;
+    left: 285px;
+    top: 237px;
+
+    font-family: 'Lato', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 90px;
+    line-height: 108px;
+    text-align: center;
+
+    color: #FFFFFF;
+  }
+
+  .homepage-boxbot {
+    box-sizing: border-box;
+    position: absolute;
+    width: 100%; /* Set the width to 100% to span across the entire top */
+    height: 500px;
+    left: 0;
+    bottom: 0;
+    top: 800px;
+    background: #FFFFFF;  
+  }
+
+  .homepage-populartext{
+    box-sizing: border-box;
+    position: absolute;
+    width: 570px;
+    height: 50px;
+    left: 50px; /* Adjust the left spacing as needed */
+    top: 5%; /* Position the text in the vertical center */
+    transform: translateY(-50%); /* Center the text vertically */
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 38px;
+    color: #00BFF6;
+  }
+
+  .homepage-image-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 100px; /*adjust image height*/
+  }
+  
+  .homepage-image {
+    border-radius: 10px;
+    width: 415px;
+    height: 246px;
+  }
+  
+  .homepage-image-detail1 {
+    margin-top: 10px;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 30px;
+    color: #000000;
+  }
+
+  .homepage-image-detail2 {
+    font-family: 'Lato';
+    font-style: italic;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 18px;    
+    color: #9D9D9D;
+  }
+
+  .circle-image {
+    position: absolute;
+    top: 370px;
+    width: 60px;
+    height: 60px;
+    left: 420px;
+  }
