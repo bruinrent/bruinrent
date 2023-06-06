@@ -17,6 +17,7 @@ const Waitlist = ({ handleSubmit }) => {
 
     const [email, setEmail] = useState("");
     const handleClick = async () => {
+        handleSubmit();
         try {
             // Create a new document in the "waitlist" collection with the email
             await addDoc(collection(firestore, "waitlist"), { email });
