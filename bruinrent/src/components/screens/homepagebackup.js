@@ -1,10 +1,10 @@
 import React from 'react';
 import logo from '../../assets/BruinRentLogo.png';
-import './homepage.css'; // Import a separate CSS file for component-specific styles
+import './homepagebackup.css'; // Import a separate CSS file for component-specific styles
 import instagram1 from '../../assets/Instagram.png';
 import instagram2 from '../../assets/Instagram2.png';
 
-const Homepage = () => {
+const HomepageBackup = () => {
   return (
     <div className="homepage-container">
       <div className="homepage-content">
@@ -22,4 +22,4 @@ const Homepage = () => {
   );
 }
 
-export default Homepage;
+export default HomepageBackup;
