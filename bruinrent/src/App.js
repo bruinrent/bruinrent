@@ -17,8 +17,8 @@ function App() {
   };
 
 
-  return thankYou ? <ThankYou /> : <Waitlist handleSubmit={handleSubmit} />;
-  //return <Homepage />
+  //return thankYou ? <ThankYou /> : <Waitlist handleSubmit={handleSubmit} />;
+  return <Waitlist />
 
 }
 

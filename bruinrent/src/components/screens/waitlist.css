@@ -102,8 +102,6 @@
   line-height: 24px;
   text-align: center;
 
-color: #FFFFFF;
-
 
     color: #FFFFFF;
     border: none;
@@ -226,5 +224,71 @@ text-align: center;
 color: #FFFFFF;
   }
 
+.waitlist-text{
+position: absolute;
+width: 700px;
+height: 51px;
+left: 431px;
+top: 460px; /* old 745 */
 
+font-family: 'Lato';
+font-style: italic;
+font-weight: 600;
+font-size: 25px;
+line-height: 30px;
+/* identical to box height */
+
+text-align: center;
+
+color: #FFFFFF;
+}
   
+.waitlist-list{
+  position: absolute;
+  width: 224px;
+  height: 34.68px;
+  left: 530px;
+  top: 550.72px;
+
+background: #00BFF6;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 19px;
+  z-index: 1;
+
+  font-family: 'Lato';
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 24px;
+text-align: center;
+
+
+  color: #FFFFFF;
+  border: none;
+
+  box-sizing: border-box;
+}
+
+.waitlist-find{
+  position: absolute;
+  width: 224px;
+  height: 34.68px;
+  left: 781px;
+  top: 550.72px;
+
+background: #00BFF6;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 19px;
+  z-index: 1;
+
+  font-family: 'Lato';
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 24px;
+text-align: center;
+
+
+  color: #FFFFFF;
+  border: none;
+}
