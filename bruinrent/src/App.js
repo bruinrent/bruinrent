@@ -10,14 +10,27 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 function App() {
 
   const [thankYou, setThankYou] = useState(false);
+  const [errorMsg, setErrorMsg] = useState(false);
 
-  const handleSubmit = () => {
-    setThankYou(true);
-    console.log('submitted')
+  const isEmailValid = (email) => {
+    const emailRegex = /^[A-Z0-9+_.-]+@(ucla\.edu|g\.ucla\.edu)$/i;
+    return emailRegex.test(email);
+  }
+
+  const handleSubmit = (email) => {
+    if (!isEmailValid(email)) {
+      console.log("invalid email");
+      setErrorMsg(true);
+    }
+    else{
+      setThankYou(true);
+      console.log('submitted');
+    }
+    
   };
 
 
-  return thankYou ? <ThankYou /> : <Waitlist handleSubmit={handleSubmit} />;
+  return thankYou ? <ThankYou /> : <Waitlist handleSubmit={handleSubmit} errorMsg={errorMsg}/>;
   //return <Homepage />
 
 }
