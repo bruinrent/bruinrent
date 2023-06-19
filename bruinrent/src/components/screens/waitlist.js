@@ -31,8 +31,11 @@ const Waitlist = ({ handleSubmit, errorMsg}) => {
 
     const [email, setEmail] = useState("");
     const handleClick = async () => {
+
         //console.log("clicked");
         handleSubmit(email);
+
+        handleSubmit();
 
         try {
             // Create a new document in the "waitlist" collection with the email
