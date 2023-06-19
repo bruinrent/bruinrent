@@ -199,32 +199,120 @@ color: #FFFFFF;
   .waitlist-input::placeholder {
    
 
-font-family: 'Lato';
-font-style: normal;
-font-weight: 400;
-font-size: 20px;
-line-height: 24px;
-color: #D9D9D9;
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  color: #D9D9D9;
   }
 
   .thankyou-message{
     position: absolute;
-width: 718px;
-height: 36px;
-left: 393px;
-top: 373px;
+  width: 718px;
+  height: 36px;
+  left: 393px;
+  top: 373px;
 
-font-family: 'Lato';
-font-style: italic;
-font-weight: 600;
-font-size: 30px;
-line-height: 36px;
-/* identical to box height */
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 36px;
+  /* identical to box height */
 
 text-align: center;
 
 color: #FFFFFF;
   }
 
+  .waitlist-subheading{
+    position: absolute;
+    width: 568px;
+    height: 30px;
+    left: 472px;
+    top: 440px;
 
+    font-family: 'Lato';
+    font-style: italic;
+    font-weight: 600;
+    font-size: 25px;
+    line-height: 30px;
+    /* identical to box height */
+
+    text-align: center;
+
+color: #FFFFFF;
+  }
+
+  .waitlist-list{
+    position: absolute;
+    width: 190.97px;
+    height: 40.64px;
+    left: 546.07px;
+    top: 550px;
+
+    background: #00BFF6;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+    border:none;
+    cursor:pointer;
+    z-index: 1;
+
+    font-family: 'Lato';
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 22px;
+text-align: center;
+
+color: #FFFFFF;
+  }
+
+  .waitlist-find{
+
+    position: absolute;
+    width: 188.95px;
+    height: 40.64px;
+    left: 764.6px;
+    top: 550px;
+
+    background: #00BFF6;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+    border:none;
+    cursor:pointer;
+    z-index: 1;
+
+
+    font-family: 'Lato';
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 22px;
+text-align: center;
+
+color: #FFFFFF;
+
+  }
+
+  .waitlist-error{
+    position: absolute;
+      width: 568px;
+      height: 30px;
+      left: 430px;
+    top: 405px;
+
+    font-family: 'Lato';
+    font-style: italic;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 30px;
+    /* identical to box height */
+
+    text-align: center;
+
+  color: #de0000;
+
+  }
   
