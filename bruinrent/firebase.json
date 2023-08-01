@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "public",
+    "public": "build",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -12,5 +12,10 @@
         "destination": "/index.html"
       }
     ]
+  },
+  "sites": {
+    "bruinrent": {
+      "domain": "bruinrent.io"
+    }
   }
 }
