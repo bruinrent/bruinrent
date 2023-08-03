@@ -79,7 +79,6 @@ const Waitlist = ({ handleSubmit, errorMsg}) => {
                     <img className="waitlist-instagram2" src={instagram2} alt="ig1"/>
                 </button>
                 <p className="waitlist-bottom">Housing Made Easy for Bruins</p>
-                <p className="waitlist-text">Need a place for the summer or to list your apartment?</p>
                 <button
                     className="waitlist-list"
                     onClick={handleSubletForm}
