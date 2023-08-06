@@ -1,17 +1,35 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./homepage.css"; // Import a separate CSS file for component-specific styles
-import Waitlist from "./waitlist";
+import Waitlist from "./waitlist.js";
+import { collection, getDocs } from "firebase/firestore";
 import apart1 from "../../assets/apart_1.png";
 import apart2 from "../../assets/apart_2.png";
 import apart3 from "../../assets/apart_3.png";
 import logo from "../../assets/logo_white.png";
 import circle from "../../assets/blue_circle.png";
 import { Link } from "react-router-dom";
+import AddressBlock from "./AddressBlock.js";
+import { app, firestore } from "../../firebase.js";
 
 const Homepage = () => {
     // const handleWaitlistClick = () => {
     //     // window.location.href = "/Waitlist";
     // };
+    const [properties, setProperties] = useState([]);
+
+    useEffect(() => {
+        // Fetch data from Firestore and set it in the state
+        const fetchProperties = async () => {
+            const propertiesRef = collection(firestore, "apartments");
+            const snapshot = await getDocs(propertiesRef);
+            const propertyData = snapshot.docs.map((doc) => doc.data());
+            setProperties(propertyData);
+        };
+
+        fetchProperties();
+    }, []);
+
+    console.log("Properties:", properties); // Check if properties data is available
     return (
         <div className="homepage-container">
             <div className="homepage-boxtop">
@@ -45,8 +63,17 @@ const Homepage = () => {
                     Popular Apartments Near You:
                 </h3>
                 <div className="homepage-image-container">
+                    <div className="address">
+                        {properties.map((property, index) => (
+                            <AddressBlock
+                                key={index}
+                                address={property.Address}
+                                bedrooms={property.Bedrooms}
+                            />
+                        ))}
+                    </div>
                     <div className="homepage-image-item">
-                        <img
+                        {/* <img
                             className="homepage-image"
                             src={apart1}
                             alt="Apartment 1"
@@ -60,22 +87,22 @@ const Homepage = () => {
                         /> */}
                     </div>
                     <div className="homepage-image-item">
-                        <img
+                        {/* <img
                             className="homepage-image"
                             src={apart2}
                             alt="Apartment 2"
                         />
                         <p className="homepage-image-detail1">456 Elm St</p>
-                        <p className="homepage-image-detail2">3 bed | 2 bath</p>
+                        <p className="homepage-image-detail2">3 bed | 2 bath</p> */}
                     </div>
                     <div className="homepage-image-item">
-                        <img
+                        {/* <img
                             className="homepage-image"
                             src={apart3}
                             alt="Apartment 3"
                         />
                         <p className="homepage-image-detail1">789 Oak St</p>
-                        <p className="homepage-image-detail2">3 bed | 2 bath</p>
+                        <p className="homepage-image-detail2">3 bed | 2 bath</p> */}
                     </div>
                 </div>
             </div>

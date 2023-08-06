@@ -227,8 +227,36 @@ color: #00BFF6;
     display: flex;
     justify-content: space-around;
     margin-top: 100px; /*adjust image height*/
+    margin-right: 10;
+    flex-wrap: wrap;
   }
   
+  .address-block {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  /* Adjust the width and other styles as needed for the individual items */
+  .address-block .homepage-image-item {
+    /* Set the width of each item to control the number of items per row */
+    /* For larger screens, show 3 items per row */
+    width: calc(33.33% - 20px); /* Adjust the width as needed */
+  
+    /* For medium screens, show 2 items per row */
+    @media (max-width: 768px) {
+      width: calc(50% - 20px); /* Adjust the width as needed */
+    }
+  
+    /* For smaller screens, show 1 item per row */
+    @media (max-width: 480px) {
+      width: 100%;
+    }
+  
+    /* Add any other necessary styling for each individual item */
+  }
+
+
   .homepage-image {
     border-radius: 10px;
     width: 415px;
