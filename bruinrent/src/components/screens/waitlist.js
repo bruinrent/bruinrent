@@ -45,6 +45,14 @@ const Waitlist = ({ handleSubmit, errorMsg }) => {
         }
     };
 
+    const handleSubletForm = () => {
+        //window.location.href = "https://docs.google.com/spreadsheets/d/1NcXH3NXmE6HIH1IaLa_7JPojTljxyShluVk25HR7TJc/edit#gid=1702217131";
+        window.open(
+            "https://docs.google.com/spreadsheets/d/1NcXH3NXmE6HIH1IaLa_7JPojTljxyShluVk25HR7TJc/edit#gid=1702217131",
+            "_blank"
+        );
+    };
+
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
     };

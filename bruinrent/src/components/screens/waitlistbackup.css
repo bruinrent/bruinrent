@@ -1,0 +1,316 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700');
+
+.waitlist-container {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    left: 0px;
+    top: 0px;
+    background: linear-gradient(180deg, #8BCEED 32.81%, #FFFFFF 100%);
+    min-height: 100vh;
+  }
+  
+  .waitlist-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 20px;
+  }
+  
+  .waitlist-header {
+    position: absolute;
+    width: 215px;
+    height: 58px;
+    left: 648px;
+    top: 0px;
+    font-family: 'Lato', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 58px;
+    /* identical to box height */
+
+    text-align: center;
+
+    color: #FFFFFF;
+  }
+  
+  .waitlist-logo {
+    position: absolute;
+
+    width: 770px;
+    height: 754px;
+    left: 752px;
+    top: 100px;
+
+  }
+
+  .waitlist-title{
+    position: absolute;
+    width: 779px;
+    height: 120px;
+    left: 373px;
+    top: 190px;
+    
+    font-family: 'Lato';
+    font-style: italic;
+    font-weight: 600;
+    font-size: 80px;
+    line-height: 96px;
+    text-align: center;
+    
+    color: #FFFFFF;
+    
+  }
+
+  .waitlist-email{
+    position: absolute;
+  width: 119.45px;
+  height: 45.83px;
+  left: 314px;
+  top: 360px;
+
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+  text-align: center;
+
+  color: #FFFFFF;
+
+  }
+
+  .waitlist-waitlist{
+    position: absolute;
+  width: 195px;
+  height: 46px;
+  left: 1025px;
+  top: 371px;
+
+  background: #00BFF6;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 19px;
+    z-index: 1;
+
+    font-family: 'Lato';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+  text-align: center;
+
+
+    color: #FFFFFF;
+    border: none;
+  }
+
+  .waitlist-instagram{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    left: 38px;
+    top: 760px;
+  background-color: transparent;
+  border: none;
+  }
+
+  .waitlist-instagram1{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    left: -1.9px;
+    top: -1.3px;
+    
+  }
+
+  .waitlist-instagram2{
+    position: absolute;
+    width: 29.18;
+    height: 29.18;
+    top: 7px;
+    left:10px;
+    
+  }
+  
+
+  .waitlist-bottom{
+    box-sizing: border-box;
+
+    position: absolute;
+    width: 450px;
+    height: 51px;
+    left: 531px;
+    top: 745px; /* old 745 */
+
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 26px;
+    text-align: center;
+
+    color: #00BFF6;
+  }
+
+  .waitlist-box{
+
+    position: absolute;
+    width: 561px;
+    height: 46px;
+    left: 413px;
+    top: 371px;
+
+    background: #FFFFFF;
+    border-radius: 20px;
+    border: none;
+  }
+
+  button:hover {
+    cursor: pointer;
+  }
+
+
+  .waitlist-input{
+    position: absolute;
+    width: 561px;
+    height: 46px;
+    left: 413px;
+    top: 371px;
+    border: none;
+    background: #FFFFFF;
+    border-radius: 20px;
+    z-index: 1;
+
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    padding-left: 18px; /* Add padding on the right side */
+
+    color: #333333;
+  }
+
+  .waitlist-input::placeholder {
+   
+
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  color: #D9D9D9;
+  }
+
+  .thankyou-message{
+    position: absolute;
+  width: 718px;
+  height: 36px;
+  left: 393px;
+  top: 373px;
+
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 36px;
+  /* identical to box height */
+
+text-align: center;
+
+color: #FFFFFF;
+  }
+
+  .waitlist-subheading{
+    position: absolute;
+    width: 568px;
+    height: 30px;
+    left: 472px;
+    top: 440px;
+
+    font-family: 'Lato';
+    font-style: italic;
+    font-weight: 600;
+    font-size: 25px;
+    line-height: 30px;
+    /* identical to box height */
+
+    text-align: center;
+
+color: #FFFFFF;
+  }
+
+  .waitlist-list{
+    position: absolute;
+    width: 190.97px;
+    height: 40.64px;
+    left: 546.07px;
+    top: 550px;
+
+    background: #00BFF6;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+    border:none;
+    cursor:pointer;
+    z-index: 1;
+
+    font-family: 'Lato';
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 22px;
+text-align: center;
+
+color: #FFFFFF;
+  }
+
+  .waitlist-find{
+
+    position: absolute;
+    width: 188.95px;
+    height: 40.64px;
+    left: 764.6px;
+    top: 550px;
+
+    background: #00BFF6;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+    border:none;
+    cursor:pointer;
+    z-index: 1;
+
+
+    font-family: 'Lato';
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 22px;
+text-align: center;
+
+color: #FFFFFF;
+
+  }
+
+  .waitlist-error{
+    position: absolute;
+      width: 568px;
+      height: 30px;
+      left: 430px;
+    top: 405px;
+
+    font-family: 'Lato';
+    font-style: italic;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 30px;
+    /* identical to box height */
+
+    text-align: center;
+
+  color: #de0000;
+
+  }
+  
