@@ -36,8 +36,15 @@ const Homepage = () => {
                 <div className="homepage-content">
                     <h2 className="homepage-header">BruinRent</h2>
 
-                    <button className="homepage-button1">List With Us</button>
-                    <button className="homepage-button2">Sign In</button>
+                    <Link to="/Construction">
+                        <button className="homepage-button1">
+                            List With Us
+                        </button>
+                    </Link>
+
+                    <Link to="/Construction">
+                        <button className="homepage-button2">Sign In</button>
+                    </Link>
 
                     <img
                         className="homepage-logo"
@@ -62,48 +69,15 @@ const Homepage = () => {
                 <h3 className="homepage-populartext">
                     Popular Apartments Near You:
                 </h3>
-                <div className="homepage-image-container">
-                    <div className="address">
-                        {properties.map((property, index) => (
-                            <AddressBlock
-                                key={index}
-                                address={property.Address}
-                                bedrooms={property.Bedrooms}
-                            />
-                        ))}
-                    </div>
-                    <div className="homepage-image-item">
-                        {/* <img
-                            className="homepage-image"
-                            src={apart1}
-                            alt="Apartment 1"
+
+                <div className="address-block">
+                    {properties.map((property, index) => (
+                        <AddressBlock
+                            key={index}
+                            address={property.Address}
+                            bedrooms={property.Bedrooms}
                         />
-                        <p className="homepage-image-detail1">123 Main St</p>
-                        <p className="homepage-image-detail2">3 bed | 2 bath</p>
-                        {/* <img
-                            className="circle-image"
-                            src={circle}
-                            alt="Circle"
-                        /> */}
-                    </div>
-                    <div className="homepage-image-item">
-                        {/* <img
-                            className="homepage-image"
-                            src={apart2}
-                            alt="Apartment 2"
-                        />
-                        <p className="homepage-image-detail1">456 Elm St</p>
-                        <p className="homepage-image-detail2">3 bed | 2 bath</p> */}
-                    </div>
-                    <div className="homepage-image-item">
-                        {/* <img
-                            className="homepage-image"
-                            src={apart3}
-                            alt="Apartment 3"
-                        />
-                        <p className="homepage-image-detail1">789 Oak St</p>
-                        <p className="homepage-image-detail2">3 bed | 2 bath</p> */}
-                    </div>
+                    ))}
                 </div>
             </div>
         </div>
