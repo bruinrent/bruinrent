@@ -5,6 +5,7 @@ import Homepage from "./components/screens/homepage.js";
 import Waitlist from "./components/screens/waitlist.js";
 import ThankYou from "./components/screens/thankyou.js";
 import UnderConstruction from "./components/screens/underConstruction.js";
+import MapPage from "./components/screens/MapPage.js";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 
@@ -34,6 +35,7 @@ function App() {
                 <Route exact path="/" element={<Homepage />} />
                 <Route path="/Waitlist" element={<Waitlist />} />
                 <Route path="/Construction" element={<UnderConstruction />} />
+                <Route path="/MapPage" element={<MapPage />} />
             </Routes>
         </Router>
     );
