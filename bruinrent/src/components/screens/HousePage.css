@@ -1,0 +1,43 @@
+/* Add your other styles here */
+
+.image-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px;
+}
+
+.big-image {
+    width: 70%; /* Adjust the width as needed */
+}
+
+.small-images {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30%; /* Adjust the width as needed */
+}
+
+.small-images img {
+    width: 100%;
+    margin-bottom: 10px; /* Adjust spacing between images */
+}
+
+.page-container {
+    display: flex;
+}
+
+.sidebar-container {
+    width: 250px; /* Adjust the width for your sidebar */
+    flex-shrink: 0;
+    background-color: #f0f0f0;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    z-index: 1;
+}
+
+.content-container {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #ffffff;
+
+}
