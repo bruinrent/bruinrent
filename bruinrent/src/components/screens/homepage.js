@@ -36,7 +36,7 @@ const Homepage = () => {
                 <div className="homepage-content">
                     <h2 className="homepage-header">BruinRent</h2>
 
-                    <Link to="/Construction">
+                    <Link to="/MapPage">
                         <button className="homepage-button1">
                             List With Us
                         </button>
