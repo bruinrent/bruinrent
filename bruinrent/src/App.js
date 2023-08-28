@@ -8,6 +8,14 @@ import UnderConstruction from "./components/screens/underConstruction.js";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 
+/** Testing pages
+ * 
+ */
+// import AddressBlock from "./components/screens/AddressBlock.js";
+// import HomeBack from "./components/screens/homepagebackup.js";
+// import text from "./components/screens/textbox.js";
+// import homeBackCommit from "./components/screens/homebackup"; // Before commit
+
 function App() {
     const [thankYou, setThankYou] = useState(false);
     const [errorMsg, setErrorMsg] = useState(false);
