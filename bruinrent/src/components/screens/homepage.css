@@ -33,12 +33,34 @@
     align-items: center;
     justify-content: flex-end;
     height: 100%;
-    padding: 20px;
+    padding: 10px;
 
   }
   
+  .homepage-bigbox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+    padding: 20px;
+  }
+
+  .homepage-white-container {
+    width: 43%;
+    height: 190%;
+    flex-shrink: 0;
+    border-radius: 30px;
+    background: #FEFEFE;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    margin: -490px auto;
+    text-align: center; /*center inline*/
+    padding: 20px;
+}
+
 .homepage-header {
   box-sizing: border-box;
+  margin-left: 200px;
   width: 100%;
   height: 126px;
   display: flex;
@@ -51,7 +73,7 @@
   line-height: 76px;
   text-align: center;
   color: #000000;
-  margin-top: 50px; /* Add margin-top to create space between the white container and the header */
+  margin-top: 40px; /* Add margin-top to create space between the white container and the header */
 
 }
 
@@ -69,11 +91,10 @@ font-style: normal;
 font-weight: 600;
 font-size: 24px;
 line-height: 29px;
-margin-left: 10px; /* Add margin to create spacing between the buttons */
+margin-left: 5px; /* Add margin to create spacing between the buttons */
 border: none; /* Remove border */
 background: #FFFFFF; /* Set background color to match the container */
 color: #00BFF6;
-
 }
 
 .homepage-button2 {
@@ -86,12 +107,12 @@ top: 55.26px; */
 
 font-family: 'Lato';
 font-style: normal;
-font-weight: 600;
+font-weight:600;
 font-size: 24px;
 line-height: 29px;
 border: none;
-left: -5px; /* Adjust the left value as needed */
-margin-left: 10px; /* Add margin to create spacing between the buttons */
+margin-left: 15px;
+margin-right: 5px; /* Add margin to create spacing between the buttons */
 background: #FFFFFF; /* Set background color to match the container */
 
 color: #00BFF6;
@@ -146,7 +167,7 @@ color: #00BFF6;
   font-family: 'Lato';
   font-style: normal;
   font-weight: 600;
-  font-size: 32px;
+  font-size: 64px;
   line-height: 38px;
   text-align: center;
   color: #FFFFFF;
@@ -154,27 +175,32 @@ color: #00BFF6;
 }
   .homepage-logo {
     position: absolute;
-    width: 85px;
-    height: 93.95px;
-    left: 21px;
-    top: 15px;
+    width: 60px;
+    height: auto;
+    left: 20px;
+    top: 20px;
   }
 
   .homepage-title{
     box-sizing: border-box;
-
     position: absolute;
     width: 934px;
     height: 223px;
-    left: 285px;
+    left: calc(50% - 451.5px); /* Center the button horizontally */
     top: 237px;
+
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
+
 
     font-family: 'Lato', sans-serif;
     font-style: normal;
-    font-weight: 700;
-    font-size: 90px;
+    font-weight: 00;
+    font-size: 83px;
     line-height: 108px;
     text-align: center;
+    margin: -20px auto;
 
     color: #FFFFFF;
   }
@@ -182,21 +208,28 @@ color: #00BFF6;
   .homepage-boxbot {
     box-sizing: border-box;
     position: absolute;
+    
     width: 100%; /* Set the width to 100% to span across the entire top */
-    height: 500px;
-    left: 0;
+    height: 400px;
+    /* left: 35px; */
     bottom: 0;
-    top: 800px;
+    top: 900px; /*Change the gradient blue box*/
     background: #FFFFFF;  
+    /* margin-right: 20px; */
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
   }
 
   .homepage-populartext{
     box-sizing: border-box;
     position: absolute;
     width: 570px;
-    height: 50px;
-    left: 50px; /* Adjust the left spacing as needed */
-    top: 5%; /* Position the text in the vertical center */
+    height: 75px;
+    /* left: 1%; Adjust the left spacing as needed */
+    margin-left: 30px;
+    top: -10%;
+
     transform: translateY(-50%); /* Center the text vertically */
     font-family: 'Lato';
     font-style: normal;
@@ -206,16 +239,49 @@ color: #00BFF6;
     color: #00BFF6;
   }
 
-  .homepage-image-container {
+  /* .homepage-image-container {
     display: flex;
-    justify-content: space-around;
-    margin-top: 100px; /*adjust image height*/
+    justify-content: flex-start; 
+    align-items: flex-start;
+    margin-top: 100px;
+
+
+  } */
+  
+  .address-block {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 3%;
+    /* justify-content: space-between; */
+ 
+
+  }
+  .address-block > div {
+    flex: 1 0 24%; 
+    margin: 0 1%;
   }
   
+  @media (max-width: 768px) {
+    .address-block > div {
+      flex: 1 0 48%;
+    } 
+  }
+  
+  @media (max-width: 600px) {
+    .address-block > div {
+      flex: 1 0 100%;
+    }
+  }
+
+
+
   .homepage-image {
     border-radius: 10px;
     width: 415px;
     height: 246px;
+    
+    /* margin-left: 10px; */
+    margin-right: 30px;
   }
   
   .homepage-image-detail1 {
@@ -224,6 +290,7 @@ color: #00BFF6;
     font-style: normal;
     font-weight: 700;
     font-size: 25px;
+  
     line-height: 30px;
     color: #000000;
   }
@@ -244,3 +311,68 @@ color: #00BFF6;
     height: 60px;
     left: 420px;
   }
+
+/* white container CSS */
+.homepage-rangeline {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px; /* Add spacing between this line and other content */
+  justify-content: center;
+}
+
+.homepage-rangeline p,
+.homepage-rangeline button {
+  margin: 0 10px; /* Add spacing between elements */
+  font-family: 'Lato';
+  font-weight: 600;
+  font-size: 25px;
+  color: #000;
+}
+
+/* Style for the "to" text */
+.homepage-rangeline .homepage-to {
+  display: inline-block; /* Add inline-block display to the "to" element */
+  font-family: Inter;
+  font-size: 25px;
+  font-weight: 600;
+  color: #00BFF6;
+  margin: 0 10px; /* Add spacing between "to" and buttons */
+}
+
+/* Move the entire row down */
+.homepage-rangeline {
+  transform: translateY(40px); /* Adjust the value to move the row down */
+}
+
+.homepage-button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 90px; /* Adjust the spacing */
+}
+
+.homepage-button-search {
+  width: 197px;
+  height: 46px;
+  flex-shrink: 0;
+  color: #FFF;
+  text-align: center;
+  font-family: Lato;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  border-radius: 19px;
+  background: #00BFF6;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  border: none;
+}
+
+.homepage-button-explore {
+  color: #00BFF6;
+  width: 190px;
+  font-size: 16px;
+  text-decoration-line: underline;
+  margin-top: 20px; /* Adjust the spacing */
+}
+
