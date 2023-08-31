@@ -1,0 +1,14 @@
+.check-box {
+    width: 27.6px;
+    height: 27.634px;
+    flex-shrink: 0;
+    background-color: #3498db;
+    border-radius: 10px;
+    border: 2px solid #00BFF6;
+    background: #FFF;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.check-box.filled {
+    background-color: #00BFF6;
+}

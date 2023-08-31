@@ -1,0 +1,20 @@
+/* BoxTemplate.css */
+.box-template {
+    /* width: 1219px; */
+    height: auto; /* Allow the height to adjust based on content */
+    flex-shrink: 0;
+    display: flex;
+    padding: 60px;
+    margin-left: 250px;
+    margin-right: 30px;
+    margin-bottom: 50px;
+    max-height: 300px; /* Set a maximum height for the box */
+    overflow: auto; /* Add scrollbars when content overflows */
+    border-radius: 30px;
+    border: 1px solid rgba(175, 175, 175, 0.50);
+    background: #FFF;
+
+
+    justify-content: center;
+    align-items: center;
+}
