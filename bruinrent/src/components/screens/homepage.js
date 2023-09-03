@@ -60,11 +60,14 @@ const Homepage = () => {
                     <div className="homepage-white-container">
                         <div className="homepage-rangeline">
                             <p className="homepage-text">Bedrooms:</p>
-                            <button className="homepage-buttonrange">Button1</button>
+                            <button className="homepage-button">
+                                <div className="button-content"></div>
+                                <div className="button-text">1</div>
+                            </button>
                             <p className="homepage-text">Price Range:</p>
-                            <button className="homepage-buttonrange">Button2</button>
+                            <button className="homepage-button">Button2</button>
                             <p className="homepage-to">to</p>
-                            <button className="homepage-buttonrange">Button2</button>
+                            <button className="homepage-button">Button2</button>
                         </div>
 
                         <div className="homepage-button-container">
