@@ -3,6 +3,7 @@ import "./Apartment.css"; // Import the CSS file for component-specific styles
 import logo from "../../assets/logo_white.png"; // Import your logo image
 import apart1 from "../../assets/apart_1.png";
 import apart2 from "../../assets/apart_2.png";
+import BoxTemplate from "./Box.js";
 import { Link } from "react-router-dom";
 
 const ApartmentPage = () => {
@@ -21,7 +22,7 @@ const ApartmentPage = () => {
         </div>
       </div>
 
-      {/* New content for the Apartment Page */}
+      {/* Images Group at the top of Apartment Page */}
       <div className="image-group">
         <div>
           <img src={apart2} alt="Large Scenic View" className="big-image" />
@@ -35,6 +36,58 @@ const ApartmentPage = () => {
         </div>
       </div>
 
+      {/* Big Address */}
+      <div className="Big-Header">123 Gayley Ave</div>
+
+      {/* Subsections Start */}
+      <BoxTemplate>
+        <div className="content-container">
+          <div className="header">About the Apartment</div>
+          {/* Add your content here */}
+        </div>
+      </BoxTemplate>
+
+      <BoxTemplate>
+        <div className="content-container">
+          <div className="header">Property Details</div>
+          {/* Add your content here */}
+        </div>
+      </BoxTemplate>
+
+      <BoxTemplate>
+        <div className="content-container">
+          <div className="header">Utilities</div>
+          {/* Add your content here */}
+        </div>
+      </BoxTemplate>
+
+      <BoxTemplate>
+        <div className="content-container">
+          <div className="header">Parking</div>
+          {/* Add your content here */}
+        </div>
+      </BoxTemplate>
+
+      <BoxTemplate>
+        <div className="content-container">
+          <div className="header">Reviews</div>
+          {/* Add your content here */}
+        </div>
+      </BoxTemplate>
+
+      <BoxTemplate>
+        <div className="content-container">
+          <div className="header">Location</div>
+          {/* also contains the transportation system */}
+        </div>
+      </BoxTemplate>
+
+      <BoxTemplate>
+        <div className="content-container">
+          <div className="header">Comparable Apartments</div>
+          {/* also contains the transportation system */}
+        </div>
+      </BoxTemplate>
       
     </div>
   );

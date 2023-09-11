@@ -104,3 +104,36 @@
   margin-top: 10px;
   transform: translate(30%, -280%);
 }
+
+.Big-Header{
+  color: #000;
+  text-align: center;
+  font-family: Lato;
+  font-size: 65px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  width: 525px;
+  height: 91px;
+  transform: translate(45%, -120%);
+}
+
+/* SubSection */
+.content-container {
+  flex-grow: 1;
+  padding: 5px;
+  background-color: #ffffff;
+}
+
+.header {
+  color: #00BFF6;
+  text-align: left;
+  font-family: Lato;
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-right: 250px;
+  margin-top: -40px;
+  margin-left: -20px;
+}
