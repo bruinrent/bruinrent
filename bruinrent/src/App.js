@@ -4,6 +4,7 @@ import "./App.css";
 import Homepage from "./components/screens/homepage.js";
 import Waitlist from "./components/screens/waitlist.js";
 import ThankYou from "./components/screens/thankyou.js";
+import Apartment from "./components/screens/Apartment.js";
 import UnderConstruction from "./components/screens/underConstruction.js";
 import MapPage from "./components/screens/MapPage.js";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -46,6 +47,7 @@ function App() {
                 <Route path="/Construction" element={<UnderConstruction />} />
                 <Route path="/MapPage" element={<MapPage />} />
                 <Route path="/HousePage" element={<HousePage />} />
+                <Route path="/Apartment" element={<Apartment />} />
             </Routes>
         </Router>
     );
