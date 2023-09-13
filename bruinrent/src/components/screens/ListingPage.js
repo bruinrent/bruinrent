@@ -1,29 +1,38 @@
 import React, { useState, useEffect } from "react";
 import "./homepage.css"; // Import a separate CSS file for component-specific styles
-import Waitlist from "./waitlist.js";
-import { collection, getDocs } from "firebase/firestore";
-import apart1 from "../../assets/apart_1.png";
+import { collection, getDocs, addDoc } from "firebase/firestore";
 import logo from "../../assets/logo_white.png";
 import { Link } from "react-router-dom";
-import AddressBlock from "./AddressBlock.js";
-import Map from "./Map.js";
 import "./MapPage.css";
 import { app, firestore } from "../../firebase.js";
 import BoxTemplate from "./Box.js";
 import House from "../../assets/Map.png";
-import "./HousePage.css";
+import "./ListingPage.css";
 import Sidebar from "./Sidebar.js";
 import CheckBox from "./Checkbox.js";
 
-const HousePage = () => {
-    // const handleWaitlistClick = () => {
-    //     // window.location.href = "/Waitlist";
-    const markers = [
-        //{ lat: 51.505, lng: -0.09, popupContent: "Marker 1" },
-        // Add more markers as needed
-    ];
-
+const ListingPage = () => {
     const [properties, setProperties] = useState([]);
+    const [address, setAddress] = useState("");
+    const [addressDesc, setAddressDesc] = useState("");
+    const [size, setSize] = useState("");
+    const [bedrooms, setBedrooms] = useState("");
+    const [rent1, setRent1] = useState("");
+    const [rent2, setRent2] = useState("");
+    const [deposit, setDeposit] = useState("");
+    const [units, setUnits] = useState("");
+    const [baths, setBaths] = useState("");
+    const [lease1, setLease1] = useState("");
+    const [lease2, setLease2] = useState("");
+    const [tags, setTags] = useState("");
+    const [videoLink, setVideoLink] = useState("");
+    const [parkingSinglePrice, setParkingSinglePrice] = useState("");
+    const [parkingTandemPrice, setParkingTandemPrice] = useState("");
+    const [parkingType, setParkingType] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
 
     useEffect(() => {
         // Fetch data from Firestore and set it in the state
@@ -36,6 +45,51 @@ const HousePage = () => {
 
         fetchProperties();
     }, []);
+
+    const handleLogStates = () => {
+        console.log("Address:", address);
+        console.log("Description:", addressDesc);
+        console.log(size);
+        console.log(bedrooms);
+    };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        const formData = {
+            address,
+            addressDesc,
+            size,
+            bedrooms,
+            rent1,
+            rent2,
+            deposit,
+            units,
+            baths,
+            lease1,
+            lease2,
+            tags,
+            videoLink,
+            parkingSinglePrice,
+            parkingTandemPrice,
+            parkingType,
+            firstName,
+            lastName,
+            email,
+            phone,
+        };
+
+        // Write the form data to the Firestore collection
+
+        const collectionRef = collection(firestore, "listings"); // Replace "listings" with your collection name
+
+        try {
+            const docRef = await addDoc(collectionRef, formData);
+            console.log("Document written with ID: ", docRef.id);
+        } catch (error) {
+            console.error("Error adding document: ", error);
+        }
+    };
 
     const headerStyle = {
         color: "#100F0D",
@@ -89,15 +143,18 @@ const HousePage = () => {
                             <text className="address">Address:</text>
                             <input
                                 className="address-text"
-
-                                //onChange={onSearch}
+                                type="address"
+                                value={address}
+                                onChange={(e) => setAddress(e.target.value)}
                             />
                             <text className="address">
                                 Describe Your Property:
                             </text>
                             <input
                                 className="property-text"
-
+                                type="addressDesc"
+                                value={addressDesc}
+                                onChange={(e) => setAddressDesc(e.target.value)}
                                 //onChange={onSearch}
                             />
                         </div>
@@ -116,8 +173,9 @@ const HousePage = () => {
                                 <text className="unit-details-text">Size:</text>
                                 <input
                                     className="unit-details-input"
-
-                                    //onChange={onSearch}
+                                    type="size"
+                                    value={size}
+                                    onChange={(e) => setSize(e.target.value)}
                                 />
                                 <text className="grey-text">sq ft:</text>
 
@@ -130,8 +188,11 @@ const HousePage = () => {
 
                                 <input
                                     className="unit-details-input"
-
-                                    //onChange={onSearch}
+                                    type="bedrooms"
+                                    value={bedrooms}
+                                    onChange={(e) =>
+                                        setBedrooms(e.target.value)
+                                    }
                                 />
 
                                 <text
@@ -143,8 +204,9 @@ const HousePage = () => {
 
                                 <input
                                     className="unit-details-input"
-
-                                    //onChange={onSearch}
+                                    type="rent"
+                                    value={rent1}
+                                    onChange={(e) => setRent1(e.target.value)}
                                 />
 
                                 <text
@@ -155,8 +217,9 @@ const HousePage = () => {
                                 </text>
                                 <input
                                     className="unit-details-input"
-
-                                    //onChange={onSearch}
+                                    type="rent"
+                                    value={rent2}
+                                    onChange={(e) => setRent2(e.target.value)}
                                 />
 
                                 <text
@@ -168,8 +231,9 @@ const HousePage = () => {
 
                                 <input
                                     className="unit-details-input"
-
-                                    //onChange={onSearch}
+                                    type="deposit"
+                                    value={deposit}
+                                    onChange={(e) => setDeposit(e.target.value)}
                                 />
                             </div>
                             <div className="left-aligned-content">
@@ -178,8 +242,9 @@ const HousePage = () => {
                                 </text>
                                 <input
                                     className="unit-details-input"
-
-                                    //onChange={onSearch}
+                                    type="units"
+                                    value={units}
+                                    onChange={(e) => setUnits(e.target.value)}
                                 />
 
                                 <text
@@ -191,8 +256,9 @@ const HousePage = () => {
 
                                 <input
                                     className="unit-details-input"
-
-                                    //onChange={onSearch}
+                                    type="baths"
+                                    value={baths}
+                                    onChange={(e) => setBaths(e.target.value)}
                                 />
 
                                 <text
@@ -204,8 +270,9 @@ const HousePage = () => {
 
                                 <input
                                     className="unit-details-input"
-
-                                    //onChange={onSearch}
+                                    type="lease"
+                                    value={lease1}
+                                    onChange={(e) => setLease1(e.target.value)}
                                 />
 
                                 <text
@@ -216,8 +283,9 @@ const HousePage = () => {
                                 </text>
                                 <input
                                     className="unit-details-input"
-
-                                    //onChange={onSearch}
+                                    type="lease"
+                                    value={lease2}
+                                    onChange={(e) => setLease2(e.target.value)}
                                 />
                                 <text className="grey-text">months:</text>
                             </div>
@@ -227,7 +295,12 @@ const HousePage = () => {
                         <div className="content-container">
                             <div className="centered-text">
                                 <text className="unit-details">Tags</text>
-                                <input className="tag-bar"></input>
+                                <input
+                                    className="tag-bar"
+                                    type="tags"
+                                    value={tags}
+                                    onChange={(e) => setTags(e.target.value)}
+                                ></input>
                             </div>
                         </div>
                     </BoxTemplate>
@@ -257,7 +330,14 @@ const HousePage = () => {
                             </div>
 
                             <div className="centered-text">
-                                <input className="video-bar"></input>
+                                <input
+                                    className="video-bar"
+                                    type="video"
+                                    value={videoLink}
+                                    onChange={(e) =>
+                                        setVideoLink(e.target.value)
+                                    }
+                                ></input>
                             </div>
                         </div>
                     </BoxTemplate>
@@ -886,7 +966,11 @@ const HousePage = () => {
 
                                 <input
                                     className="unit-details-input"
-
+                                    type="price"
+                                    value={parkingSinglePrice}
+                                    onChange={(e) =>
+                                        setParkingSinglePrice(e.target.value)
+                                    }
                                     //onChange={onSearch}
                                 />
 
@@ -899,8 +983,11 @@ const HousePage = () => {
 
                                 <input
                                     className="unit-details-input"
-
-                                    //onChange={onSearch}
+                                    type="price"
+                                    value={parkingTandemPrice}
+                                    onChange={(e) =>
+                                        setParkingTandemPrice(e.target.value)
+                                    }
                                 />
 
                                 <text
@@ -912,8 +999,11 @@ const HousePage = () => {
 
                                 <input
                                     className="unit-details-input"
-
-                                    //onChange={onSearch}
+                                    type="price"
+                                    value={parkingType}
+                                    onChange={(e) =>
+                                        setParkingType(e.target.value)
+                                    }
                                 />
                             </div>
                         </div>
@@ -952,7 +1042,11 @@ const HousePage = () => {
                                     style={{
                                         width: "266.098px",
                                     }}
-                                    //onChange={onSearch}
+                                    type="name"
+                                    value={firstName}
+                                    onChange={(e) =>
+                                        setFirstName(e.target.value)
+                                    }
                                 />
 
                                 <input
@@ -961,7 +1055,11 @@ const HousePage = () => {
                                         marginLeft: "40px",
                                         width: "266.098px",
                                     }}
-                                    //onChange={onSearch}
+                                    type="name"
+                                    value={lastName}
+                                    onChange={(e) =>
+                                        setLastName(e.target.value)
+                                    }
                                 />
                             </div>
 
@@ -993,7 +1091,9 @@ const HousePage = () => {
                                     style={{
                                         width: "500.355px",
                                     }}
-                                    //onChange={onSearch}
+                                    type="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                 />
 
                                 <input
@@ -1002,15 +1102,18 @@ const HousePage = () => {
                                         marginLeft: "20px",
                                         width: "500.355px",
                                     }}
-                                    //onChange={onSearch}
+                                    type="name"
+                                    value={phone}
+                                    onChange={(e) => setPhone(e.target.value)}
                                 />
                             </div>
                         </div>
                     </BoxTemplate>
+                    <button onClick={handleSubmit}>hi</button>
                 </div>
             </div>
         </div>
     );
 };
 
-export default HousePage;
+export default ListingPage;
