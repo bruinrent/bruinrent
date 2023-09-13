@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./homepage.css"; // Import a separate CSS file for component-specific styles
 import { collection, getDocs, addDoc } from "firebase/firestore";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+
 import logo from "../../assets/logo_white.png";
 import { Link } from "react-router-dom";
 import "./MapPage.css";
@@ -33,6 +35,7 @@ const ListingPage = () => {
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
+    const [imageFiles, setImageFiles] = useState([]);
 
     useEffect(() => {
         // Fetch data from Firestore and set it in the state
@@ -55,6 +58,26 @@ const ListingPage = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        const storage = getStorage();
+
+        // Upload each selected image to Firebase Storage
+        const imageUrls = [];
+        for (const imageFile of imageFiles) {
+            const imageRef = ref(storage, "images/" + imageFile.name);
+
+            try {
+                // Upload the image file
+                await uploadBytes(imageRef, imageFile);
+
+                // Get the download URL for the uploaded image
+                const imageUrl = await getDownloadURL(imageRef);
+
+                // Add the image URL to the array
+                imageUrls.push(imageUrl);
+            } catch (error) {
+                console.error("Error uploading image: ", error);
+            }
+        }
 
         const formData = {
             address,
@@ -90,7 +113,10 @@ const ListingPage = () => {
             console.error("Error adding document: ", error);
         }
     };
-
+    const handleFileSelect = (e) => {
+        const selectedFiles = e.target.files;
+        setImageFiles(Array.from(selectedFiles));
+    };
     const headerStyle = {
         color: "#100F0D",
         fontFamily: "Lato",
@@ -404,6 +430,14 @@ const ListingPage = () => {
                                 />
                             </div>
                             <div className="centered-text">
+                                <input
+                                    type="file"
+                                    id="imageUpload"
+                                    className="upload-button"
+                                    accept="image/*"
+                                    multiple
+                                    onChange={handleFileSelect}
+                                />
                                 <button className="upload-button">
                                     Upload
                                 </button>
