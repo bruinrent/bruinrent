@@ -100,6 +100,7 @@ const ListingPage = () => {
             lastName,
             email,
             phone,
+            imageUrls,
         };
 
         // Write the form data to the Firestore collection
@@ -223,7 +224,7 @@ const ListingPage = () => {
 
                                 <text
                                     className="unit-details-text"
-                                    style={{ marginLeft: "50px" }}
+                                    style={{ marginLeft: "60px" }}
                                 >
                                     Rent:
                                 </text>
@@ -246,20 +247,6 @@ const ListingPage = () => {
                                     type="rent"
                                     value={rent2}
                                     onChange={(e) => setRent2(e.target.value)}
-                                />
-
-                                <text
-                                    className="unit-details-text"
-                                    style={{ marginLeft: "50px" }}
-                                >
-                                    Deposit:
-                                </text>
-
-                                <input
-                                    className="unit-details-input"
-                                    type="deposit"
-                                    value={deposit}
-                                    onChange={(e) => setDeposit(e.target.value)}
                                 />
                             </div>
                             <div className="left-aligned-content">
@@ -317,19 +304,7 @@ const ListingPage = () => {
                             </div>
                         </div>
                     </BoxTemplate>
-                    <BoxTemplate>
-                        <div className="content-container">
-                            <div className="centered-text">
-                                <text className="unit-details">Tags</text>
-                                <input
-                                    className="tag-bar"
-                                    type="tags"
-                                    value={tags}
-                                    onChange={(e) => setTags(e.target.value)}
-                                ></input>
-                            </div>
-                        </div>
-                    </BoxTemplate>
+
                     <BoxTemplate>
                         <div className="content-container">
                             <div className="centered-text">
@@ -370,7 +345,11 @@ const ListingPage = () => {
                     <BoxTemplate>
                         <div
                             className="content-container"
-                            style={{ marginTop: "75px" }}
+                            style={{
+                                // marginTop: "55px",
+                                height: "300px",
+                                padding: "0px",
+                            }}
                         >
                             <div className="centered-text">
                                 <text
@@ -430,17 +409,30 @@ const ListingPage = () => {
                                 />
                             </div>
                             <div className="centered-text">
-                                <input
-                                    type="file"
-                                    id="imageUpload"
-                                    className="upload-button"
-                                    accept="image/*"
-                                    multiple
-                                    onChange={handleFileSelect}
-                                />
-                                <button className="upload-button">
-                                    Upload
-                                </button>
+                                <div className="custom-file-input">
+                                    <label
+                                        htmlFor="file-upload"
+                                        className="custom-file-label"
+                                    >
+                                        Choose Images
+                                    </label>
+                                    <input
+                                        type="file"
+                                        id="file-upload"
+                                        className="hidden-file-input"
+                                        accept="image/*"
+                                        onChange={handleFileSelect}
+                                        multiple
+                                    />
+                                </div>
+                                <div>
+                                    <p>Selected Files:</p>
+                                    <ul>
+                                        {imageFiles.map((file, index) => (
+                                            <li key={index}>{file.name}</li>
+                                        ))}
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </BoxTemplate>
