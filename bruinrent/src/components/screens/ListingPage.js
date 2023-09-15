@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./homepage.css"; // Import a separate CSS file for component-specific styles
 import { collection, getDocs, addDoc } from "firebase/firestore";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+
 import logo from "../../assets/logo_white.png";
 import { Link } from "react-router-dom";
 import "./MapPage.css";
@@ -33,6 +35,7 @@ const ListingPage = () => {
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
+    const [imageFiles, setImageFiles] = useState([]);
 
     useEffect(() => {
         // Fetch data from Firestore and set it in the state
@@ -55,6 +58,26 @@ const ListingPage = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        const storage = getStorage();
+
+        // Upload each selected image to Firebase Storage
+        const imageUrls = [];
+        for (const imageFile of imageFiles) {
+            const imageRef = ref(storage, "images/" + imageFile.name);
+
+            try {
+                // Upload the image file
+                await uploadBytes(imageRef, imageFile);
+
+                // Get the download URL for the uploaded image
+                const imageUrl = await getDownloadURL(imageRef);
+
+                // Add the image URL to the array
+                imageUrls.push(imageUrl);
+            } catch (error) {
+                console.error("Error uploading image: ", error);
+            }
+        }
 
         const formData = {
             address,
@@ -77,6 +100,7 @@ const ListingPage = () => {
             lastName,
             email,
             phone,
+            imageUrls,
         };
 
         // Write the form data to the Firestore collection
@@ -90,7 +114,10 @@ const ListingPage = () => {
             console.error("Error adding document: ", error);
         }
     };
-
+    const handleFileSelect = (e) => {
+        const selectedFiles = e.target.files;
+        setImageFiles(Array.from(selectedFiles));
+    };
     const headerStyle = {
         color: "#100F0D",
         fontFamily: "Lato",
@@ -197,7 +224,7 @@ const ListingPage = () => {
 
                                 <text
                                     className="unit-details-text"
-                                    style={{ marginLeft: "50px" }}
+                                    style={{ marginLeft: "60px" }}
                                 >
                                     Rent:
                                 </text>
@@ -220,20 +247,6 @@ const ListingPage = () => {
                                     type="rent"
                                     value={rent2}
                                     onChange={(e) => setRent2(e.target.value)}
-                                />
-
-                                <text
-                                    className="unit-details-text"
-                                    style={{ marginLeft: "50px" }}
-                                >
-                                    Deposit:
-                                </text>
-
-                                <input
-                                    className="unit-details-input"
-                                    type="deposit"
-                                    value={deposit}
-                                    onChange={(e) => setDeposit(e.target.value)}
                                 />
                             </div>
                             <div className="left-aligned-content">
@@ -291,19 +304,7 @@ const ListingPage = () => {
                             </div>
                         </div>
                     </BoxTemplate>
-                    <BoxTemplate>
-                        <div className="content-container">
-                            <div className="centered-text">
-                                <text className="unit-details">Tags</text>
-                                <input
-                                    className="tag-bar"
-                                    type="tags"
-                                    value={tags}
-                                    onChange={(e) => setTags(e.target.value)}
-                                ></input>
-                            </div>
-                        </div>
-                    </BoxTemplate>
+
                     <BoxTemplate>
                         <div className="content-container">
                             <div className="centered-text">
@@ -344,7 +345,11 @@ const ListingPage = () => {
                     <BoxTemplate>
                         <div
                             className="content-container"
-                            style={{ marginTop: "75px" }}
+                            style={{
+                                // marginTop: "55px",
+                                height: "300px",
+                                padding: "0px",
+                            }}
                         >
                             <div className="centered-text">
                                 <text
@@ -404,9 +409,30 @@ const ListingPage = () => {
                                 />
                             </div>
                             <div className="centered-text">
-                                <button className="upload-button">
-                                    Upload
-                                </button>
+                                <div className="custom-file-input">
+                                    <label
+                                        htmlFor="file-upload"
+                                        className="custom-file-label"
+                                    >
+                                        Choose Images
+                                    </label>
+                                    <input
+                                        type="file"
+                                        id="file-upload"
+                                        className="hidden-file-input"
+                                        accept="image/*"
+                                        onChange={handleFileSelect}
+                                        multiple
+                                    />
+                                </div>
+                                <div>
+                                    <p>Selected Files:</p>
+                                    <ul>
+                                        {imageFiles.map((file, index) => (
+                                            <li key={index}>{file.name}</li>
+                                        ))}
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </BoxTemplate>
