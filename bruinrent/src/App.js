@@ -8,7 +8,7 @@ import Apartment from "./components/screens/Apartment.js";
 import UnderConstruction from "./components/screens/underConstruction.js";
 import MapPage from "./components/screens/MapPage.js";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import HousePage from "./components/screens/HousePage.js";
+import ListingPage from "./components/screens/ListingPage.js";
 import { Navigate } from "react-router-dom";
 
 /** Testing pages
@@ -46,7 +46,7 @@ function App() {
                 <Route path="/Waitlist" element={<Waitlist />} />
                 <Route path="/Construction" element={<UnderConstruction />} />
                 <Route path="/MapPage" element={<MapPage />} />
-                <Route path="/HousePage" element={<HousePage />} />
+                <Route path="/ListingPage" element={<ListingPage />} />
                 <Route path="/Apartment" element={<Apartment />} />
             </Routes>
         </Router>

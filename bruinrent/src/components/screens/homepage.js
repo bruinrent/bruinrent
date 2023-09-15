@@ -8,7 +8,7 @@ import apart3 from "../../assets/apart_3.png";
 import logo from "../../assets/logo_white.png";
 import circle from "../../assets/blue_circle.png";
 import { Link } from "react-router-dom";
-import HousePage from "./HousePage.js";
+import ListingPage from "./ListingPage.js";
 import AddressBlock from "./AddressBlock.js";
 import { app, firestore } from "../../firebase.js";
 
@@ -43,7 +43,7 @@ const Homepage = () => {
                         </button>
                     </Link>
 
-                    <Link to="/HousePage">
+                    <Link to="/ListingPage">
                         <button className="homepage-button2">Sign In</button>
                     </Link>
 
