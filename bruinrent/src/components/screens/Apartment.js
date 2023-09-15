@@ -3,8 +3,14 @@ import "./Apartment.css"; // Import the CSS file for component-specific styles
 import logo from "../../assets/logo_white.png"; // Import your logo image
 import apart1 from "../../assets/apart_1.png";
 import apart2 from "../../assets/apart_2.png";
-import BoxTemplate from "./Box.js";
+import BoxTemplate from "./ResizableBox.js";
+import Map from "./Map.js";
 import { Link } from "react-router-dom";
+
+const markers = [
+  { lat: 51.505, lng: -0.09, popupContent: "Marker 1" },
+  //Add more markers as needed
+];
 
 const ApartmentPage = () => {
   return (
@@ -37,55 +43,168 @@ const ApartmentPage = () => {
       </div>
 
       {/* Big Address */}
-      <div className="Big-Header">123 Gayley Ave</div>
-
-      {/* Subsections Start */}
-      <BoxTemplate>
-        <div className="content-container">
-          <div className="header">About the Apartment</div>
-          {/* Add your content here */}
-        </div>
-      </BoxTemplate>
+      <div className="big-Header">123 Gayley Ave</div>
+      <div className="about-me-text">
+        <p>
+        Lease: 9-12 months <br/><br />
+        Lorem ipsum dolor sit amet consectetur adipiscing elit nibh augue tortor,
+        est mollis non dui bibendum imperdiet urna convallis magna sodales, vitae
+        facilisis dapibus fermentum hendrerit vulputate sed Lorem ipsum dolor sit
+        amet consectetur adipiscing elit nibh augue tortor, est mollis non dui
+        bibendum imperdiet urna convallis magna sodales, vitae facilisis dapibus
+        fermentum hendrerit vulputate sed
+        </p>
+      </div>
 
       <BoxTemplate>
         <div className="content-container">
           <div className="header">Property Details</div>
-          {/* Add your content here */}
+          <div className="main-features">
+            <div className="main-features-header">
+            Main Features
+            </div>
+            <div className="main-features-list">
+            Air Conditioning <br/>
+            Elevator <br/>
+            Pet-Friendly
+            </div>
+          </div>
+
+          <div className="main-features">
+            <div className="main-features-header">
+            Building Features
+            </div>
+            <div className="main-features-list">
+            Pet-Friendly <br/>
+            Laundry 
+            </div>
+          </div> 
+
+          <div className="main-features">
+            <div className="main-features-header">
+            Apartment Features
+            </div>
+            <div className="main-features-list">
+            Pet-Friendly <br/>
+            Laundry 
+            </div>
+          </div> 
+
+          <div className="main-features">
+            <div className="main-features-header">
+            Amenities
+            </div>
+            <div className="main-features-list">
+            Pet-Friendly <br/>
+            Laundry 
+            </div>
+          </div> 
         </div>
       </BoxTemplate>
 
       <BoxTemplate>
         <div className="content-container">
           <div className="header">Utilities</div>
-          {/* Add your content here */}
+          <div className="main-features-list">
+            Trash   <br/>
+            Water <br/>
+            Electricity
+          </div>
         </div>
       </BoxTemplate>
 
       <BoxTemplate>
         <div className="content-container">
           <div className="header">Parking</div>
-          {/* Add your content here */}
+          <div className="main-features">
+            <div className="main-features-header">
+            Garage
+            </div>
+            <div className="main-features-list">
+            Single <br/>
+            Tandem 
+            </div>
+          </div> 
+
+          <div className="main-features">
+            <div className="main-features-header">
+            Surface Lot
+            </div>
+            <div className="main-features-list">
+            Single 
+            </div>
+          </div> 
         </div>
       </BoxTemplate>
 
       <BoxTemplate>
         <div className="content-container">
           <div className="header">Reviews</div>
-          {/* Add your content here */}
+          <div className="main-features-header">Overall: 4.2</div>
+          <div className="reviews-container">
+            <div className="review-pair">
+              <div className="review-word">Value: 4.2</div>
+              <div className="review-word">Social: 4.0</div>
+            </div>
+            <div className="review-pair">
+              <div className="review-word">Noise: 3.0</div>
+              <div className="review-word">Landlord: 3.0</div>
+            </div>
+            <div className="review-pair">
+              <div className="review-word">Cleanliness: 3.0</div>
+              <div className="review-word">Location: 3.0</div>
+            </div>
+            {/* Add more review pairs as needed */}
+          </div>
+          <div className="review-text">
+            <p>
+              General: Overall value and worth of the unit for its price, with 1 having very low value and 5 being very valuable
+            </p>
+          </div>
+          {/*Review #1*/}
+          <div className="date">Jan. 01, 2023</div>
+          <div className="review-text">
+            <p>
+            Lorem ipsum dolor sit amet consectetur adipiscing elit nibh augue tortor, est mollis non dui bibendum imperdiet 
+            urna convallis magna sodales, vitae facilisis dapibus fermentum hendrerit vulputate sed
+            </p>
+          </div>
+
+          {/*Review #2*/}
+          <div className="date">Dec. 10, 2022</div>
+          <div className="review-text">
+            <p>
+            Lorem ipsum dolor sit amet consectetur adipiscing elit nibh augue tortor, est mollis non dui bibendum imperdiet 
+            urna convallis magna sodales, vitae facilisis dapibus fermentum hendrerit vulputate sed
+            </p>
+          </div>
         </div>
       </BoxTemplate>
 
       <BoxTemplate>
         <div className="content-container">
           <div className="header">Location</div>
-          {/* also contains the transportation system */}
+          <div className="map">
+              <Map markers={markers} />
+          </div>
+          <div className="main-features">
+            <div className="main-features-header">
+            Transportation
+            </div>
+            <div className="main-features-list">
+            Westwood Target  --  Walk: 10 min <br/>
+            Bruin Plaza      --  Walk: 10 min <br/>
+            De Neve Gardenia --  Walk: 10 min 
+            </div>
+          </div> 
+
         </div>
       </BoxTemplate>
 
       <BoxTemplate>
         <div className="content-container">
           <div className="header">Comparable Apartments</div>
-          {/* also contains the transportation system */}
+          {/* Import the similar apartments  */}
         </div>
       </BoxTemplate>
       

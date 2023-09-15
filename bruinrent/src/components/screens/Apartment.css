@@ -105,7 +105,7 @@
   transform: translate(30%, -280%);
 }
 
-.Big-Header{
+.big-Header{
   color: #000;
   text-align: center;
   font-family: Lato;
@@ -118,7 +118,7 @@
   transform: translate(45%, -120%);
 }
 
-/* SubSection */
+/* SubSection START*/
 .content-container {
   flex-grow: 1;
   padding: 5px;
@@ -136,4 +136,100 @@
   margin-right: 250px;
   margin-top: -40px;
   margin-left: -20px;
+  margin-bottom: 2%;
+}
+
+.about-me-text{
+  width: 786px;
+  color: #000;
+  font-family: Lato;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-left: 15%; /* Adjust margin for positioning */
+  margin-top: -5%;
+  text-align: left; 
+  margin-bottom: 3%;
+}
+
+/*Property Details Section*/
+.main-features{
+  /*content to allign the main feature header and content*/
+}
+.main-features-header {
+  width: 614px;
+  height: 41.937px;
+  flex-shrink: 0;
+  color: #000;
+  font-family: Lato;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.main-features-list {
+  width: 705px;
+  height: 101.348px;
+  flex-shrink: 0;
+  color: #000;
+  font-family: Lato;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+/*Review Section*/
+.reviews-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.review-pair {
+  display: flex;
+  flex-direction: column;
+  margin-right: 150px; /* Add margin between pairs */
+  margin-top: 12px;
+}
+
+.review-word {
+  width: 240px;
+  height: 55px;
+  flex-shrink: 0;
+  color: #146fa3;
+  font-family: Lato;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-bottom: 10px;
+}
+
+.review-text{
+  color: #000;
+  width: 665px;
+  font-family: Lato;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.date{
+  width: 705px;
+  color: #9D9D9D;
+  font-family: Lato;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+/*Location and Map Section*/
+.map {
+  margin-top: 10px;
+  flex: 0.75; /* Set map width to 60% */
+  height: 60vh; /* Map takes up the full viewport height */
 }
