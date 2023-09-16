@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./homepage.css"; // Import a separate CSS file for component-specific styles
-import { collection, getDocs, addDoc } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 import logo from "../../assets/logo_white.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./MapPage.css";
 import { app, firestore } from "../../firebase.js";
 import BoxTemplate from "./Box.js";
@@ -14,19 +14,17 @@ import Sidebar from "./Sidebar.js";
 import CheckBox from "./Checkbox.js";
 
 const ListingPage = () => {
-    const [properties, setProperties] = useState([]);
+    const navigate = useNavigate();
     const [address, setAddress] = useState("");
     const [addressDesc, setAddressDesc] = useState("");
     const [size, setSize] = useState("");
     const [bedrooms, setBedrooms] = useState("");
     const [rent1, setRent1] = useState("");
     const [rent2, setRent2] = useState("");
-    const [deposit, setDeposit] = useState("");
     const [units, setUnits] = useState("");
     const [baths, setBaths] = useState("");
     const [lease1, setLease1] = useState("");
     const [lease2, setLease2] = useState("");
-    const [tags, setTags] = useState("");
     const [videoLink, setVideoLink] = useState("");
     const [parkingSinglePrice, setParkingSinglePrice] = useState("");
     const [parkingTandemPrice, setParkingTandemPrice] = useState("");
@@ -36,25 +34,76 @@ const ListingPage = () => {
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
     const [imageFiles, setImageFiles] = useState([]);
+    // const [buildingFeaturesTrue, setBuildingFeaturesTrue] = useState(false);
+    // const [apartmentFeaturesTrue, setApartmentFeaturesTrue] = useState(false);
+    const buildingFeatureData = [
+        "Gated Entry",
+        "Fitness Center",
+        "Lounge",
+        "No Smoking",
+        "Wheelchair Accessible",
+        "Elevator",
+        "Swimming Pool",
+        "Sauna",
+        "Parking",
+        "EV Charging",
+        "Rooftop",
+    ];
 
-    useEffect(() => {
-        // Fetch data from Firestore and set it in the state
-        const fetchProperties = async () => {
-            const propertiesRef = collection(firestore, "apartments");
-            const snapshot = await getDocs(propertiesRef);
-            const propertyData = snapshot.docs.map((doc) => doc.data());
-            setProperties(propertyData);
-        };
+    const apartmentFeatureData = [
+        "Furnished",
+        "Dishwasher",
+        "Fireplace",
+        "Loft",
+        "Air Conditioning",
+        "Heating",
+        "Gas Stoves",
+    ];
 
-        fetchProperties();
-    }, []);
+    const [buildingFeatures, setBuildingFeatures] = useState(
+        buildingFeatureData.map((label, id) => ({
+            id,
+            label,
+            checked: false,
+        }))
+    );
 
-    const handleLogStates = () => {
-        console.log("Address:", address);
-        console.log("Description:", addressDesc);
-        console.log(size);
-        console.log(bedrooms);
+    const [apartmentFeatures, setApartmentFeatures] = useState(
+        apartmentFeatureData.map((label, id) => ({
+            id,
+            label,
+            checked: false,
+        }))
+    );
+
+    const handleCheckboxChange = (id, data, setData) => {
+        const updatedData = [...data];
+        const index = updatedData.findIndex((item) => item.id === id);
+
+        if (index !== -1) {
+            updatedData[index].checked = !updatedData[index].checked;
+            setData(updatedData);
+            console.log(
+                `Checkbox "${updatedData[index].label}" (ID: ${id}) is now ${
+                    updatedData[index].checked ? "checked" : "unchecked"
+                }`
+            );
+        }
     };
+    const handleFileSelect = (e) => {
+        const selectedFiles = e.target.files;
+        setImageFiles(Array.from(selectedFiles));
+    };
+
+    // For building features
+    const checkedBuildingFeatureLabels = buildingFeatures
+        .filter((feature) => feature.checked)
+        .map((feature) => feature.label);
+
+    // For apartment features
+    const checkedApartmentFeatureLabels = apartmentFeatures
+        .filter((feature) => feature.checked)
+        .map((feature) => feature.label);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -86,12 +135,10 @@ const ListingPage = () => {
             bedrooms,
             rent1,
             rent2,
-            deposit,
             units,
             baths,
             lease1,
             lease2,
-            tags,
             videoLink,
             parkingSinglePrice,
             parkingTandemPrice,
@@ -101,6 +148,8 @@ const ListingPage = () => {
             email,
             phone,
             imageUrls,
+            checkedBuildingFeatureLabels,
+            checkedApartmentFeatureLabels,
         };
 
         // Write the form data to the Firestore collection
@@ -113,11 +162,10 @@ const ListingPage = () => {
         } catch (error) {
             console.error("Error adding document: ", error);
         }
+
+        navigate("/MapPage");
     };
-    const handleFileSelect = (e) => {
-        const selectedFiles = e.target.files;
-        setImageFiles(Array.from(selectedFiles));
-    };
+
     const headerStyle = {
         color: "#100F0D",
         fontFamily: "Lato",
@@ -439,175 +487,31 @@ const ListingPage = () => {
                     <BoxTemplate>
                         <div
                             className="content-container"
-                            style={{ padding: "30px" }}
+                            style={{ padding: "20px" }}
                         >
                             <div className="centered-text">
                                 <text className="unit-details">
                                     Building Features
                                 </text>
                             </div>
-                            <div className="left-aligned-content">
-                                <CheckBox></CheckBox>
-                                <text
-                                    className="unit-details-text"
-                                    style={{
-                                        marginLeft: "10px",
-                                        marginRight: "90px",
-                                        marginTop: "5px",
-                                    }}
-                                >
-                                    Baths:
-                                </text>
-
-                                <CheckBox
-                                    style={{ marginLeft: "10px" }}
-                                ></CheckBox>
-                                <text
-                                    className="unit-details-text"
-                                    style={{
-                                        marginLeft: "10px",
-                                        marginRight: "90px",
-                                        marginTop: "5px",
-                                    }}
-                                >
-                                    Baths:
-                                </text>
-
-                                <CheckBox
-                                    style={{ marginLeft: "10px" }}
-                                ></CheckBox>
-                                <text
-                                    className="unit-details-text"
-                                    style={{
-                                        marginLeft: "10px",
-                                        marginRight: "90px",
-                                        marginTop: "5px",
-                                    }}
-                                >
-                                    Baths:
-                                </text>
-                                <CheckBox
-                                    style={{ marginLeft: "10px" }}
-                                ></CheckBox>
-                                <text
-                                    className="unit-details-text"
-                                    style={{
-                                        marginLeft: "10px",
-                                        marginRight: "90px",
-                                        marginTop: "5px",
-                                    }}
-                                >
-                                    Baths:
-                                </text>
-                                <CheckBox
-                                    style={{ marginLeft: "10px" }}
-                                ></CheckBox>
-                                <text
-                                    className="unit-details-text"
-                                    style={{
-                                        marginLeft: "10px",
-                                        marginRight: "90px",
-                                        marginTop: "5px",
-                                    }}
-                                >
-                                    Baths:
-                                </text>
-                                <CheckBox
-                                    style={{ marginLeft: "10px" }}
-                                ></CheckBox>
-                                <text
-                                    className="unit-details-text"
-                                    style={{
-                                        marginLeft: "10px",
-                                        marginRight: "90px",
-                                        marginTop: "5px",
-                                    }}
-                                >
-                                    Baths:
-                                </text>
-                            </div>
                             <div
                                 className="left-aligned-content"
-                                style={{ marginTop: "30px" }}
+                                style={{ paddingLeft: "50px" }}
                             >
-                                <CheckBox></CheckBox>
-                                <text
-                                    className="unit-details-text"
-                                    style={{
-                                        marginLeft: "10px",
-                                        marginRight: "90px",
-                                        marginTop: "5px",
-                                    }}
-                                >
-                                    Baths:
-                                </text>
-
-                                <CheckBox
-                                    style={{ marginLeft: "10px" }}
-                                ></CheckBox>
-                                <text
-                                    className="unit-details-text"
-                                    style={{
-                                        marginLeft: "10px",
-                                        marginRight: "90px",
-                                        marginTop: "5px",
-                                    }}
-                                >
-                                    Baths:
-                                </text>
-
-                                <CheckBox
-                                    style={{ marginLeft: "10px" }}
-                                ></CheckBox>
-                                <text
-                                    className="unit-details-text"
-                                    style={{
-                                        marginLeft: "10px",
-                                        marginRight: "90px",
-                                        marginTop: "5px",
-                                    }}
-                                >
-                                    Baths:
-                                </text>
-                                <CheckBox
-                                    style={{ marginLeft: "10px" }}
-                                ></CheckBox>
-                                <text
-                                    className="unit-details-text"
-                                    style={{
-                                        marginLeft: "10px",
-                                        marginRight: "90px",
-                                        marginTop: "5px",
-                                    }}
-                                >
-                                    Baths:
-                                </text>
-                                <CheckBox
-                                    style={{ marginLeft: "10px" }}
-                                ></CheckBox>
-                                <text
-                                    className="unit-details-text"
-                                    style={{
-                                        marginLeft: "10px",
-                                        marginRight: "90px",
-                                        marginTop: "5px",
-                                    }}
-                                >
-                                    Baths:
-                                </text>
-                                <CheckBox
-                                    style={{ marginLeft: "10px" }}
-                                ></CheckBox>
-                                <text
-                                    className="unit-details-text"
-                                    style={{
-                                        marginLeft: "10px",
-                                        marginRight: "90px",
-                                        marginTop: "5px",
-                                    }}
-                                >
-                                    Baths:
-                                </text>
+                                {buildingFeatures.map((data) => (
+                                    <CheckBox
+                                        key={data.id}
+                                        label={data.label}
+                                        checked={data.checked}
+                                        onChange={() =>
+                                            handleCheckboxChange(
+                                                data.id,
+                                                buildingFeatures,
+                                                setBuildingFeatures
+                                            )
+                                        }
+                                    />
+                                ))}
                             </div>
                         </div>
                     </BoxTemplate>
@@ -621,365 +525,32 @@ const ListingPage = () => {
                                     Apartment Features
                                 </text>
                             </div>
-                            <div className="left-aligned-content">
-                                <CheckBox></CheckBox>
-                                <text
-                                    className="unit-details-text"
-                                    style={{
-                                        marginLeft: "10px",
-                                        marginRight: "90px",
-                                        marginTop: "5px",
-                                    }}
-                                >
-                                    Baths:
-                                </text>
-
-                                <CheckBox
-                                    style={{ marginLeft: "10px" }}
-                                ></CheckBox>
-                                <text
-                                    className="unit-details-text"
-                                    style={{
-                                        marginLeft: "10px",
-                                        marginRight: "90px",
-                                        marginTop: "5px",
-                                    }}
-                                >
-                                    Baths:
-                                </text>
-
-                                <CheckBox
-                                    style={{ marginLeft: "10px" }}
-                                ></CheckBox>
-                                <text
-                                    className="unit-details-text"
-                                    style={{
-                                        marginLeft: "10px",
-                                        marginRight: "90px",
-                                        marginTop: "5px",
-                                    }}
-                                >
-                                    Baths:
-                                </text>
-                                <CheckBox
-                                    style={{ marginLeft: "10px" }}
-                                ></CheckBox>
-                                <text
-                                    className="unit-details-text"
-                                    style={{
-                                        marginLeft: "10px",
-                                        marginRight: "90px",
-                                        marginTop: "5px",
-                                    }}
-                                >
-                                    Baths:
-                                </text>
-                                <CheckBox
-                                    style={{ marginLeft: "10px" }}
-                                ></CheckBox>
-                                <text
-                                    className="unit-details-text"
-                                    style={{
-                                        marginLeft: "10px",
-                                        marginRight: "90px",
-                                        marginTop: "5px",
-                                    }}
-                                >
-                                    Baths:
-                                </text>
-                                <CheckBox
-                                    style={{ marginLeft: "10px" }}
-                                ></CheckBox>
-                                <text
-                                    className="unit-details-text"
-                                    style={{
-                                        marginLeft: "10px",
-                                        marginRight: "90px",
-                                        marginTop: "5px",
-                                    }}
-                                >
-                                    Baths:
-                                </text>
-                            </div>
                             <div
                                 className="left-aligned-content"
-                                style={{ marginTop: "30px" }}
+                                style={{ paddingLeft: "50px" }}
                             >
-                                <CheckBox></CheckBox>
-                                <text
-                                    className="unit-details-text"
-                                    style={{
-                                        marginLeft: "10px",
-                                        marginRight: "90px",
-                                        marginTop: "5px",
-                                    }}
-                                >
-                                    Baths:
-                                </text>
-
-                                <CheckBox
-                                    style={{ marginLeft: "10px" }}
-                                ></CheckBox>
-                                <text
-                                    className="unit-details-text"
-                                    style={{
-                                        marginLeft: "10px",
-                                        marginRight: "90px",
-                                        marginTop: "5px",
-                                    }}
-                                >
-                                    Baths:
-                                </text>
-
-                                <CheckBox
-                                    style={{ marginLeft: "10px" }}
-                                ></CheckBox>
-                                <text
-                                    className="unit-details-text"
-                                    style={{
-                                        marginLeft: "10px",
-                                        marginRight: "90px",
-                                        marginTop: "5px",
-                                    }}
-                                >
-                                    Baths:
-                                </text>
-                                <CheckBox
-                                    style={{ marginLeft: "10px" }}
-                                ></CheckBox>
-                                <text
-                                    className="unit-details-text"
-                                    style={{
-                                        marginLeft: "10px",
-                                        marginRight: "90px",
-                                        marginTop: "5px",
-                                    }}
-                                >
-                                    Baths:
-                                </text>
-                                <CheckBox
-                                    style={{ marginLeft: "10px" }}
-                                ></CheckBox>
-                                <text
-                                    className="unit-details-text"
-                                    style={{
-                                        marginLeft: "10px",
-                                        marginRight: "90px",
-                                        marginTop: "5px",
-                                    }}
-                                >
-                                    Baths:
-                                </text>
-                                <CheckBox
-                                    style={{ marginLeft: "10px" }}
-                                ></CheckBox>
-                                <text
-                                    className="unit-details-text"
-                                    style={{
-                                        marginLeft: "10px",
-                                        marginRight: "90px",
-                                        marginTop: "5px",
-                                    }}
-                                >
-                                    Baths:
-                                </text>
+                                {apartmentFeatures.map((data) => (
+                                    <CheckBox
+                                        key={data.id}
+                                        label={data.label}
+                                        checked={data.checked}
+                                        onChange={() =>
+                                            handleCheckboxChange(
+                                                data.id,
+                                                apartmentFeatures,
+                                                setApartmentFeatures
+                                            )
+                                        }
+                                    />
+                                ))}
                             </div>
                         </div>
                     </BoxTemplate>
-                    <BoxTemplate>
-                        <div
-                            className="content-container"
-                            style={{ padding: "30px" }}
-                        >
-                            <div className="centered-text">
-                                <text className="unit-details">Amenities</text>
-                            </div>
-                            <div className="left-aligned-content">
-                                <CheckBox></CheckBox>
-                                <text
-                                    className="unit-details-text"
-                                    style={{
-                                        marginLeft: "10px",
-                                        marginRight: "90px",
-                                        marginTop: "5px",
-                                    }}
-                                >
-                                    Baths:
-                                </text>
 
-                                <CheckBox
-                                    style={{ marginLeft: "10px" }}
-                                ></CheckBox>
-                                <text
-                                    className="unit-details-text"
-                                    style={{
-                                        marginLeft: "10px",
-                                        marginRight: "90px",
-                                        marginTop: "5px",
-                                    }}
-                                >
-                                    Baths:
-                                </text>
-
-                                <CheckBox
-                                    style={{ marginLeft: "10px" }}
-                                ></CheckBox>
-                                <text
-                                    className="unit-details-text"
-                                    style={{
-                                        marginLeft: "10px",
-                                        marginRight: "90px",
-                                        marginTop: "5px",
-                                    }}
-                                >
-                                    Baths:
-                                </text>
-                                <CheckBox
-                                    style={{ marginLeft: "10px" }}
-                                ></CheckBox>
-                                <text
-                                    className="unit-details-text"
-                                    style={{
-                                        marginLeft: "10px",
-                                        marginRight: "90px",
-                                        marginTop: "5px",
-                                    }}
-                                >
-                                    Baths:
-                                </text>
-                                <CheckBox
-                                    style={{ marginLeft: "10px" }}
-                                ></CheckBox>
-                                <text
-                                    className="unit-details-text"
-                                    style={{
-                                        marginLeft: "10px",
-                                        marginRight: "90px",
-                                        marginTop: "5px",
-                                    }}
-                                >
-                                    Baths:
-                                </text>
-                                <CheckBox
-                                    style={{ marginLeft: "10px" }}
-                                ></CheckBox>
-                                <text
-                                    className="unit-details-text"
-                                    style={{
-                                        marginLeft: "10px",
-                                        marginRight: "90px",
-                                        marginTop: "5px",
-                                    }}
-                                >
-                                    Baths:
-                                </text>
-                            </div>
-                            <div
-                                className="left-aligned-content"
-                                style={{ marginTop: "30px" }}
-                            >
-                                <CheckBox></CheckBox>
-                                <text
-                                    className="unit-details-text"
-                                    style={{
-                                        marginLeft: "10px",
-                                        marginRight: "90px",
-                                        marginTop: "5px",
-                                    }}
-                                >
-                                    Baths:
-                                </text>
-
-                                <CheckBox
-                                    style={{ marginLeft: "10px" }}
-                                ></CheckBox>
-                                <text
-                                    className="unit-details-text"
-                                    style={{
-                                        marginLeft: "10px",
-                                        marginRight: "90px",
-                                        marginTop: "5px",
-                                    }}
-                                >
-                                    Baths:
-                                </text>
-
-                                <CheckBox
-                                    style={{ marginLeft: "10px" }}
-                                ></CheckBox>
-                                <text
-                                    className="unit-details-text"
-                                    style={{
-                                        marginLeft: "10px",
-                                        marginRight: "90px",
-                                        marginTop: "5px",
-                                    }}
-                                >
-                                    Baths:
-                                </text>
-                                <CheckBox
-                                    style={{ marginLeft: "10px" }}
-                                ></CheckBox>
-                                <text
-                                    className="unit-details-text"
-                                    style={{
-                                        marginLeft: "10px",
-                                        marginRight: "90px",
-                                        marginTop: "5px",
-                                    }}
-                                >
-                                    Baths:
-                                </text>
-                                <CheckBox
-                                    style={{ marginLeft: "10px" }}
-                                ></CheckBox>
-                                <text
-                                    className="unit-details-text"
-                                    style={{
-                                        marginLeft: "10px",
-                                        marginRight: "90px",
-                                        marginTop: "5px",
-                                    }}
-                                >
-                                    Baths:
-                                </text>
-                                <CheckBox
-                                    style={{ marginLeft: "10px" }}
-                                ></CheckBox>
-                                <text
-                                    className="unit-details-text"
-                                    style={{
-                                        marginLeft: "10px",
-                                        marginRight: "90px",
-                                        marginTop: "5px",
-                                    }}
-                                >
-                                    Baths:
-                                </text>
-                            </div>
-                        </div>
-                    </BoxTemplate>
                     <BoxTemplate>
                         <div className="content-container">
                             <div className="centered-text">
                                 <text className="unit-details">Parking</text>
-                            </div>
-
-                            <div
-                                className="left-aligned-content"
-                                style={{ marginTop: "-50px" }}
-                            >
-                                <CheckBox style={{ marginRight: "10px" }} />{" "}
-                                {/* Render CheckBox first */}
-                                <text
-                                    className="unit-details-text"
-                                    style={{
-                                        marginLeft: "10px",
-                                        marginTop: "5px",
-                                    }}
-                                >
-                                    Parking Included
-                                </text>
                             </div>
 
                             <div
@@ -1101,7 +672,7 @@ const ListingPage = () => {
                                     className="unit-details-text"
                                     style={{ marginLeft: "500px" }}
                                 >
-                                    Email:
+                                    Phone Number:
                                 </text>
                             </div>
 
@@ -1135,7 +706,15 @@ const ListingPage = () => {
                             </div>
                         </div>
                     </BoxTemplate>
-                    <button onClick={handleSubmit}>hi</button>
+                    <div style={{ display: "flex", justifyContent: "center" }}>
+                        <button
+                            className="upload-button"
+                            style={{ marginBottom: "50px" }}
+                            onClick={handleSubmit}
+                        >
+                            Submit
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

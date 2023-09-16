@@ -50,6 +50,7 @@
     align-items: flex-start;
     justify-content: flex-start; /* Align content to the left */
     width: 100%; /* Take the full width of the parent */
+    flex-wrap: wrap;
     /* margin-right: 500px; */
 }
 
@@ -215,3 +216,4 @@
     opacity: 0;
     cursor: pointer;
   }
+
