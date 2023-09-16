@@ -118,6 +118,59 @@
   transform: translate(45%, -120%);
 }
 
+/*Contact Box*/
+.contact-box {
+  width: 522px;
+  height: 389px;
+  flex-shrink: 0;
+  border-radius: 24px;
+  background: #FFF;
+  box-shadow: 0px 3px 4px 4px rgba(0, 0, 0, 0.25);
+  transform: translate(225%, -110%);
+  margin-bottom: -320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.contact-head{
+  color: #000;
+  font-family: Lato;
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-bottom: 40px;
+}
+
+.blue-contact-button{
+  width: 425px;
+  height: 66px;
+  flex-shrink: 0;
+  border-radius: 15px;
+  background: #00BFF6;
+  margin-bottom: 20px;
+
+  color: #FFF;
+  font-family: Lato;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.phone-number{
+  color: #000;
+  font-family: Lato;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-decoration-line: underline;
+}
+
 /* SubSection START*/
 .content-container {
   flex-grow: 1;

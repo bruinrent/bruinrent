@@ -46,7 +46,6 @@ const ApartmentPage = () => {
       <div className="big-Header">123 Gayley Ave</div>
       <div className="about-me-text">
         <p>
-        Lease: 9-12 months <br/><br />
         Lorem ipsum dolor sit amet consectetur adipiscing elit nibh augue tortor,
         est mollis non dui bibendum imperdiet urna convallis magna sodales, vitae
         facilisis dapibus fermentum hendrerit vulputate sed Lorem ipsum dolor sit
@@ -54,7 +53,21 @@ const ApartmentPage = () => {
         bibendum imperdiet urna convallis magna sodales, vitae facilisis dapibus
         fermentum hendrerit vulputate sed
         </p>
+        <p>firstName lastName</p>
+        <p>Rent: rent1 - rent2</p>
+        <p>Lease: least1 - least2</p>
+        <p>Deposit: </p>
+        <p>Size: </p>
+        <p>Units: </p>
       </div>
+
+      <div className="contact-box">
+        <div className="contact-head">Contact This Property</div>
+        <button className="blue-contact-button">Request Tour</button>
+        <button className="blue-contact-button">email</button>
+        <div className="phone-number">phoneNumber</div>
+      </div>
+
 
       <BoxTemplate>
         <div className="content-container">
@@ -64,9 +77,9 @@ const ApartmentPage = () => {
             Main Features
             </div>
             <div className="main-features-list">
-            Air Conditioning <br/>
-            Elevator <br/>
-            Pet-Friendly
+              Air Conditioning <br/>
+              Elevator <br/>
+              Pet-Friendly
             </div>
           </div>
 
@@ -75,7 +88,6 @@ const ApartmentPage = () => {
             Building Features
             </div>
             <div className="main-features-list">
-            Pet-Friendly <br/>
             Laundry 
             </div>
           </div> 
@@ -85,8 +97,8 @@ const ApartmentPage = () => {
             Apartment Features
             </div>
             <div className="main-features-list">
-            Pet-Friendly <br/>
-            Laundry 
+            Bath <br/>
+            Bathroom 
             </div>
           </div> 
 
@@ -121,8 +133,8 @@ const ApartmentPage = () => {
             Garage
             </div>
             <div className="main-features-list">
-            Single <br/>
-            Tandem 
+            Single Price <br/>
+            Tandem Price
             </div>
           </div> 
 
