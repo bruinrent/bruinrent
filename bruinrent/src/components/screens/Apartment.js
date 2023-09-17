@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Apartment.css"; // Import the CSS file for component-specific styles
 import logo from "../../assets/logo_white.png"; // Import your logo image
 import apart1 from "../../assets/apart_1.png";
@@ -7,12 +7,100 @@ import BoxTemplate from "./ResizableBox.js";
 import Map from "./Map.js";
 import { Link } from "react-router-dom";
 
+// firebase stuff
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { collection, addDoc } from "firebase/firestore";
+import { app, firestore } from "../../firebase.js";
+
+
 const markers = [
   { lat: 51.505, lng: -0.09, popupContent: "Marker 1" },
   //Add more markers as needed
 ];
 
 const ApartmentPage = () => {
+  // state variables - apartment details
+  const [address, setAddress] = useState("");
+  const [addressDesc, setAddressDesc] = useState("");
+  const [size, setSize] = useState("");
+  const [bedrooms, setBedrooms] = useState("");
+  const [rent1, setRent1] = useState("");
+  const [rent2, setRent2] = useState("");
+  const [units, setUnits] = useState("");
+  const [baths, setBaths] = useState("");
+  const [lease1, setLease1] = useState("");
+  const [lease2, setLease2] = useState("");
+  const [videoLink, setVideoLink] = useState("");
+  const [parkingSinglePrice, setParkingSinglePrice] = useState("");
+  const [parkingTandemPrice, setParkingTandemPrice] = useState("");
+  const [parkingType, setParkingType] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [imageFiles, setImageFiles] = useState([]);
+
+  const handleFileSelect = (e) => {
+    const selectedFiles = e.target.files;
+    setImageFiles(Array.from(selectedFiles));
+  };
+
+  // Function to handle form submission
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const storage = getStorage();
+
+    // Upload each selected image to Firebase Storage
+    const imageUrls = [];
+    for (const imageFile of imageFiles) {
+      const imageRef = ref(storage, "images/" + imageFile.name);
+
+      try {
+        // Upload the image file
+        await uploadBytes(imageRef, imageFile);
+
+        // Get the download URL for the uploaded image
+        const imageUrl = await getDownloadURL(imageRef);
+
+        // Add the image URL to the array
+        imageUrls.push(imageUrl);
+      } catch (error) {
+        console.error("Error uploading image: ", error);
+      }
+    }
+    const formData = {
+      address,
+      addressDesc,
+      size,
+      bedrooms,
+      rent1,
+      rent2,
+      units,
+      baths,
+      lease1,
+      lease2,
+      videoLink,
+      parkingSinglePrice,
+      parkingTandemPrice,
+      parkingType,
+      firstName,
+      lastName,
+      email,
+      phone,
+      imageUrls,
+  };
+  const collectionRef = collection(firestore, "apartmentListings"); // Replace with your collection name
+
+  try {
+    const docRef = await addDoc(collectionRef, formData);
+    console.log("Document written with ID: ", docRef.id);
+  } catch (error) {
+    console.error("Error adding document: ", error);
+  }
+
+  };
+  
+
   return (
     <div className="homepage-container">
       <div className="homepage-boxtop">
