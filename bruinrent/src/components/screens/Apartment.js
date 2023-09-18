@@ -155,7 +155,7 @@ const ApartmentPage = () => {
         <div className="content-container">
           <div className="header">Property Details</div>
 
-          <div className="main-features">
+          {/* <div className="main-features"> */}
             <div className="main-features-header">
             Main Features
             </div>
@@ -163,18 +163,18 @@ const ApartmentPage = () => {
               Bath: {apartmentData.baths} <br/>
               Bedrooms: {apartmentData.bedrooms} 
             </div>
-          </div>
+          {/* </div> */}
 
-          <div className="main-features">
+          {/* <div className="main-features"> */}
             <div className="main-features-header">Building Features</div>
             <div className="main-features-list">
             {apartmentData.checkedBuildingFeatureLabels.map((label, index) => (
               <p key={index}>{label}</p>
             ))}
             </div>
-          </div> 
+          {/* </div>  */}
 
-          <div className="main-features">
+          {/* <div className="main-features"> */}
             <div className="main-features-header">
             Apartment Features
             </div>
@@ -182,7 +182,7 @@ const ApartmentPage = () => {
             {apartmentData.checkedApartmentFeatureLabels.map((label, index) => (
               <p key={index}>{label}</p>
             ))}
-            </div>
+            {/* </div> */}
           </div> 
         </div>
       </BoxTemplate>
