@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Apartment.css"; // Import the CSS file for component-specific styles
 import logo from "../../assets/logo_white.png"; // Import your logo image
 import apart1 from "../../assets/apart_1.png";
@@ -9,8 +9,9 @@ import { Link } from "react-router-dom";
 
 // firebase stuff
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { collection, addDoc } from "firebase/firestore";
-import { app, firestore } from "../../firebase.js";
+import { doc, getDoc } from "firebase/firestore";
+import { app, firestore } from "../../firebase.js"; 
+
 
 
 const markers = [
@@ -19,26 +20,56 @@ const markers = [
 ];
 
 const ApartmentPage = () => {
-  // state variables - apartment details
-  const [address, setAddress] = useState("");
-  const [addressDesc, setAddressDesc] = useState("");
-  const [size, setSize] = useState("");
-  const [bedrooms, setBedrooms] = useState("");
-  const [rent1, setRent1] = useState("");
-  const [rent2, setRent2] = useState("");
-  const [units, setUnits] = useState("");
-  const [baths, setBaths] = useState("");
-  const [lease1, setLease1] = useState("");
-  const [lease2, setLease2] = useState("");
-  const [videoLink, setVideoLink] = useState("");
-  const [parkingSinglePrice, setParkingSinglePrice] = useState("");
-  const [parkingTandemPrice, setParkingTandemPrice] = useState("");
-  const [parkingType, setParkingType] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
   const [imageFiles, setImageFiles] = useState([]);
+  const [apartmentData, setApartmentData] = useState({
+    address: "",
+    addressDesc: "",
+    size: "",
+    bedrooms: "",
+    rent1: "",
+    rent2: "",
+    units: "",
+    baths: "",
+    lease1: "",
+    lease2: "",
+    videoLink: "",
+    parkingSinglePrice: "",
+    parkingTandemPrice: "",
+    parkingType: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    checkedApartmentFeatureLabels: [],
+    checkedBuildingFeatureLabels: [],
+    imageUrls: [],
+  });
+  
+  useEffect(() => {
+    // Function to fetch apartment data from Firebase and update state
+    // Fetch data from Firebase and update apartmentData state
+    const fetchDataFromFirebase = async () => {
+      try {
+        // Assuming you have a reference to the document in Firestore
+        const apartmentDocRef = doc(firestore, "listings", "6VyFUv5Hf7uDI5Oli33U");
+
+        // Fetch the data from Firestore
+        const docSnapshot = await getDoc(apartmentDocRef);
+
+        if (docSnapshot.exists()) {
+          const data = docSnapshot.data();
+          // Update your component state with the fetched data
+          setApartmentData(data);
+        } else {
+          console.error("Document doesn't exist:");
+        }
+      } catch (error) {
+        console.error("Error fetching data from Firebase:", error);
+      }
+    };
+
+    fetchDataFromFirebase();
+  }, []); // Empty dependency array to run once on component mount
 
   const handleFileSelect = (e) => {
     const selectedFiles = e.target.files;
@@ -68,38 +99,7 @@ const ApartmentPage = () => {
         console.error("Error uploading image: ", error);
       }
     }
-    const formData = {
-      address,
-      addressDesc,
-      size,
-      bedrooms,
-      rent1,
-      rent2,
-      units,
-      baths,
-      lease1,
-      lease2,
-      videoLink,
-      parkingSinglePrice,
-      parkingTandemPrice,
-      parkingType,
-      firstName,
-      lastName,
-      email,
-      phone,
-      imageUrls,
-  };
-  const collectionRef = collection(firestore, "apartmentListings"); // Replace with your collection name
-
-  try {
-    const docRef = await addDoc(collectionRef, formData);
-    console.log("Document written with ID: ", docRef.id);
-  } catch (error) {
-    console.error("Error adding document: ", error);
   }
-
-  };
-  
 
   return (
     <div className="homepage-container">
@@ -131,52 +131,46 @@ const ApartmentPage = () => {
       </div>
 
       {/* Big Address */}
-      <div className="big-Header">123 Gayley Ave</div>
+      <div className="big-Header">{apartmentData.address}</div>
       <div className="about-me-text">
         <p>
-        Lorem ipsum dolor sit amet consectetur adipiscing elit nibh augue tortor,
-        est mollis non dui bibendum imperdiet urna convallis magna sodales, vitae
-        facilisis dapibus fermentum hendrerit vulputate sed Lorem ipsum dolor sit
-        amet consectetur adipiscing elit nibh augue tortor, est mollis non dui
-        bibendum imperdiet urna convallis magna sodales, vitae facilisis dapibus
-        fermentum hendrerit vulputate sed
+        {apartmentData.addressDesc}
         </p>
-        <p>firstName lastName</p>
-        <p>Rent: rent1 - rent2</p>
-        <p>Lease: least1 - least2</p>
-        <p>Deposit: </p>
-        <p>Size: </p>
+        <p>{apartmentData.firstName} {apartmentData.lastName}</p>
+        <p>Rent: {apartmentData.rent1} - {apartmentData.rent2}</p>
+        <p>Lease: {apartmentData.lease1} - {apartmentData.lease2}</p>
+        <p>Size: {apartmentData.size}</p>
         <p>Units: </p>
       </div>
 
       <div className="contact-box">
         <div className="contact-head">Contact This Property</div>
         <button className="blue-contact-button">Request Tour</button>
-        <button className="blue-contact-button">email</button>
-        <div className="phone-number">phoneNumber</div>
+        <button className="blue-contact-button">{apartmentData.email}</button>
+        <div className="phone-number">{apartmentData.phone}</div>
       </div>
 
 
       <BoxTemplate>
         <div className="content-container">
           <div className="header">Property Details</div>
+
           <div className="main-features">
             <div className="main-features-header">
             Main Features
             </div>
             <div className="main-features-list">
-              Air Conditioning <br/>
-              Elevator <br/>
-              Pet-Friendly
+              Bath: {apartmentData.baths} <br/>
+              Bedrooms: {apartmentData.bedrooms} 
             </div>
           </div>
 
           <div className="main-features">
-            <div className="main-features-header">
-            Building Features
-            </div>
+            <div className="main-features-header">Building Features</div>
             <div className="main-features-list">
-            Laundry 
+            {apartmentData.checkedBuildingFeatureLabels.map((label, index) => (
+              <p key={index}>{label}</p>
+            ))}
             </div>
           </div> 
 
@@ -185,18 +179,9 @@ const ApartmentPage = () => {
             Apartment Features
             </div>
             <div className="main-features-list">
-            Bath <br/>
-            Bathroom 
-            </div>
-          </div> 
-
-          <div className="main-features">
-            <div className="main-features-header">
-            Amenities
-            </div>
-            <div className="main-features-list">
-            Pet-Friendly <br/>
-            Laundry 
+            {apartmentData.checkedApartmentFeatureLabels.map((label, index) => (
+              <p key={index}>{label}</p>
+            ))}
             </div>
           </div> 
         </div>
@@ -218,11 +203,11 @@ const ApartmentPage = () => {
           <div className="header">Parking</div>
           <div className="main-features">
             <div className="main-features-header">
-            Garage
+            Parking type: {apartmentData.parkingType}
             </div>
             <div className="main-features-list">
-            Single Price <br/>
-            Tandem Price
+            Single Price: {apartmentData.parkingSinglePrice} <br/>
+            Tandem Price: {apartmentData.parkingTandemPrice}
             </div>
           </div> 
 

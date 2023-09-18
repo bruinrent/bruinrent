@@ -187,8 +187,6 @@
   font-weight: 700;
   line-height: normal;
   margin-right: 250px;
-  margin-top: -40px;
-  margin-left: -20px;
   margin-bottom: 2%;
 }
 
@@ -208,8 +206,10 @@
 
 /*Property Details Section*/
 .main-features{
-  /*content to allign the main feature header and content*/
+  display: flex;
+  flex-direction: column;
 }
+
 .main-features-header {
   width: 614px;
   height: 41.937px;
@@ -220,6 +220,7 @@
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+  margin-bottom: 10px;
 }
 
 .main-features-list {
@@ -232,6 +233,8 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 /*Review Section*/
