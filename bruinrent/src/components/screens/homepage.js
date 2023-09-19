@@ -8,6 +8,7 @@ import apart3 from "../../assets/apart_3.png";
 import logo from "../../assets/logo_white.png";
 import circle from "../../assets/blue_circle.png";
 import { Link } from "react-router-dom";
+import ListingPage from "./ListingPage.js";
 import AddressBlock from "./AddressBlock.js";
 import { app, firestore } from "../../firebase.js";
 
@@ -36,13 +37,13 @@ const Homepage = () => {
                 <div className="homepage-content">
                     <h2 className="homepage-header">BruinRent</h2>
 
-                    <Link to="/Construction">
+                    <Link to="/ListingPage">
                         <button className="homepage-button1">
                             List With Us
                         </button>
                     </Link>
 
-                    <Link to="/Construction">
+                    <Link to="/ConstructionPage">
                         <button className="homepage-button2">Sign In</button>
                     </Link>
 
@@ -59,22 +60,27 @@ const Homepage = () => {
                     <div className="homepage-white-container">
                         <div className="homepage-rangeline">
                             <p className="homepage-text">Bedrooms:</p>
-                            <button className="homepage-buttonrange">Button1</button>
+                            <button className="homepage-button">
+                                <div className="button-content"></div>
+                                <div className="button-text">1</div>
+                            </button>
                             <p className="homepage-text">Price Range:</p>
-                            <button className="homepage-buttonrange">Button2</button>
+                            <button className="homepage-button">Button2</button>
                             <p className="homepage-to">to</p>
-                            <button className="homepage-buttonrange">Button2</button>
+                            <button className="homepage-button">Button2</button>
                         </div>
 
                         <div className="homepage-button-container">
-                            <button className="homepage-button-search">
-                                Start Your Search
-                            </button>
+                            <Link to="MapPage">
+                                <button className="homepage-button-search">
+                                    Start Your Search
+                                </button>
+                            </Link>
+
                             <p className="homepage-button-explore">
                                 Explore All Apartments
                             </p>
                         </div>
-                        
                     </div>
 
                     {/* <Link to="/Waitlist"> // waitlist button removed!
@@ -85,7 +91,6 @@ const Homepage = () => {
                         </button>
                     </Link> */}
                 </div>
-
             </div>
             <div className="homepage-boxbot">
                 <h3 className="homepage-populartext">

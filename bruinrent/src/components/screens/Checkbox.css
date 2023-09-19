@@ -1,0 +1,31 @@
+/* Add margin or padding to the CheckBox component or container */
+.check-box-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    /* margin-right: 20px; */
+    flex-basis: 25%; /* Set each checkbox to occupy 25% of the container (4 in a row) */
+    margin-bottom: 30px; /* Add space below each checkbox */
+
+  }
+  
+  .check-box-input {
+    display: none;
+  }
+  
+  .check-box {
+    width: 27.6px;
+    height: 27.634px;
+    margin-right: 20px;
+    flex-shrink: 0;
+    background-color: #3498db;
+    border-radius: 10px;
+    border: 2px solid #00BFF6;
+    background: #FFF;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .check-box.filled {
+    background-color: #00BFF6;
+  }
+  
