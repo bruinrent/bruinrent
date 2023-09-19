@@ -37,13 +37,13 @@ const Homepage = () => {
                 <div className="homepage-content">
                     <h2 className="homepage-header">BruinRent</h2>
 
-                    <Link to="/MapPage">
+                    <Link to="/ListingPage">
                         <button className="homepage-button1">
                             List With Us
                         </button>
                     </Link>
 
-                    <Link to="/ListingPage">
+                    <Link to="/Construction">
                         <button className="homepage-button2">Sign In</button>
                     </Link>
 
@@ -71,14 +71,16 @@ const Homepage = () => {
                         </div>
 
                         <div className="homepage-button-container">
-                            <button className="homepage-button-search">
-                                Start Your Search
-                            </button>
+                            <Link to="MapPage">
+                                <button className="homepage-button-search">
+                                    Start Your Search
+                                </button>
+                            </Link>
+
                             <p className="homepage-button-explore">
                                 Explore All Apartments
                             </p>
                         </div>
-                        
                     </div>
 
                     {/* <Link to="/Waitlist"> // waitlist button removed!
@@ -89,15 +91,13 @@ const Homepage = () => {
                         </button>
                     </Link> */}
                 </div>
-
             </div>
             <div className="homepage-boxbot">
                 <h3 className="homepage-populartext">
                     Popular Apartments Near You:
                 </h3>
-
                 <div className="address-block">
-                    {properties.map((property, index) => (
+                    {properties.slice(0, 6).map((property, index) => (
                         <AddressBlock
                             key={index}
                             address={property.Address}
