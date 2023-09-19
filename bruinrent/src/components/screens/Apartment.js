@@ -11,8 +11,7 @@ import { Link } from "react-router-dom";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { doc, getDoc } from "firebase/firestore";
 import { app, firestore } from "../../firebase.js"; 
-
-
+import { useParams } from "react-router-dom";
 
 const markers = [
   { lat: 51.505, lng: -0.09, popupContent: "Marker 1" },
@@ -20,6 +19,8 @@ const markers = [
 ];
 
 const ApartmentPage = () => {
+  // Get the document ID from the URL parameter
+  const { id } = useParams();
   const [imageFiles, setImageFiles] = useState([]);
   const [apartmentData, setApartmentData] = useState({
     address: "",
@@ -47,29 +48,28 @@ const ApartmentPage = () => {
   
   useEffect(() => {
     // Function to fetch apartment data from Firebase and update state
-    // Fetch data from Firebase and update apartmentData state
     const fetchDataFromFirebase = async () => {
-      try {
-        // Assuming you have a reference to the document in Firestore
-        const apartmentDocRef = doc(firestore, "listings", "6VyFUv5Hf7uDI5Oli33U");
+       try {
+          // Assuming you have a reference to the document in Firestore
+          const apartmentDocRef = doc(firestore, "listings", id);
 
-        // Fetch the data from Firestore
-        const docSnapshot = await getDoc(apartmentDocRef);
+          // Fetch the data from Firestore
+          const docSnapshot = await getDoc(apartmentDocRef);
 
-        if (docSnapshot.exists()) {
-          const data = docSnapshot.data();
-          // Update your component state with the fetched data
-          setApartmentData(data);
-        } else {
-          console.error("Document doesn't exist:");
-        }
-      } catch (error) {
-        console.error("Error fetching data from Firebase:", error);
-      }
+          if (docSnapshot.exists()) {
+             const data = docSnapshot.data();
+             // Update your component state with the fetched data
+             setApartmentData(data);
+          } else {
+             console.error("Document doesn't exist:");
+          }
+       } catch (error) {
+          console.error("Error fetching data from Firebase:", error);
+       }
     };
 
     fetchDataFromFirebase();
-  }, []); // Empty dependency array to run once on component mount
+ }, [id]); // Include the ID in the dependency array to re-fetch data when the ID changes
 
   const handleFileSelect = (e) => {
     const selectedFiles = e.target.files;

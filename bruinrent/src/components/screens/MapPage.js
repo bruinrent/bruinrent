@@ -26,7 +26,11 @@ const MapPage = () => {
         const fetchProperties = async () => {
             const propertiesRef = collection(firestore, "apartments");
             const snapshot = await getDocs(propertiesRef);
-            const propertyData = snapshot.docs.map((doc) => doc.data());
+            const propertyData = snapshot.docs.map((doc) => ({
+                id: doc.id, // Include the document ID as 'id'
+                ...doc.data(), // Include other data from the document
+            }));          
+            console.log(propertyData); 
             setProperties(propertyData);
         };
 
@@ -72,13 +76,14 @@ const MapPage = () => {
                     <Map markers={markers} />
                 </div>
                 <div className="address-list">
-                    {properties.map((property, index) => (
+                {properties.map((property, index) => (
+                    <Link to={`/apartment/${property.id}`} key={index}>
                         <AddressBlock
-                            key={index}
                             address={property.Address}
                             bedrooms={property.Bedrooms}
                         />
-                    ))}
+                    </Link>
+                ))}
                 </div>
             </div>
         </div>

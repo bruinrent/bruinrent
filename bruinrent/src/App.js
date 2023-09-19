@@ -7,9 +7,10 @@ import ThankYou from "./components/screens/thankyou.js";
 import Apartment from "./components/screens/Apartment.js";
 import UnderConstruction from "./components/screens/underConstruction.js";
 import MapPage from "./components/screens/MapPage.js";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Switch } from "react-router-dom";
 import ListingPage from "./components/screens/ListingPage.js";
 import { Navigate } from "react-router-dom";
+import ApartmentPage from "./components/screens/Apartment.js";
 
 /** Testing pages
  * 
@@ -47,7 +48,8 @@ function App() {
                 <Route path="/Construction" element={<UnderConstruction />} />
                 <Route path="/MapPage" element={<MapPage />} />
                 <Route path="/ListingPage" element={<ListingPage />} />
-                <Route path="/Apartment" element={<Apartment />} />
+                <Route path="/apartment/:id" component={ApartmentPage} />
+                {/* <Route path="/Apartment" element={<Apartment />} /> */}
             </Routes>
         </Router>
     );
