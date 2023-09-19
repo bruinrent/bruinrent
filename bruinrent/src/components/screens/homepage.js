@@ -43,7 +43,7 @@ const Homepage = () => {
                         </button>
                     </Link>
 
-                    <Link to="/ConstructionPage">
+                    <Link to="/Construction">
                         <button className="homepage-button2">Sign In</button>
                     </Link>
 
@@ -96,9 +96,8 @@ const Homepage = () => {
                 <h3 className="homepage-populartext">
                     Popular Apartments Near You:
                 </h3>
-
                 <div className="address-block">
-                    {properties.map((property, index) => (
+                    {properties.slice(0, 6).map((property, index) => (
                         <AddressBlock
                             key={index}
                             address={property.Address}
