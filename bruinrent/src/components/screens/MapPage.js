@@ -1,40 +1,32 @@
 import React, { useState, useEffect } from "react";
 import "./homepage.css"; // Import a separate CSS file for component-specific styles
-import Waitlist from "./waitlist.js";
 import { collection, getDocs } from "firebase/firestore";
-import apart1 from "../../assets/apart_1.png";
 import logo from "../../assets/logo_white.png";
 import { Link } from "react-router-dom";
 import AddressBlock from "./AddressBlock.js";
 import Map from "./Map.js";
-import "./MapPage.css";
 import { app, firestore } from "../../firebase.js";
 import "leaflet/dist/leaflet.css";
+import { list } from "firebase/storage";
 
 const MapPage = () => {
-    // const handleWaitlistClick = () => {
-    //     // window.location.href = "/Waitlist";
-    const markers = [
-        //{ lat: 51.505, lng: -0.09, popupContent: "Marker 1" },
-        // Add more markers as needed
-    ];
+    const markers = [];
 
-    const [properties, setProperties] = useState([]);
+    const [listings, setListings] = useState([]);
 
     useEffect(() => {
-        // Fetch data from Firestore and set it in the state
-        const fetchProperties = async () => {
-            const propertiesRef = collection(firestore, "apartments");
-            const snapshot = await getDocs(propertiesRef);
-            const propertyData = snapshot.docs.map((doc) => ({
+        // Fetch data from the "listings" collection in Firestore
+        const fetchListings = async () => {
+            const listingsRef = collection(firestore, "listings");
+            const snapshot = await getDocs(listingsRef);
+            const listingsData = snapshot.docs.map((doc) => ({
                 id: doc.id, // Include the document ID as 'id'
                 ...doc.data(), // Include other data from the document
-            }));          
-            console.log(propertyData); 
-            setProperties(propertyData);
+            }));
+            setListings(listingsData);
         };
 
-        fetchProperties();
+        fetchListings();
     }, []);
 
     return (
@@ -76,11 +68,12 @@ const MapPage = () => {
                     <Map markers={markers} />
                 </div>
                 <div className="address-list">
-                {properties.map((property, index) => (
-                    <Link to={`/apartment/${property.id}`} key={index}>
+                {listings.map((listing, index) => (
+                    <Link to={`/apartment/${listing.id}`} key={index}>
                         <AddressBlock
-                            address={property.Address}
-                            bedrooms={property.Bedrooms}
+                            address={listing.address}s
+                            bedrooms={listing.bedrooms}
+                            bathroom={listing.bathroom}
                         />
                     </Link>
                 ))}
