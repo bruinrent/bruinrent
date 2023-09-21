@@ -34,4 +34,10 @@
     background-color: white;
     border: 1px solid #ccc;
   }
+
+
+  .homepage-button1, .homepage-button2 {
+    font-size: 21px;
+    width: 130px;
+}
   
