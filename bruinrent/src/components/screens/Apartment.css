@@ -1,0 +1,291 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700');
+
+.homepage-container {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    left: 0px;
+    top: 0px;
+    background: #FFFFFF;
+    min-height: 100vh;
+}
+
+.homepage-boxtop {
+    box-sizing: border-box;
+    position: absolute;
+    width: 100%;
+    height: 126px;
+    left: 0;
+    top: 0;
+    background: #FFFFFF;  
+}
+
+.homepage-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+    padding: 10px;
+}
+
+.homepage-header {
+    box-sizing: border-box;
+    margin-left: 200px;
+    width: 100%;
+    height: 126px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Lato';
+    font-weight: 700;
+    font-size: 54px;
+    text-align: center;
+    color: #000000;
+    margin-top: 40px;
+}
+
+/* Images */
+.image-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 120px;
+}
+
+.small-images {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    margin-top: 60px;
+    align-items: flex-start;
+}
+
+.big-image {
+  width: 870px;
+  height: auto;
+}
+
+.small-images img {
+    margin-bottom: 10px;
+}
+
+.small-image-container {
+  display: flex;
+  flex-direction: column; /* Stack the small images and button vertically */
+  align-items: flex-start; /* Align items to the start (left side) of the container */
+  position: relative; /* Create a relative positioning context */
+}
+
+.filtered-image {
+  mix-blend-mode: darken; /* Apply mix-blend-mode to Small 2 */
+  filter: contrast(50%); /* Apply contrast filter to Small 2 */
+}
+
+.small-image-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.show-all-button {
+  color: #ffffff;
+  font-family: Lato;
+  font-size: 32px;
+  font-style: italic;
+
+  font-weight: 700;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background: none;
+  cursor: pointer;
+  margin-top: 10px;
+  transform: translate(30%, -280%);
+}
+
+.big-Header{
+  color: #000;
+  text-align: center;
+  font-family: Lato;
+  font-size: 65px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  width: 725px;
+  height: 91px;
+  transform: translate(45%, -120%);
+}
+
+/*Contact Box*/
+.contact-box {
+  width: 522px;
+  height: 389px;
+  flex-shrink: 0;
+  border-radius: 24px;
+  background: #FFF;
+  box-shadow: 0px 3px 4px 4px rgba(0, 0, 0, 0.25);
+  transform: translate(225%, -110%);
+  margin-bottom: -320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.contact-head{
+  color: #000;
+  font-family: Lato;
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-bottom: 40px;
+}
+
+.blue-contact-button{
+  width: 425px;
+  height: 66px;
+  flex-shrink: 0;
+  border-radius: 15px;
+  background: #00BFF6;
+  margin-bottom: 20px;
+
+  color: #FFF;
+  font-family: Lato;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.phone-number{
+  color: #000;
+  font-family: Lato;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-decoration-line: underline;
+}
+
+/* SubSection START*/
+.content-container {
+  flex-grow: 1;
+  padding: 5px;
+  background-color: #ffffff;
+}
+
+.header {
+  color: #00BFF6;
+  text-align: left;
+  font-family: Lato;
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-right: 250px;
+  margin-bottom: 2%;
+}
+
+.about-me-text{
+  width: 786px;
+  color: #000;
+  font-family: Lato;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-left: 15%; /* Adjust margin for positioning */
+  margin-top: -5%;
+  text-align: left; 
+  margin-bottom: 3%;
+}
+
+/*Property Details Section*/
+.main-features{
+  display: flex;
+  flex-direction: column;
+}
+
+.main-features-header {
+  width: 614px;
+  height: 41.937px;
+  flex-shrink: 0;
+  color: #000;
+  font-family: Lato;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+
+.main-features-list {
+  width: 705px;
+  height: 101.348px;
+  flex-shrink: 0;
+  color: #000;
+  font-family: Lato;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-top: 10px;
+}
+
+/*Review Section*/
+.reviews-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.review-pair {
+  display: flex;
+  flex-direction: column;
+  margin-right: 150px; /* Add margin between pairs */
+  margin-top: 12px;
+}
+
+.review-word {
+  width: 240px;
+  height: 55px;
+  flex-shrink: 0;
+  color: #146fa3;
+  font-family: Lato;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-bottom: 10px;
+}
+
+.review-text{
+  color: #000;
+  width: 665px;
+  font-family: Lato;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.date{
+  width: 705px;
+  color: #9D9D9D;
+  font-family: Lato;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+/*Location and Map Section*/
+.map {
+  margin-top: 10px;
+  flex: 0.75; /* Set map width to 60% */
+  height: 60vh; /* Map takes up the full viewport height */
+}
