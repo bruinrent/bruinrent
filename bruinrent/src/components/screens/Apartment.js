@@ -71,35 +71,6 @@ const ApartmentPage = () => {
     fetchDataFromFirebase();
  }, [id]); // Include the ID in the dependency array to re-fetch data when the ID changes
 
-  const handleFileSelect = (e) => {
-    const selectedFiles = e.target.files;
-    setImageFiles(Array.from(selectedFiles));
-  };
-
-  // Function to handle form submission
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const storage = getStorage();
-
-    // Upload each selected image to Firebase Storage
-    const imageUrls = [];
-    for (const imageFile of imageFiles) {
-      const imageRef = ref(storage, "images/" + imageFile.name);
-
-      try {
-        // Upload the image file
-        await uploadBytes(imageRef, imageFile);
-
-        // Get the download URL for the uploaded image
-        const imageUrl = await getDownloadURL(imageRef);
-
-        // Add the image URL to the array
-        imageUrls.push(imageUrl);
-      } catch (error) {
-        console.error("Error uploading image: ", error);
-      }
-    }
-  }
 
   return (
     <div className="homepage-container">
