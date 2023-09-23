@@ -16,21 +16,24 @@ const Homepage = () => {
     // const handleWaitlistClick = () => {
     //     // window.location.href = "/Waitlist";
     // };
-    const [properties, setProperties] = useState([]);
+    const [listings, setListings] = useState([]);
 
     useEffect(() => {
         // Fetch data from Firestore and set it in the state
-        const fetchProperties = async () => {
-            const propertiesRef = collection(firestore, "apartments");
-            const snapshot = await getDocs(propertiesRef);
-            const propertyData = snapshot.docs.map((doc) => doc.data());
-            setProperties(propertyData);
+        const fetchListings = async () => {
+            const listingsRef = collection(firestore, "listings");
+            const snapshot = await getDocs(listingsRef);
+            const listingsData = snapshot.docs.map((doc) => ({
+                id: doc.id, // Include the document ID as 'id'
+                ...doc.data(), // Include other data from the document
+            }));
+            setListings(listingsData);
         };
 
-        fetchProperties();
+        fetchListings();
     }, []);
 
-    console.log("Properties:", properties); // Check if properties data is available
+    console.log("Properties:", listings); // Check if properties data is available
     return (
         <div className="homepage-container">
             <div className="homepage-boxtop">
@@ -97,12 +100,14 @@ const Homepage = () => {
                     Popular Apartments Near You:
                 </h3>
                 <div className="address-block">
-                    {properties.slice(0, 6).map((property, index) => (
+                    {listings.slice(0, 6).map((listing, index) => (
+                        <Link to={`/apartment/${listing.id}`} key={index}>
                         <AddressBlock
-                            key={index}
-                            address={property.Address}
-                            bedrooms={property.Bedrooms}
+                            address={listing.address}s
+                            bedrooms={listing.bedrooms}
+                            bathroom={listing.bathroom}
                         />
+                    </Link>
                     ))}
                 </div>
             </div>
