@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Lato:400,700');
 
-.homepage-container {
+.homepage-MAIN-container {
     position: absolute;
     width: 100vw;
     height: 100vh;
@@ -85,7 +85,7 @@ width: 140px;
 height: 32.05px;
 left: 1202px;
 top: 55px; */
-
+width: 240px;
 font-family: 'Lato';
 font-style: normal;
 font-weight: 600;
