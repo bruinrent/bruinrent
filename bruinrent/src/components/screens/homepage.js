@@ -5,12 +5,12 @@ import { collection, getDocs } from "firebase/firestore";
 import apart1 from "../../assets/apart_1.png";
 import apart2 from "../../assets/apart_2.png";
 import apart3 from "../../assets/apart_3.png";
-import logo from "../../assets/logo_white.png";
 import circle from "../../assets/blue_circle.png";
 import { Link } from "react-router-dom";
 import ListingPage from "./ListingPage.js";
 import AddressBlock from "./AddressBlock.js";
 import { app, firestore } from "../../firebase.js";
+import Header from "../Header.jsx";
 
 const Homepage = () => {
     // const handleWaitlistClick = () => {
@@ -34,25 +34,7 @@ const Homepage = () => {
     return (
         <div className="homepage-container">
             <div className="homepage-boxtop">
-                <div className="homepage-content">
-                    <h2 className="homepage-header">BruinRent</h2>
-
-                    <Link to="/ListingPage">
-                        <button className="homepage-button1">
-                            List With Us
-                        </button>
-                    </Link>
-
-                    <Link to="/ConstructionPage">
-                        <button className="homepage-button2">Sign In</button>
-                    </Link>
-
-                    <img
-                        className="homepage-logo"
-                        src={logo}
-                        alt="Bruin Rent Logo"
-                    />
-                </div>
+                <Header />
                 <div className="homepage-bigbox">
                     <h1 className="homepage-title">
                         Housing Made Easy For Bruins.

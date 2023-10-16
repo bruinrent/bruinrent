@@ -3,13 +3,13 @@ import "./homepage.css"; // Import a separate CSS file for component-specific st
 import Waitlist from "./waitlist.js";
 import { collection, getDocs } from "firebase/firestore";
 import apart1 from "../../assets/apart_1.png";
-import logo from "../../assets/logo_white.png";
 import { Link } from "react-router-dom";
 import AddressBlock from "./AddressBlock.js";
 import Map from "./Map.js";
 import "./MapPage.css";
 import { app, firestore } from "../../firebase.js";
 import "leaflet/dist/leaflet.css";
+import Header from "../Header.jsx";
 
 const MapPage = () => {
     // const handleWaitlistClick = () => {
@@ -35,23 +35,7 @@ const MapPage = () => {
 
     return (
         <div className="homepage-boxtop">
-            <div className="homepage-content">
-                <h2 className="homepage-header">BruinRent</h2>
-
-                <Link to="/Construction">
-                    <button className="homepage-button1">List With Us</button>
-                </Link>
-
-                <Link to="/Construction">
-                    <button className="homepage-button2">Sign In</button>
-                </Link>
-
-                <img
-                    className="homepage-logo"
-                    src={logo}
-                    alt="Bruin Rent Logo"
-                />
-            </div>
+            <Header />
 
             <div className="tab">
                 <div className="tab-content">

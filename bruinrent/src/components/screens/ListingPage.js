@@ -3,7 +3,6 @@ import "./homepage.css"; // Import a separate CSS file for component-specific st
 import { collection, addDoc } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
-import logo from "../../assets/logo_white.png";
 import { Link, useNavigate } from "react-router-dom";
 import "./MapPage.css";
 import { app, firestore } from "../../firebase.js";
@@ -12,6 +11,7 @@ import House from "../../assets/Map.png";
 import "./ListingPage.css";
 import Sidebar from "./Sidebar.js";
 import CheckBox from "./Checkbox.js";
+import Header from "../Header.jsx";
 
 const ListingPage = () => {
     const navigate = useNavigate();
@@ -178,23 +178,7 @@ const ListingPage = () => {
 
     return (
         <div className="homepage-boxtop">
-            <div className="homepage-content">
-                <h2 className="homepage-header">BruinRent</h2>
-
-                <Link to="/Construction">
-                    <button className="homepage-button1">List With Us</button>
-                </Link>
-
-                <Link to="/Construction">
-                    <button className="homepage-button2">Sign In</button>
-                </Link>
-
-                <img
-                    className="homepage-logo"
-                    src={logo}
-                    alt="Bruin Rent Logo"
-                />
-            </div>
+            <Header />
             <div className="page-container">
                 <div className="sidebar-container">
                     <Sidebar />
