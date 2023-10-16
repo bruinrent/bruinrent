@@ -48,6 +48,7 @@ const ListingPage = () => {
         "Parking",
         "EV Charging",
         "Rooftop",
+        "Laundry",
     ];
 
     const apartmentFeatureData = [
@@ -58,6 +59,7 @@ const ListingPage = () => {
         "Air Conditioning",
         "Heating",
         "Gas Stoves",
+        "Laundry - In Unit",
     ];
 
     const [buildingFeatures, setBuildingFeatures] = useState(
