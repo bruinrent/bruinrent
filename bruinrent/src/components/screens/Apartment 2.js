@@ -72,115 +72,93 @@ const ApartmentPage = () => {
  }, [id]); // Include the ID in the dependency array to re-fetch data when the ID changes
 
 
- function sendEmail(recipient) {
-  const emailLink = `mailto:${recipient}`;
-  window.location.href = emailLink;
-}
   return (
     <div className="homepage-container">
-      
+      <div className="homepage-boxtop">
+        <div className="homepage-content">
+          <h2 className="homepage-header">BruinRent</h2>
+          <Link to="/Construction">
+            <button className="homepage-button1">List With Us</button>
+          </Link>
+          <Link to="/Construction">
+            <button className="homepage-button2">Sign In</button>
+          </Link>
+          <img className="homepage-logo" src={logo} alt="Bruin Rent Logo" />
+        </div>
+      </div>
 
       {/* Images Group at the top of Apartment Page */}
-
-      {/* NOTE: Probably want to add aspect ratio when rescaling */}
       <div className="image-group">
-        <div className="individual-img-container">
+        <div>
           <img src={apart2} alt="Large Scenic View" className="big-image" />
         </div>
-
-        <div className="small-image-container">
-          <div className="individual-small-img-container">
+        <div className="small-images">
+          <div className="small-image-container">
             <img src={apart1} alt="Small 1" />
-          </div>
-          <div className="individual-small-img-container">
             <img src={apart1} alt="Small 2" className="filtered-image"/>
             <button className="show-all-button">Show All Photos</button>
           </div>
-            
         </div>
       </div>
 
+      {/* Big Address */}
+      <div className="big-Header">{apartmentData.address}</div>
+      <div className="about-me-text">
+        <p>
+        {apartmentData.addressDesc}
+        </p>
+        <p>{apartmentData.firstName} {apartmentData.lastName}</p>
+        <p>Rent: {apartmentData.rent1} - {apartmentData.rent2}</p>
+        <p>Lease: {apartmentData.lease1} - {apartmentData.lease2}</p>
+        <p>Size: {apartmentData.size}</p>
+        <p>Units: </p>
+      </div>
 
-      {/* COLUMNED PAGE */}
-      <div className="columned-page">
-        {/* Left column */}
-        <div className="main-apartment-column">
-          {/* Listing Header */}
-          <div className="listing-header">
-            <p className="header-subtext"> 
-            Rent: {apartmentData.rent1} - {apartmentData.rent2}
-            </p>
-            <div className="big-Header">{apartmentData.address}</div>
-            <div className="header-subtext" >
-              <span className="header-subtext"style={{fontSize: '1.1rem'}}>Los Angeles, CA 90024   </span> 
-              <span className="header-subtext" style={{fontSize: '1.1rem' ,paddingLeft: '0.5rem',fontStyle:'italic'}}>  BED | BATH | Size: {apartmentData.size}</span>
-            </div>
+      <div className="contact-box">
+        <div className="contact-head">Contact This Property</div>
+        <button className="blue-contact-button">Request Tour</button>
+        <button className="blue-contact-button">{apartmentData.email}</button>
+        <div className="phone-number">{apartmentData.phone}</div>
+      </div>
 
-            <div className="about-me-text">
-              <p>
-              {apartmentData.addressDesc}
-              </p>
-              {/* <p>{apartmentData.firstName} {apartmentData.lastName}</p>
 
-              <p>Lease: {apartmentData.lease1} - {apartmentData.lease2}</p>
-              <p>Units: </p> */}
-            </div>
-          </div>
-          
+      <BoxTemplate>
+        <div className="content-container">
           <div className="header">Property Details</div>
-          <BoxTemplate>
-            
-            <div className="content-container">
-              
 
-
-                <div className="main-features-header">
-                  Main Features
-                  <ul className="main-features-list">
-                    <li>Bath: {apartmentData.baths} </li>
-                    <li>Bedrooms: {apartmentData.bedrooms} </li>
-                  </ul>
-                </div>
-
-                <div className="main-features-header">
-                  Building Features
-                  <ul className="main-features-list">
-                  {apartmentData.checkedBuildingFeatureLabels.map((label, index) => (
-                    <li key={index}>{label}</li>
-                  ))}
-                  </ul>
-                </div>
-
-                <div className="main-features-header">
-                  Apartment Features
-                  <ul className="main-features-list">
-                  {apartmentData.checkedApartmentFeatureLabels.map((label, index) => (
-                    <li key={index}>{label}</li>
-                  ))}
-                </ul>
-
-              </div> 
+          {/* <div className="main-features"> */}
+            <div className="main-features-header">
+            Main Features
             </div>
-          </BoxTemplate>
+            <div className="main-features-list">
+              Bath: {apartmentData.baths} <br/>
+              Bedrooms: {apartmentData.bedrooms} 
+            </div>
+          {/* </div> */}
 
+          {/* <div className="main-features"> */}
+            <div className="main-features-header">Building Features</div>
+            <div className="main-features-list">
+            {apartmentData.checkedBuildingFeatureLabels.map((label, index) => (
+              <p key={index}>{label}</p>
+            ))}
+            </div>
+          {/* </div>  */}
 
+          {/* <div className="main-features"> */}
+            <div className="main-features-header">
+            Apartment Features
+            </div>
+            <div className="main-features-list">
+            {apartmentData.checkedApartmentFeatureLabels.map((label, index) => (
+              <p key={index}>{label}</p>
+            ))}
+            {/* </div> */}
+          </div> 
         </div>
+      </BoxTemplate>
 
-      
-        {/* CONTACT COLUMN */}
-        <div className="contact-column">
-          <div className="contact-box">
-            <div className="contact-head">Contact This Property</div>
-            <button className="blue-contact-button">Request Tour</button>
-           
-              <button className="blue-contact-button" onClick={() => sendEmail(apartmentData.email)}>Send Message</button>
-
-            <div className="phone-number">{apartmentData.phone}</div>
-          </div>
-        </div>
-      </div>
-
-      {/* <BoxTemplate>
+      <BoxTemplate>
         <div className="content-container">
           <div className="header">Utilities</div>
           <div className="main-features-list">
@@ -189,9 +167,9 @@ const ApartmentPage = () => {
             Electricity
           </div>
         </div>
-      </BoxTemplate> */}
+      </BoxTemplate>
 
-      {/* <BoxTemplate>
+      <BoxTemplate>
         <div className="content-container">
           <div className="header">Parking</div>
           <div className="main-features">
@@ -213,9 +191,9 @@ const ApartmentPage = () => {
             </div>
           </div> 
         </div>
-      </BoxTemplate> */}
+      </BoxTemplate>
 
-      {/* <BoxTemplate>
+      <BoxTemplate>
         <div className="content-container">
           <div className="header">Reviews</div>
           <div className="main-features-header">Overall: 4.2</div>
@@ -232,14 +210,14 @@ const ApartmentPage = () => {
               <div className="review-word">Cleanliness: 3.0</div>
               <div className="review-word">Location: 3.0</div>
             </div>
-
+            {/* Add more review pairs as needed */}
           </div>
           <div className="review-text">
             <p>
               General: Overall value and worth of the unit for its price, with 1 having very low value and 5 being very valuable
             </p>
           </div>
-
+          {/*Review #1*/}
           <div className="date">Jan. 01, 2023</div>
           <div className="review-text">
             <p>
@@ -248,7 +226,7 @@ const ApartmentPage = () => {
             </p>
           </div>
 
-
+          {/*Review #2*/}
           <div className="date">Dec. 10, 2022</div>
           <div className="review-text">
             <p>
@@ -257,9 +235,9 @@ const ApartmentPage = () => {
             </p>
           </div>
         </div>
-      </BoxTemplate> */}
+      </BoxTemplate>
 
-      {/* <BoxTemplate>
+      <BoxTemplate>
         <div className="content-container">
           <div className="header">Location</div>
           <div className="map">
@@ -277,14 +255,14 @@ const ApartmentPage = () => {
           </div> 
 
         </div>
-      </BoxTemplate> */}
+      </BoxTemplate>
 
-      {/* <BoxTemplate>
+      <BoxTemplate>
         <div className="content-container">
           <div className="header">Comparable Apartments</div>
-
+          {/* Import the similar apartments  */}
         </div>
-      </BoxTemplate> */}
+      </BoxTemplate>
       
     </div>
   );

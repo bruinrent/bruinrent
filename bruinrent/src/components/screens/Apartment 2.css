@@ -1,36 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Lato:400,700');
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: Lato;
-  color: #000;
-  text-align: left;
-  font-family: Lato;
-  font-weight: 400;
-  font-style: normal;
-  line-height: normal;
-}
-
-ul {
-  list-style-position: inside;
-}
-
-li {
-  margin: 0.2rem;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-}
-
 .homepage-container {
     position: absolute;
-    width: 100%;
+    width: 100vw;
+    height: 100vh;
+    left: 0px;
+    top: 0px;
     background: #FFFFFF;
-    padding: 5rem;
+    min-height: 100vh;
 }
 
 .homepage-boxtop {
@@ -70,71 +47,35 @@ img {
 
 /* Images */
 .image-group {
-    flex-direction: row;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-top: 12rem;
-    width: 100%;
-    height: 40rem;
-    align-items: flex-start; /* Align items to the start (left side) of the container */
-    gap:1rem;
-    padding-bottom: 3rem;
+    padding: 120px;
 }
 
+.small-images {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    margin-top: 60px;
+    align-items: flex-start;
+}
 
 .big-image {
-  object-fit: cover;
-  width:100%;
-  height:100%;
-  object-position: center;
+  width: 870px;
+  height: auto;
 }
 
-
-
-.individual-img-container {
-  overflow: hidden;
-  flex:2;
-  height: 100%;
+.small-images img {
+    margin-bottom: 10px;
 }
 
 .small-image-container {
   display: flex;
-  flex:1;
   flex-direction: column; /* Stack the small images and button vertically */
   align-items: flex-start; /* Align items to the start (left side) of the container */
-  gap:1rem;
-  position: relative; 
-  height: 100%;
+  position: relative; /* Create a relative positioning context */
 }
-
-.individual-small-img-container {
-  overflow: hidden;
-  flex:1;
-  width:100%;
-
-}
-
-.small-image-container img {
-  flex:1;
-  /* width:100%; */
-  position: relative; 
-  object-fit: cover;
-  object-position: center;
-  width:100%;
-  height:100%;
-}
-
-/* .small-images {
-    display: flex;
-    flex-direction: column;
-    width: auto;
-    margin-left: 20px;
-    margin-top: 60px;
-    align-items: flex-start;
-    flex:1;
-    height:100%;
-} */
 
 .filtered-image {
   mix-blend-mode: darken; /* Apply mix-blend-mode to Small 2 */
@@ -164,118 +105,89 @@ img {
   transform: translate(30%, -280%);
 }
 
-.columned-page {
-  display: flex;
-  flex-direction: row;
-  gap:2rem;
-}
-
-.main-apartment-column {
-  flex-direction: column;
-  flex:3.5;
-  gap:2rem;
-}
-
-.contact-column {
-  flex: 2;
-}
-
-/* Listing Header */
-
-.listing-header {
-  flex-direction: column;
-  padding-bottom: 2rem;
-}
-
 .big-Header{
-  
-  font-size: 3rem;
+  color: #000;
+  text-align: center;
+  font-family: Lato;
+  font-size: 65px;
   font-style: normal;
   font-weight: 700;
-  flex:1;
-}
-
-.header-subtext {
-  padding-top: 0.5rem;
-  color: #9D9D9D;
-  font-size: 1.5rem;
-  flex:1;
-
+  line-height: normal;
+  width: 725px;
+  height: 91px;
+  transform: translate(45%, -120%);
 }
 
 /*Contact Box*/
 .contact-box {
-  width: 100%;
-  padding: 2rem;
+  width: 522px;
+  height: 389px;
   flex-shrink: 0;
   border-radius: 24px;
   background: #FFF;
   box-shadow: 0px 3px 4px 4px rgba(0, 0, 0, 0.25);
-  margin-left: auto; /* Push the box to the right side */
+  transform: translate(225%, -110%);
+  margin-bottom: -320px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  position: sticky;
-  top: 2rem;
 }
-/* Adjust margin from the right side on larger screens */
-/* @media (min-width: 768px) {
-  .contact-box {
-    margin-right: 20px; 
-  }
-}
-
-
-@media (max-width: 767px) {
-  .contact-box {
-    margin-right: 10px; 
-  }
-} */
 
 .contact-head{
-  font-size: 1.5rem;
+  color: #000;
+  font-family: Lato;
+  font-size: 35px;
+  font-style: normal;
   font-weight: 700;
+  line-height: normal;
   margin-bottom: 40px;
-  text-align: center;
 }
 
 .blue-contact-button{
-  width: 80%;
-  height: 3rem;
+  width: 425px;
+  height: 66px;
   flex-shrink: 0;
   border-radius: 15px;
   background: #00BFF6;
   margin-bottom: 20px;
-  padding: 0.2rem;
+
   color: #FFF;
-  font-size: 1.2rem;
-  text-align: center;
+  font-family: Lato;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .phone-number{
   color: #000;
-  font-size: 1.2rem;
+  font-family: Lato;
+  font-size: 30px;
   font-style: normal;
+  font-weight: 400;
+  line-height: normal;
   text-decoration-line: underline;
 }
 
 /* SubSection START*/
 .content-container {
+  flex-grow: 1;
+  padding: 5px;
   background-color: #ffffff;
-  width: 40%;
-  display:flex;
-  flex-direction: column;
-  gap:1rem;
 }
 
 .header {
   color: #00BFF6;
   text-align: left;
-  font-size: 1.8rem;
+  font-family: Lato;
+  font-size: 35px;
+  font-style: normal;
   font-weight: 700;
-  padding-bottom: 1rem;
+  line-height: normal;
+  margin-right: 250px;
+  margin-bottom: 2%;
 }
 
 .about-me-text{
@@ -299,14 +211,30 @@ img {
 }
 
 .main-features-header {
-  font-size: 1.5rem;
+  width: 614px;
+  height: 41.937px;
+  flex-shrink: 0;
+  color: #000;
+  font-family: Lato;
+  font-size: 30px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+  margin-bottom: 10px;
+  margin-top: 20px;
 }
 
 .main-features-list {
-  font-size: 1rem;
+  width: 705px;
+  height: 101.348px;
+  flex-shrink: 0;
+  color: #000;
+  font-family: Lato;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-top: 10px;
 }
 
 /*Review Section*/
