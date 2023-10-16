@@ -163,6 +163,112 @@ const ApartmentPage = () => {
             </div>
           </BoxTemplate>
 
+{/* Utilities */}
+          <BoxTemplate>
+            <div className="content-container">
+              <div className="header">Utilities
+                <ul className="main-features-list">
+                  <li>Trash</li>
+                  <li>Water</li>
+                  <li>Electricity</li>
+                </ul>
+              </div>
+              
+            </div>
+          </BoxTemplate>
+
+{/* Parking */}
+          <div className="header">Parking</div>
+          <BoxTemplate>
+            <div className="content-container">
+              <div className="main-features">
+                <div className="main-features-header">
+                Parking type: {apartmentData.parkingType}
+                <ul className="main-features-list">
+                  <li>Single Price: {apartmentData.parkingSinglePrice}</li>
+                  <li>Tandem Price: {apartmentData.parkingTandemPrice}</li>
+                </ul>
+                </div>
+                
+              </div> 
+
+              <div className="main-features">
+                <div className="main-features-header">
+                  Surface Lot
+                  <ul className="main-features-list">
+                    <li>Single</li>
+                  </ul>
+                </div>
+                
+              </div> 
+            </div>
+          </BoxTemplate>
+          
+
+          <BoxTemplate>
+            <div className="content-container">
+              <div className="header">Reviews</div>
+              <div className="main-features-header">Overall: 4.2</div>
+              <div className="reviews-container">
+                  <div className="review-word">Value: 4.2</div>
+                  <div className="review-word">Social: 4.0</div>
+                  <div className="review-word">Noise: 3.0</div>
+                  <div className="review-word">Landlord: 3.0</div>
+                  <div className="review-word">Cleanliness: 3.0</div>
+                  <div className="review-word">Location: 3.0</div>
+              </div>
+              <div className="review-text">
+                <p>
+                  General: Overall value and worth of the unit for its price, with 1 having very low value and 5 being very valuable
+                </p>
+              </div>
+
+              <div className="date">Jan. 01, 2023</div>
+              <div className="review-text">
+                <p>
+                Lorem ipsum dolor sit amet consectetur adipiscing elit nibh augue tortor, est mollis non dui bibendum imperdiet 
+                urna convallis magna sodales, vitae facilisis dapibus fermentum hendrerit vulputate sed
+                </p>
+              </div>
+
+
+              <div className="date">Dec. 10, 2022</div>
+              <div className="review-text">
+                <p>
+                Lorem ipsum dolor sit amet consectetur adipiscing elit nibh augue tortor, est mollis non dui bibendum imperdiet 
+                urna convallis magna sodales, vitae facilisis dapibus fermentum hendrerit vulputate sed
+                </p>
+              </div>
+            </div>
+          </BoxTemplate>
+
+          <BoxTemplate>
+            <div className="content-container">
+              <div className="header">Location</div>
+              <div className="map">
+                  <Map markers={markers} />
+              </div>
+              <div className="main-features">
+                <div className="main-features-header">
+                  Transportation
+                  <ul className="main-features-list">
+                    <li>Westwood Target  --  Walk: 10 min</li>
+                    <li>Bruin Plaza      --  Walk: 10 min</li>
+                    <li>De Neve Gardenia --  Walk: 10 min</li> 
+                  </ul>
+                </div>
+                
+              </div> 
+
+            </div>
+          </BoxTemplate>
+
+          <BoxTemplate>
+            <div className="content-container">
+              <div className="header">Comparable Apartments</div>
+
+            </div>
+          </BoxTemplate>
 
         </div>
 
@@ -180,111 +286,15 @@ const ApartmentPage = () => {
         </div>
       </div>
 
-      {/* <BoxTemplate>
-        <div className="content-container">
-          <div className="header">Utilities</div>
-          <div className="main-features-list">
-            Trash   <br/>
-            Water <br/>
-            Electricity
-          </div>
-        </div>
-      </BoxTemplate> */}
+      
 
-      {/* <BoxTemplate>
-        <div className="content-container">
-          <div className="header">Parking</div>
-          <div className="main-features">
-            <div className="main-features-header">
-            Parking type: {apartmentData.parkingType}
-            </div>
-            <div className="main-features-list">
-            Single Price: {apartmentData.parkingSinglePrice} <br/>
-            Tandem Price: {apartmentData.parkingTandemPrice}
-            </div>
-          </div> 
+      
 
-          <div className="main-features">
-            <div className="main-features-header">
-            Surface Lot
-            </div>
-            <div className="main-features-list">
-            Single 
-            </div>
-          </div> 
-        </div>
-      </BoxTemplate> */}
+      
 
-      {/* <BoxTemplate>
-        <div className="content-container">
-          <div className="header">Reviews</div>
-          <div className="main-features-header">Overall: 4.2</div>
-          <div className="reviews-container">
-            <div className="review-pair">
-              <div className="review-word">Value: 4.2</div>
-              <div className="review-word">Social: 4.0</div>
-            </div>
-            <div className="review-pair">
-              <div className="review-word">Noise: 3.0</div>
-              <div className="review-word">Landlord: 3.0</div>
-            </div>
-            <div className="review-pair">
-              <div className="review-word">Cleanliness: 3.0</div>
-              <div className="review-word">Location: 3.0</div>
-            </div>
+      
 
-          </div>
-          <div className="review-text">
-            <p>
-              General: Overall value and worth of the unit for its price, with 1 having very low value and 5 being very valuable
-            </p>
-          </div>
-
-          <div className="date">Jan. 01, 2023</div>
-          <div className="review-text">
-            <p>
-            Lorem ipsum dolor sit amet consectetur adipiscing elit nibh augue tortor, est mollis non dui bibendum imperdiet 
-            urna convallis magna sodales, vitae facilisis dapibus fermentum hendrerit vulputate sed
-            </p>
-          </div>
-
-
-          <div className="date">Dec. 10, 2022</div>
-          <div className="review-text">
-            <p>
-            Lorem ipsum dolor sit amet consectetur adipiscing elit nibh augue tortor, est mollis non dui bibendum imperdiet 
-            urna convallis magna sodales, vitae facilisis dapibus fermentum hendrerit vulputate sed
-            </p>
-          </div>
-        </div>
-      </BoxTemplate> */}
-
-      {/* <BoxTemplate>
-        <div className="content-container">
-          <div className="header">Location</div>
-          <div className="map">
-              <Map markers={markers} />
-          </div>
-          <div className="main-features">
-            <div className="main-features-header">
-            Transportation
-            </div>
-            <div className="main-features-list">
-            Westwood Target  --  Walk: 10 min <br/>
-            Bruin Plaza      --  Walk: 10 min <br/>
-            De Neve Gardenia --  Walk: 10 min 
-            </div>
-          </div> 
-
-        </div>
-      </BoxTemplate> */}
-
-      {/* <BoxTemplate>
-        <div className="content-container">
-          <div className="header">Comparable Apartments</div>
-
-        </div>
-      </BoxTemplate> */}
+      
       
     </div>
   );
