@@ -16,36 +16,39 @@ const Homepage = () => {
     // const handleWaitlistClick = () => {
     //     // window.location.href = "/Waitlist";
     // };
-    const [properties, setProperties] = useState([]);
+    const [listings, setListings] = useState([]);
 
     useEffect(() => {
         // Fetch data from Firestore and set it in the state
-        const fetchProperties = async () => {
-            const propertiesRef = collection(firestore, "apartments");
-            const snapshot = await getDocs(propertiesRef);
-            const propertyData = snapshot.docs.map((doc) => doc.data());
-            setProperties(propertyData);
+        const fetchListings = async () => {
+            const listingsRef = collection(firestore, "listings");
+            const snapshot = await getDocs(listingsRef);
+            const listingsData = snapshot.docs.map((doc) => ({
+                id: doc.id, // Include the document ID as 'id'
+                ...doc.data(), // Include other data from the document
+            }));
+            setListings(listingsData);
         };
 
-        fetchProperties();
+        fetchListings();
     }, []);
 
-    console.log("Properties:", properties); // Check if properties data is available
+    console.log("Properties:", listings); // Check if properties data is available
     return (
         <div className="homepage-container">
             <div className="homepage-boxtop">
                 <div className="homepage-content">
                     <h2 className="homepage-header">BruinRent</h2>
 
-                    <Link to="/MapPage">
+                    <Link to="/ListingPage">
                         <button className="homepage-button1">
                             List With Us
                         </button>
                     </Link>
 
-                    <Link to="/ListingPage">
+                    {/* <Link to="/Construction">
                         <button className="homepage-button2">Sign In</button>
-                    </Link>
+                    </Link> */}
 
                     <img
                         className="homepage-logo"
@@ -57,27 +60,54 @@ const Homepage = () => {
                     <h1 className="homepage-title">
                         Housing Made Easy For Bruins.
                     </h1>
-                    <Link to="/Waitlist">
+                    <div className="homepage-white-container">
+                        <div className="homepage-rangeline">
+                            <p className="homepage-text">Bedrooms:</p>
+                            <button className="homepage-button">
+                                <div className="button-content"></div>
+                                <div className="button-text">1</div>
+                            </button>
+                            <p className="homepage-text">Price Range:</p>
+                            <button className="homepage-button">Button2</button>
+                            <p className="homepage-to">to</p>
+                            <button className="homepage-button">Button2</button>
+                        </div>
+
+                        <div className="homepage-button-container">
+                            <Link to="MapPage">
+                                <button className="homepage-button-search">
+                                    Start Your Search
+                                </button>
+                            </Link>
+
+                            <p className="homepage-button-explore">
+                                Explore All Apartments
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* <Link to="/Waitlist"> // waitlist button removed!
                         <button className="homepage-button3">
                             <h1 className="homepage-button3-text">
                                 Join the Waitlist
                             </h1>
                         </button>
-                    </Link>
+                    </Link> */}
                 </div>
             </div>
             <div className="homepage-boxbot">
                 <h3 className="homepage-populartext">
                     Popular Apartments Near You:
                 </h3>
-
                 <div className="address-block">
-                    {properties.map((property, index) => (
+                    {listings.slice(0, 6).map((listing, index) => (
+                        <Link to={`/apartment/${listing.id}`} key={index}>
                         <AddressBlock
-                            key={index}
-                            address={property.Address}
-                            bedrooms={property.Bedrooms}
+                            address={listing.address}s
+                            bedrooms={listing.bedrooms}
+                            bathroom={listing.bathroom}
                         />
+                    </Link>
                     ))}
                 </div>
             </div>

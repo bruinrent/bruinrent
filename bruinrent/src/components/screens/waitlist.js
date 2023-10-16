@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import logo from "../../assets/BruinRentLogo.png";
 import { collection, addDoc } from "firebase/firestore";
 import { app, firestore } from "../../firebase.js";
-import "./waitlist.css"; // Import a separate CSS file for component-specific styles
+import "./waitlistbackup.css"; // Import a separate CSS file for component-specific styles
 import instagram1 from "../../assets/Instagram.png";
 import instagram2 from "../../assets/Instagram2.png";
 import TextBox from "./textbox.js";

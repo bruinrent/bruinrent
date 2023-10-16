@@ -46,7 +46,18 @@
     padding: 20px;
   }
 
-  
+  .homepage-white-container {
+    width: 43%;
+    height: 190%;
+    flex-shrink: 0;
+    border-radius: 30px;
+    background: #FEFEFE;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    margin: -490px auto;
+    text-align: center; /*center inline*/
+    padding: 20px;
+}
+
 .homepage-header {
   box-sizing: border-box;
   margin-left: 200px;
@@ -74,17 +85,16 @@ width: 140px;
 height: 32.05px;
 left: 1202px;
 top: 55px; */
-
+width: 240px;
 font-family: 'Lato';
 font-style: normal;
 font-weight: 600;
 font-size: 24px;
 line-height: 29px;
-margin-left: 15px; /* Add margin to create spacing between the buttons */
+margin-left: 5px; /* Add margin to create spacing between the buttons */
 border: none; /* Remove border */
 background: #FFFFFF; /* Set background color to match the container */
 color: #00BFF6;
-
 }
 
 .homepage-button2 {
@@ -97,13 +107,12 @@ top: 55.26px; */
 
 font-family: 'Lato';
 font-style: normal;
-font-weight: 600;
+font-weight:600;
 font-size: 24px;
 line-height: 29px;
 border: none;
-left: -5px; /* Adjust the left value as needed */
 margin-left: 15px;
-margin-right: 15px; /* Add margin to create spacing between the buttons */
+margin-right: 5px; /* Add margin to create spacing between the buttons */
 background: #FFFFFF; /* Set background color to match the container */
 
 color: #00BFF6;
@@ -166,15 +175,14 @@ color: #00BFF6;
 }
   .homepage-logo {
     position: absolute;
-    width: 85px;
-    height: 93.95px;
-    left: 21px;
-    top: 15px;
+    width: 60px;
+    height: auto;
+    left: 20px;
+    top: 20px;
   }
 
   .homepage-title{
     box-sizing: border-box;
-
     position: absolute;
     width: 934px;
     height: 223px;
@@ -188,10 +196,11 @@ color: #00BFF6;
 
     font-family: 'Lato', sans-serif;
     font-style: normal;
-    font-weight: 700;
-    font-size: 90px;
+    font-weight: 00;
+    font-size: 83px;
     line-height: 108px;
     text-align: center;
+    margin: -20px auto;
 
     color: #FFFFFF;
   }
@@ -201,10 +210,10 @@ color: #00BFF6;
     position: absolute;
     
     width: 100%; /* Set the width to 100% to span across the entire top */
-    height: 500px;
+    height: 400px;
     /* left: 35px; */
     bottom: 0;
-    top: 800px;
+    top: 900px; /*Change the gradient blue box*/
     background: #FFFFFF;  
     /* margin-right: 20px; */
     /* display: flex; */
@@ -302,3 +311,152 @@ color: #00BFF6;
     height: 60px;
     left: 420px;
   }
+
+/* white container CSS */
+.homepage-rangeline {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px; /* Add spacing between this line and other content */
+  justify-content: center;
+}
+
+.homepage-rangeline p,
+.homepage-rangeline button {
+  margin: 0 10px; /* Add spacing between elements */
+  font-family: 'Lato';
+  font-weight: 600;
+  font-size: 25px;
+  color: #000;
+}
+
+/* Style for the "to" text */
+.homepage-rangeline .homepage-to {
+  display: inline-block; /* Add inline-block display to the "to" element */
+  font-family: Inter;
+  font-size: 25px;
+  font-weight: 600;
+  color: #00BFF6;
+  margin: 0 10px; /* Add spacing between "to" and buttons */
+}
+
+/* Move the entire row down */
+.homepage-rangeline {
+  transform: translateY(40px); /* Adjust the value to move the row down */
+}
+
+.homepage-button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 90px; /* Adjust the spacing */
+}
+
+.homepage-button-search {
+  width: 197px;
+  height: 46px;
+  flex-shrink: 0;
+  color: #FFF;
+  text-align: center;
+  font-family: Lato;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  border-radius: 19px;
+  background: #00BFF6;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  border: none;
+}
+
+.homepage-button-explore {
+  color: #00BFF6;
+  width: 190px;
+  font-size: 16px;
+  text-decoration-line: underline;
+  margin-top: 20px; /* Adjust the spacing */
+}
+
+/* Button container */
+.homepage-button {
+  content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="112" height="64" viewBox="0 0 112 64" fill="none"><g filter="url(%23filter0_d_414_1971)"><rect x="5" y="1" width="102" height="54" rx="19" stroke="%2300BFF6" stroke-width="2" shape-rendering="crispEdges"/></g><defs><filter id="filter0_d_414_1971" x="0" y="0" width="112" height="64" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset dy="4"/><feGaussianBlur stdDeviation="2"/><feComposite in2="hardAlpha" operator="out"/><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/><feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_414_1971"/><feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_414_1971" result="shape"/></filter></defs></svg>');
+  display: flex;
+  align-items: center;
+  margin: 10px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  position: relative;
+}
+
+/* SVG background */
+.button-outer {
+  width: 104px;
+  height: 56px;
+  flex-shrink: 0;
+  background-size: 100% 100%;
+}
+
+/* Text */
+.button-text {
+  width: 57px;
+  height: 30px;
+  flex-shrink: 0;
+  color: #D9D9D9;
+  text-align: center;
+  font-family: Inter;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Button container */
+.homepage-button {
+  display: flex;
+  align-items: center;
+  margin: 10px; /* Adjust as needed */
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  position: relative; /* Add this */
+}
+
+/* Outer container */
+.button-outer {
+  width: 104px;
+  height: 56px;
+  flex-shrink: 0;
+  position: absolute; /* Position absolutely */
+  top: 0;
+  left: 0;
+}
+
+/* SVG background */
+.button-outer svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Button text */
+.button-text {
+  position: absolute; /* Position absolutely */
+  top: 50%; /* Vertically center the text */
+  left: 50%; /* Horizontally center the text */
+  transform: translate(-50%, -50%); /* Center the text perfectly */
+  font-family: Inter;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  color: #D9D9D9;
+  z-index: 1; /* Place the text above the SVG */
+  background-color: rgba(0, 0, 0, 0.5); /* Example background color */
+  padding: 5px 10px; /* Example padding */
+  border-radius: 5px; /* Example border radius */
+}

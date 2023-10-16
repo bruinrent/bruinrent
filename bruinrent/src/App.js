@@ -4,11 +4,21 @@ import "./App.css";
 import Homepage from "./components/screens/homepage.js";
 import Waitlist from "./components/screens/waitlist.js";
 import ThankYou from "./components/screens/thankyou.js";
+import Apartment from "./components/screens/Apartment.js";
 import UnderConstruction from "./components/screens/underConstruction.js";
 import MapPage from "./components/screens/MapPage.js";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Switch } from "react-router-dom";
 import ListingPage from "./components/screens/ListingPage.js";
 import { Navigate } from "react-router-dom";
+import ApartmentPage from "./components/screens/Apartment.js";
+
+/** Testing pages
+ * 
+ */
+// import AddressBlock from "./components/screens/AddressBlock.js";
+// import HomeBack from "./components/screens/homepagebackup.js";
+// import text from "./components/screens/textbox.js";
+// import homeBackCommit from "./components/screens/homebackup"; // Before commit
 
 function App() {
     const [thankYou, setThankYou] = useState(false);
@@ -38,6 +48,8 @@ function App() {
                 <Route path="/Construction" element={<UnderConstruction />} />
                 <Route path="/MapPage" element={<MapPage />} />
                 <Route path="/ListingPage" element={<ListingPage />} />
+                <Route path="/apartment/:id" element={<Apartment />} />
+                {/* <Route path="/Apartment" element={<Apartment />} /> */}
             </Routes>
         </Router>
     );
