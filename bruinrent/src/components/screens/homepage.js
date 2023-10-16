@@ -35,7 +35,7 @@ const Homepage = () => {
 
     console.log("Properties:", listings); // Check if properties data is available
     return (
-        <div className="homepage-container">
+        <div className="homepage-MAIN-container">
             <div className="homepage-boxtop">
                 <div className="homepage-content">
                     <h2 className="homepage-header">BruinRent</h2>
