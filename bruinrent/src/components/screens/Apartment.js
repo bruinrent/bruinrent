@@ -78,6 +78,7 @@ const ApartmentPage = () => {
 }
 // Note: Not sure about the access/current backend state of:
 // Reviews (compiled ratings, individual review info, etc) 
+// Note: Headers inside or outside boxes?
   return (
     <div className="homepage-container">
       
@@ -206,19 +207,20 @@ const ApartmentPage = () => {
           </BoxTemplate>
           
 
+          <div className="review-num-word" style={{paddingBottom:'1rem'}}>
+            <div className="circle" style={{width:'3.5rem', height:'3.5rem'}}>
+              <div className="review-num" style={{fontSize:'1.5rem'}}>4.2</div>  
+            </div>
+            <div className="review-header">Reviews</div>
+          </div>
           <BoxTemplate>
             <div className="content-container">
-              <div className="review-num-word">
-                <div className="circle" style={{width:'3.5rem', height:'3.5rem'}}>
-                  <div className="review-num" style={{fontSize:'1.5rem'}}>4.2</div>  
-                </div>
-                <div className="review-header">Reviews</div>
-              </div>
+              
               
               <div className="reviews-container">
                 <div className="review-num-word">
                   <div className="circle">
-                    <div className="review-num">4.2</div>  
+                    <div className="review-num">4.5</div>  
                   </div>
                   <div className="review-word">Value</div>
                 </div>
@@ -253,6 +255,8 @@ const ApartmentPage = () => {
                   <div className="review-word">Location</div>
                 </div>
               </div>
+
+              <div className="date">Jan. 29, 2021</div>
               <div className="review-text">
                 <p>
                   General: Overall value and worth of the unit for its price, with 1 having very low value and 5 being very valuable

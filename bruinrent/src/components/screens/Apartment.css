@@ -277,7 +277,7 @@ img {
 }
 
 .about-me-text{
-  width: 786px;
+  width: 100%;
   color: #000;
   font-family: Lato;
   font-size: 24px;
@@ -310,13 +310,12 @@ img {
 
 /*Review Section*/
 .reviews-container {
-  display: flex;
-  flex-wrap: wrap;
-  column-gap: 10%;
-  row-gap: 1rem;
-  flex-direction: row;
-}
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+  grid-auto-rows: auto; 
+  gap: 1rem;
 
+}
 
 .review-word {
   font-size: 1.5rem;
@@ -331,10 +330,11 @@ img {
 
 .review-num-word {
   display: flex;
-  flex-direction: row;
+  flex-direction: row; 
   align-content: center;
   align-items: center;
-  gap:0.7rem
+  text-align: center;
+  gap:1rem;
 }
 
 .review-text{

@@ -1,6 +1,6 @@
 /* BoxTemplate.css */
 .resizablebox-template {
-    width: 100%;
+
     height: auto; /* Allow the height to adjust based on content */
     display: flex;
     padding: 2rem;
