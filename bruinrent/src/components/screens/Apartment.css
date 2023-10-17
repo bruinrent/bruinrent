@@ -150,18 +150,17 @@ img {
 
 .show-all-button {
   color: #ffffff;
-  font-family: Lato;
-  font-size: 32px;
+  font-size: 2rem;
   font-style: italic;
 
   font-weight: 700;
   border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
   background: none;
   cursor: pointer;
-  margin-top: 10px;
-  transform: translate(30%, -280%);
+  margin-top: 0.5rem;
+  text-align: center;
 }
 
 .columned-page {
@@ -313,24 +312,49 @@ img {
 .reviews-container {
   display: flex;
   flex-wrap: wrap;
-  gap:1rem;
+  column-gap: 10%;
+  row-gap: 1rem;
   flex-direction: row;
 }
 
-.review-pair {
-  display: flex;
-  flex-direction: column;
-
-}
 
 .review-word {
-  color: #146fa3;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.review-num {
+  color: #FFFFFF;
   font-size: 1.2rem;
   font-weight: 600;
 }
 
+.review-num-word {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  gap:0.7rem
+}
+
 .review-text{
   font-size: 1.2rem;
+}
+
+.review-header {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.circle {
+  display: flex;
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: #00BFF6;
+  border-radius: 50%;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
 }
 
 .date{

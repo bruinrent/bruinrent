@@ -76,10 +76,11 @@ const ApartmentPage = () => {
   const emailLink = `mailto:${recipient}`;
   window.location.href = emailLink;
 }
+// Note: Not sure about the access/current backend state of:
+// Reviews (compiled ratings, individual review info, etc) 
   return (
     <div className="homepage-container">
       
-
       {/* Images Group at the top of Apartment Page */}
 
       {/* NOTE: Probably want to add aspect ratio when rescaling */}
@@ -207,15 +208,50 @@ const ApartmentPage = () => {
 
           <BoxTemplate>
             <div className="content-container">
-              <div className="header">Reviews</div>
-              <div className="main-features-header">Overall: 4.2</div>
+              <div className="review-num-word">
+                <div className="circle" style={{width:'3.5rem', height:'3.5rem'}}>
+                  <div className="review-num" style={{fontSize:'1.5rem'}}>4.2</div>  
+                </div>
+                <div className="review-header">Reviews</div>
+              </div>
+              
               <div className="reviews-container">
-                  <div className="review-word">Value: 4.2</div>
-                  <div className="review-word">Social: 4.0</div>
-                  <div className="review-word">Noise: 3.0</div>
-                  <div className="review-word">Landlord: 3.0</div>
-                  <div className="review-word">Cleanliness: 3.0</div>
-                  <div className="review-word">Location: 3.0</div>
+                <div className="review-num-word">
+                  <div className="circle">
+                    <div className="review-num">4.2</div>  
+                  </div>
+                  <div className="review-word">Value</div>
+                </div>
+                <div className="review-num-word">
+                  <div className="circle">
+                    <div className="review-num">4.0</div>  
+                  </div>
+                  <div className="review-word">Social</div>
+                </div>
+                <div className="review-num-word">
+                  <div className="circle">
+                    <div className="review-num">3</div>  
+                  </div>
+                  <div className="review-word">Noise</div>
+                </div>
+                <div className="review-num-word">
+                  <div className="circle">
+                    <div className="review-num">4.3</div>  
+                  </div>
+                  <div className="review-word">Landlord</div>
+                </div>
+                <div className="review-num-word">
+                  <div className="circle">
+                    <div className="review-num">4.2</div>  
+                  </div>
+                  <div className="review-word">Cleanliness</div>
+                </div>
+                <div className="review-num-word">
+                  <div className="circle">
+                    <div className="review-num">3.0</div>  
+                  </div>
+                  <div className="review-word">Location</div>
+                </div>
               </div>
               <div className="review-text">
                 <p>
