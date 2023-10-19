@@ -6,6 +6,8 @@ import apart2 from "../../assets/apart_2.png";
 import BoxTemplate from "./ResizableBox.js";
 import Map from "./Map.js";
 import { Link } from "react-router-dom";
+import { Tooltip } from 'react-tooltip'
+import ReviewSumPart from "../reviewSummaryPart.jsx";
 
 // firebase stuff
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -115,7 +117,7 @@ const ApartmentPage = () => {
             <div className="big-Header">{apartmentData.address}</div>
             <div className="header-subtext" >
               <span className="header-subtext"style={{fontSize: '1.1rem'}}>Los Angeles, CA 90024   </span> 
-              <span className="header-subtext" style={{fontSize: '1.1rem' ,paddingLeft: '0.5rem',fontStyle:'italic'}}>  BED | BATH | Size: {apartmentData.size}</span>
+              <span className="header-subtext" style={{fontSize: '1.1rem' ,paddingLeft: '0.5rem',fontStyle:'italic'}}>  {apartmentData.bedrooms} bed | {apartmentData.baths} bath | {apartmentData.size} sqft</span>
             </div>
 
             <div className="about-me-text">
@@ -211,49 +213,19 @@ const ApartmentPage = () => {
             <div className="circle" style={{width:'3.5rem', height:'3.5rem'}}>
               <div className="review-num" style={{fontSize:'1.5rem'}}>4.2</div>  
             </div>
-            <div className="review-header">Reviews</div>
+            <div className="review-header">3 Reviews</div>
           </div>
           <BoxTemplate>
             <div className="content-container">
               
               
               <div className="reviews-container">
-                <div className="review-num-word">
-                  <div className="circle">
-                    <div className="review-num">4.5</div>  
-                  </div>
-                  <div className="review-word">Value</div>
-                </div>
-                <div className="review-num-word">
-                  <div className="circle">
-                    <div className="review-num">4.0</div>  
-                  </div>
-                  <div className="review-word">Social</div>
-                </div>
-                <div className="review-num-word">
-                  <div className="circle">
-                    <div className="review-num">3</div>  
-                  </div>
-                  <div className="review-word">Noise</div>
-                </div>
-                <div className="review-num-word">
-                  <div className="circle">
-                    <div className="review-num">4.3</div>  
-                  </div>
-                  <div className="review-word">Landlord</div>
-                </div>
-                <div className="review-num-word">
-                  <div className="circle">
-                    <div className="review-num">4.2</div>  
-                  </div>
-                  <div className="review-word">Cleanliness</div>
-                </div>
-                <div className="review-num-word">
-                  <div className="circle">
-                    <div className="review-num">3.0</div>  
-                  </div>
-                  <div className="review-word">Location</div>
-                </div>
+                <ReviewSumPart rating={"4.5"} label={"Value"} tooltip={"Overall value and worth of the unit for its price, with 1 having very low value and 5 being very valuable"}/>
+                <ReviewSumPart rating={"3"} label={"Noise"} tooltip={"Noise level of the unit, with 1 being very noisy and 5 being very quiet"}/>
+                <ReviewSumPart rating={"4.3"} label={"Landlord"} tooltip={"Overall rating for the landlord or building manager, with 1 being very difficult or unhelpful and 5 being very helpful"}/>
+                <ReviewSumPart rating={"4.2"} label={"Cleanliness"} tooltip={"Overall cleanliness of the unit, with 1 being very dirty and 5 being very clean"}/>
+                <ReviewSumPart rating={"3.0"} label={"Social"} tooltip={"Social aspect of the unit, with 1 being very private and 5 being very social"}/>
+                <ReviewSumPart rating={"3.0"} label={"Location"} tooltip={"Rating for the location of the unit relative to UCLA and Westwood Village, with 1 being a very poor location and 5 being a good location"}/>
               </div>
 
               <div className="date">Jan. 29, 2021</div>
@@ -291,11 +263,18 @@ const ApartmentPage = () => {
               <div className="main-features">
                 <div className="main-features-header">
                   Transportation
-                  <ul className="main-features-list">
-                    <li>Westwood Target  --  Walk: 10 min</li>
-                    <li>Bruin Plaza      --  Walk: 10 min</li>
-                    <li>De Neve Gardenia --  Walk: 10 min</li> 
-                  </ul>
+                    <div className="left-right-display"> 
+                      <span className="transport-left">Westwood Target</span> 
+                      <span className="transport-right">Walk: 10 min</span>
+                    </div>
+                    <div className="left-right-display"> 
+                      <span className="transport-left">Bruin Plaza</span> 
+                      <span className="transport-right">Walk: 10 min</span>
+                    </div>
+                    <div className="left-right-display"> 
+                      <span className="transport-left">De Neve Gardenia</span> 
+                      <span className="transport-right">Walk: 10 min</span>
+                    </div>
                 </div>
                 
               </div> 

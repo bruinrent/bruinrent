@@ -1,0 +1,57 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Lato;
+    color: #000;
+    text-align: left;
+    font-family: Lato;
+    font-weight: 400;
+    font-style: normal;
+    line-height: normal;
+    font-size: 1rem;
+  }
+
+.info-circle {
+    display: flex;
+    width: 1rem;
+    height: 1rem;
+    background-color: #D9D9D9;
+    border-radius: 50%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+  }
+
+  .review-num {
+    color: #FFFFFF;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  .review-word {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  
+  .review-num-word {
+    display: flex;
+    flex-direction: row; 
+    align-content: center;
+    align-items: center;
+    text-align: center;
+    gap:1rem;
+  }
+  
+
+  .circle {
+    display: flex;
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: #00BFF6;
+    border-radius: 50%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+  }
