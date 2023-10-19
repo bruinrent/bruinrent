@@ -176,7 +176,7 @@ img {
   gap:2rem;
 }
 
-.contact-column {
+.smaller-column {
   flex: 2;
 }
 
@@ -217,7 +217,6 @@ img {
   justify-content: center;
   align-items: center;
   text-align: center;
-  position: sticky;
   top: 2rem;
 }
 /* Adjust margin from the right side on larger screens */

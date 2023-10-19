@@ -131,13 +131,30 @@ const ApartmentPage = () => {
             </div>
           </div>
           
+          
+
+        </div>
+
+      
+{/* CONTACT COLUMN */}
+        <div className="smaller-column">
+          <div className="contact-box">
+            <div className="contact-head">Contact This Property</div>
+            <button className="blue-contact-button">Request Tour</button>
+           
+              <button className="blue-contact-button" onClick={() => sendEmail(apartmentData.email)}>Send Message</button>
+
+            <div className="phone-number">{apartmentData.phone}</div>
+          </div>
+        </div>
+      </div>
+{/* SECOND COLUMN SET*/}
+      
+  <div className="columned-page">
+        <div className="smaller-column">
           <div className="header">Property Details</div>
           <BoxTemplate>
-            
             <div className="content-container">
-              
-
-
                 <div className="main-features-header">
                   Main Features
                   <ul className="main-features-list">
@@ -166,19 +183,20 @@ const ApartmentPage = () => {
               </div> 
             </div>
           </BoxTemplate>
+        </div>
 
-{/* Utilities */}
+        <div className="smaller-column">
+        {/* Utilities */}
+        <div className="header">Utilities</div>
           <BoxTemplate>
             <div className="content-container">
-              <div className="header">Utilities
+              
                 <ul className="main-features-list">
                   <li>Trash</li>
                   <li>Water</li>
                   <li>Electricity</li>
                 </ul>
               </div>
-              
-            </div>
           </BoxTemplate>
 
 {/* Parking */}
@@ -207,6 +225,12 @@ const ApartmentPage = () => {
               </div> 
             </div>
           </BoxTemplate>
+
+        </div>
+      </div>
+      
+
+
           
 
           <div className="review-num-word" style={{paddingBottom:'1rem'}}>
@@ -288,22 +312,6 @@ const ApartmentPage = () => {
 
             </div>
           </BoxTemplate>
-
-        </div>
-
-      
-        {/* CONTACT COLUMN */}
-        <div className="contact-column">
-          <div className="contact-box">
-            <div className="contact-head">Contact This Property</div>
-            <button className="blue-contact-button">Request Tour</button>
-           
-              <button className="blue-contact-button" onClick={() => sendEmail(apartmentData.email)}>Send Message</button>
-
-            <div className="phone-number">{apartmentData.phone}</div>
-          </div>
-        </div>
-      </div>
 
       
 

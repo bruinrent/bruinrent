@@ -16,8 +16,7 @@ const ReviewSumPart = ({rating, label, tooltip}) => {
     </p>
     <Tooltip 
     id={label}
-    place="right"
-    style={{ backgroundColor: "#D2EDF9", color: "#222", zIndex:"999"}}
+    style={{ backgroundColor: "#D2EDF9", color: "#222", zIndex:"999", opacity: "0.8"}}
     />
 </div>
   );
