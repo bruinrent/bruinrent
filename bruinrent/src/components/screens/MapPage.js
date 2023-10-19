@@ -31,7 +31,7 @@ const MapPage = () => {
   }, []);
 
   return (
-    <div className="homepage-boxtop">
+    <div className="map-page-container">
       <Header />
 
       <div className="tab">

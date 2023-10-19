@@ -4,22 +4,18 @@ import logo from "../assets/logo_white.png";
 
 const Header = () => {
   return (
-    <div className="container">
-      <Link to="/" className="logo-container">
-        <img className="logo" src={logo} alt="Bruin Rent Logo" />
+    <div className="header-container">
+      <Link to="/" className="header-logo-container">
+        <img className="header-logo" src={logo} alt="Bruin Rent Logo" />
       </Link>
 
       <Link to="/" style={{ textDecoration: "none" }}>
-        <h2 className="title">BruinRent</h2>
+        <h2 className="header-title">BruinRent</h2>
       </Link>
 
-      <div className="links">
-        <Link to="/ListingPage">
-          <button className="button">List With Us</button>
-        </Link>
-
+      <div className="header-links">
         <Link to="/ConstructionPage">
-          <button className="button">Sign In</button>
+          <button className="header-button">Sign In</button>
         </Link>
       </div>
     </div>

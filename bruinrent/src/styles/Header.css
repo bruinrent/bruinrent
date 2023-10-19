@@ -1,45 +1,47 @@
-.container {
+.header-container {
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  height: 100%;
-  padding: 15px;
+  height: 5%;
+  padding: 1rem;
   width: 100vw;
 }
 
-.title {
+.header-title {
   width: 100%;
   font-family: "Lato";
   font-style: normal;
   font-weight: 700;
-  font-size: 54px;
+  font-size: 2rem;
   text-align: center;
   color: #000000;
   justify-self: center;
 }
 
-.links {
+.header-links {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: flex-end;
   width: 20%;
   height: 100%;
+  padding: 0 2.5rem 0 0;
 }
 
-.button {
+.header-button {
   border: none; /* Remove border */
   background: none;
   color: #00bff6;
   font-family: "Lato";
   font-style: normal;
   font-weight: 600;
-  font-size: 24px;
+  font-size: 1rem;
+  line-height: 1.5rem;
 }
 
-.logo-container {
+.header-logo-container {
   width: 20%;
   height: 100%;
   display: flex;
@@ -47,9 +49,33 @@
   justify-content: center;
 }
 
-.logo {
-  width: 60px;
+.header-logo {
+  width: 2.5rem;
   height: auto;
   left: 20px;
   top: 20px;
+}
+
+@media only screen and (max-device-width: 600px) {
+  .header-container {
+    padding: 0.5rem;
+  }
+
+  .header-title {
+    font-size: 1.25rem;
+  }
+
+  .header-links {
+    width: 30%;
+    padding: 0 2.5rem 0 0;
+  }
+
+  .header-button {
+    font-size: 0.75rem;
+    line-height: 1rem;
+  }
+
+  .header-logo {
+    width: 1.75rem;
+  }
 }
