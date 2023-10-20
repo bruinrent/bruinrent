@@ -1,17 +1,18 @@
 import React from "react";
-import "./homepage.css";
+import { Link } from "react-router-dom";
+import "./AddressBlock.css";
 import apart1 from "../../assets/apart_1.png";
-// import apart2 from "../../assets/apart_2.png";
-// import apart3 from "../../assets/apart_3.png";
 
-const AddressBlock = ({ address, bedrooms, bathroom }) => {
-    return (
-        <div className="homepage-image-item">
-            <img className="homepage-image" src={apart1} alt="Apartment 1" />
-            <p className="homepage-image-detail1">{address}</p>
-            <p className="homepage-image-detail2">{bedrooms} Bed {bathroom} Bath </p>
-        </div>
-    );
+const AddressBlock = ({ url, address, bedrooms, bathroom }) => {
+  return (
+    <Link to={url} style={{ textDecoration: "none" }}>
+      <img className="address-block-image" src={apart1} alt="Apartment 1" />
+      <p className="address-block-apartment">{address}</p>
+      <p className="address-block-details">
+        {bedrooms} Bed {bathroom} Bath{" "}
+      </p>
+    </Link>
+  );
 };
 
 export default AddressBlock;
