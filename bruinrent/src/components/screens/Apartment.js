@@ -6,6 +6,10 @@ import apart2 from "../../assets/apart_2.png";
 import BoxTemplate from "./ResizableBox.js";
 import Map from "./Map.js";
 import { Link } from "react-router-dom";
+import { Tooltip } from 'react-tooltip'
+import ReviewSumPart from "../reviewSummaryPart.jsx";
+import addressToLongLat from "../addressToLongLat.js"
+import GoogleMap from "../GoogleMap.js";
 
 // firebase stuff
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -13,15 +17,17 @@ import { doc, getDoc } from "firebase/firestore";
 import { app, firestore } from "../../firebase.js"; 
 import { useParams } from "react-router-dom";
 
-const markers = [
+let markers = [
   { lat: 51.505, lng: -0.09, popupContent: "Marker 1" },
   //Add more markers as needed
 ];
 
 const ApartmentPage = () => {
   // Get the document ID from the URL parameter
+  const [markers, setMarkers] = useState([{ lat: 51.505, lng: -0.09, popupContent: "Marker 1" }]);
   const { id } = useParams();
   const [imageFiles, setImageFiles] = useState([]);
+  const [latLong, setLatLong] = useState([]);
   const [apartmentData, setApartmentData] = useState({
     address: "",
     addressDesc: "",
@@ -47,6 +53,8 @@ const ApartmentPage = () => {
   });
   
   useEffect(() => {
+
+
     // Function to fetch apartment data from Firebase and update state
     const fetchDataFromFirebase = async () => {
        try {
@@ -68,9 +76,32 @@ const ApartmentPage = () => {
        }
     };
 
-    fetchDataFromFirebase();
+
+
+    fetchDataFromFirebase()
+    
  }, [id]); // Include the ID in the dependency array to re-fetch data when the ID changes
 
+
+ //Temporary, should NOT be calling API to get latlong, should be created when listing is made
+ useEffect(() => {
+  if (apartmentData.address) {
+      addressToLongLat(apartmentData.address).then((result) => {
+        console.log(`Result: ${result[0]}`)
+          setLatLong([result[1], result[0]])
+          console.log(latLong)
+      });
+      console.log(latLong[0] + " || "+ latLong[1])
+      // 
+  }
+}, [apartmentData.address]);
+
+useEffect(() => {
+  console.log("latlong: " + latLong);
+  if (latLong.length === 2) {
+    setMarkers([{ lat: latLong[0], lng: latLong[1], popupContent: apartmentData.address }]);
+  }
+}, [latLong]);
 
  function sendEmail(recipient) {
   const emailLink = `mailto:${recipient}`;
@@ -115,7 +146,7 @@ const ApartmentPage = () => {
             <div className="big-Header">{apartmentData.address}</div>
             <div className="header-subtext" >
               <span className="header-subtext"style={{fontSize: '1.1rem'}}>Los Angeles, CA 90024   </span> 
-              <span className="header-subtext" style={{fontSize: '1.1rem' ,paddingLeft: '0.5rem',fontStyle:'italic'}}>  BED | BATH | Size: {apartmentData.size}</span>
+              <span className="header-subtext" style={{fontSize: '1.1rem' ,paddingLeft: '0.5rem',fontStyle:'italic'}}>  {apartmentData.bedrooms} bed | {apartmentData.baths} bath | {apartmentData.size} sqft</span>
             </div>
 
             <div className="about-me-text">
@@ -129,13 +160,30 @@ const ApartmentPage = () => {
             </div>
           </div>
           
+          
+
+        </div>
+
+      
+{/* CONTACT COLUMN */}
+        <div className="smaller-column">
+          <div className="contact-box">
+            <div className="contact-head">Contact This Property</div>
+            <button className="blue-contact-button">Request Tour</button>
+           
+              <button className="blue-contact-button" onClick={() => sendEmail(apartmentData.email)}>Send Message</button>
+
+            <div className="phone-number">{apartmentData.phone}</div>
+          </div>
+        </div>
+      </div>
+{/* SECOND COLUMN SET*/}
+      
+  <div className="columned-page">
+        <div className="smaller-column">
           <div className="header">Property Details</div>
           <BoxTemplate>
-            
             <div className="content-container">
-              
-
-
                 <div className="main-features-header">
                   Main Features
                   <ul className="main-features-list">
@@ -164,19 +212,20 @@ const ApartmentPage = () => {
               </div> 
             </div>
           </BoxTemplate>
+        </div>
 
-{/* Utilities */}
+        <div className="smaller-column">
+        {/* Utilities */}
+        <div className="header">Utilities</div>
           <BoxTemplate>
             <div className="content-container">
-              <div className="header">Utilities
+              
                 <ul className="main-features-list">
                   <li>Trash</li>
                   <li>Water</li>
                   <li>Electricity</li>
                 </ul>
               </div>
-              
-            </div>
           </BoxTemplate>
 
 {/* Parking */}
@@ -205,55 +254,31 @@ const ApartmentPage = () => {
               </div> 
             </div>
           </BoxTemplate>
+
+        </div>
+      </div>
+      
+
+
           
 
           <div className="review-num-word" style={{paddingBottom:'1rem'}}>
             <div className="circle" style={{width:'3.5rem', height:'3.5rem'}}>
               <div className="review-num" style={{fontSize:'1.5rem'}}>4.2</div>  
             </div>
-            <div className="review-header">Reviews</div>
+            <div className="review-header">3 Reviews</div>
           </div>
           <BoxTemplate>
             <div className="content-container">
               
               
               <div className="reviews-container">
-                <div className="review-num-word">
-                  <div className="circle">
-                    <div className="review-num">4.5</div>  
-                  </div>
-                  <div className="review-word">Value</div>
-                </div>
-                <div className="review-num-word">
-                  <div className="circle">
-                    <div className="review-num">4.0</div>  
-                  </div>
-                  <div className="review-word">Social</div>
-                </div>
-                <div className="review-num-word">
-                  <div className="circle">
-                    <div className="review-num">3</div>  
-                  </div>
-                  <div className="review-word">Noise</div>
-                </div>
-                <div className="review-num-word">
-                  <div className="circle">
-                    <div className="review-num">4.3</div>  
-                  </div>
-                  <div className="review-word">Landlord</div>
-                </div>
-                <div className="review-num-word">
-                  <div className="circle">
-                    <div className="review-num">4.2</div>  
-                  </div>
-                  <div className="review-word">Cleanliness</div>
-                </div>
-                <div className="review-num-word">
-                  <div className="circle">
-                    <div className="review-num">3.0</div>  
-                  </div>
-                  <div className="review-word">Location</div>
-                </div>
+                <ReviewSumPart rating={"4.5"} label={"Value"} tooltip={"Overall value and worth of the unit for its price, with 1 having very low value and 5 being very valuable"}/>
+                <ReviewSumPart rating={"3"} label={"Noise"} tooltip={"Noise level of the unit, with 1 being very noisy and 5 being very quiet"}/>
+                <ReviewSumPart rating={"4.3"} label={"Landlord"} tooltip={"Overall rating for the landlord or building manager, with 1 being very difficult or unhelpful and 5 being very helpful"}/>
+                <ReviewSumPart rating={"4.2"} label={"Cleanliness"} tooltip={"Overall cleanliness of the unit, with 1 being very dirty and 5 being very clean"}/>
+                <ReviewSumPart rating={"3.0"} label={"Social"} tooltip={"Social aspect of the unit, with 1 being very private and 5 being very social"}/>
+                <ReviewSumPart rating={"3.0"} label={"Location"} tooltip={"Rating for the location of the unit relative to UCLA and Westwood Village, with 1 being a very poor location and 5 being a good location"}/>
               </div>
 
               <div className="date">Jan. 29, 2021</div>
@@ -291,11 +316,18 @@ const ApartmentPage = () => {
               <div className="main-features">
                 <div className="main-features-header">
                   Transportation
-                  <ul className="main-features-list">
-                    <li>Westwood Target  --  Walk: 10 min</li>
-                    <li>Bruin Plaza      --  Walk: 10 min</li>
-                    <li>De Neve Gardenia --  Walk: 10 min</li> 
-                  </ul>
+                    <div className="left-right-display"> 
+                      <span className="transport-left">Westwood Target</span> 
+                      <span className="transport-right">Walk: 10 min</span>
+                    </div>
+                    <div className="left-right-display"> 
+                      <span className="transport-left">Bruin Plaza</span> 
+                      <span className="transport-right">Walk: 10 min</span>
+                    </div>
+                    <div className="left-right-display"> 
+                      <span className="transport-left">De Neve Gardenia</span> 
+                      <span className="transport-right">Walk: 10 min</span>
+                    </div>
                 </div>
                 
               </div> 
@@ -303,37 +335,19 @@ const ApartmentPage = () => {
             </div>
           </BoxTemplate>
 
+          {/* <BoxTemplate>
+            <div className="content-container">
+              <div className="header"> Google Map</div>
+                    <GoogleMap/>
+            </div>
+          </BoxTemplate> */}
+
           <BoxTemplate>
             <div className="content-container">
               <div className="header">Comparable Apartments</div>
 
             </div>
           </BoxTemplate>
-
-        </div>
-
-      
-        {/* CONTACT COLUMN */}
-        <div className="contact-column">
-          <div className="contact-box">
-            <div className="contact-head">Contact This Property</div>
-            <button className="blue-contact-button">Request Tour</button>
-           
-              <button className="blue-contact-button" onClick={() => sendEmail(apartmentData.email)}>Send Message</button>
-
-            <div className="phone-number">{apartmentData.phone}</div>
-          </div>
-        </div>
-      </div>
-
-      
-
-      
-
-      
-
-      
-
       
       
     </div>
