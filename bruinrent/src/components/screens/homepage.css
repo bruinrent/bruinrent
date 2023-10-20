@@ -35,7 +35,7 @@
 .homepage-banner-button-container {
   display: flex;
   flex-direction: row;
-  width: 24rem;
+  width: 30rem;
   align-items: center;
   justify-content: space-between;
 }
@@ -45,10 +45,10 @@
   color: rgba(255, 255, 255, 1);
   border: none;
   border-radius: 1rem;
-  width: 11rem;
-  height: 2.5rem;
+  width: 14rem;
+  height: 3rem;
   font-family: Lato;
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-weight: 600;
   line-height: 2rem;
   letter-spacing: 0em;
@@ -65,7 +65,7 @@
 
 .homepage-body-title {
   font-family: Lato;
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: 700;
   line-height: 2rem;
   letter-spacing: 0em;
@@ -75,13 +75,10 @@
 }
 
 .homepage-body-listings {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 3rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  row-gap: 2rem;
   width: 100%;
-  overflow-x: auto;
 }
 
 /* Responsive for phones */
@@ -107,18 +104,19 @@
   }
 
   .homepage-body-listing-container {
-    padding: 1.5rem 0rem 0.5rem 1.5rem;
+    padding: 1.5rem 1.5rem 0.5rem 1.5rem;
   }
 
   .homepage-body-title {
-    font-size: 1rem;
-    line-height: 1.5rem;
-    padding: 0 0 0.75rem 0;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    padding: 0 0 1.5rem 0;
   }
 
   .homepage-body-listings {
-    padding: 0rem 0rem 0.75rem 0rem;
-    gap: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
   }
 }
 

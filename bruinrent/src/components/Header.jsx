@@ -17,6 +17,12 @@ const Header = () => {
         <Link to="/ConstructionPage">
           <button className="header-button">Sign In</button>
         </Link>
+        <Link
+          target="_blank"
+          to="https://docs.google.com/forms/d/e/1FAIpQLSfHY7fNYDFBbNYr3Xy4caIz7yqNmvDnYfAB9HZlq1aH7vl0Qw/viewform"
+        >
+          <button className="header-button">Feedback</button>
+        </Link>
       </div>
     </div>
   );

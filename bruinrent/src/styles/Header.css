@@ -25,9 +25,11 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
+  gap: 2rem;
   width: 20%;
   height: 100%;
-  padding: 0 2.5rem 0 0;
+  padding: 0 1.5rem 0 0;
+  white-space: nowrap;
 }
 
 .header-button {
@@ -37,7 +39,7 @@
   font-family: "Lato";
   font-style: normal;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 1.25rem;
   line-height: 1.5rem;
 }
 
@@ -67,12 +69,17 @@
 
   .header-links {
     width: 30%;
-    padding: 0 2.5rem 0 0;
+    gap: 0.5rem;
+    padding: 0 0.25rem 0 0;
   }
 
   .header-button {
     font-size: 0.75rem;
     line-height: 1rem;
+  }
+
+  .header-logo-container {
+    width: 30%;
   }
 
   .header-logo {

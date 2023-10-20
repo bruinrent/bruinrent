@@ -46,23 +46,9 @@ const Homepage = () => {
       </div>
       <div className="homepage-body">
         <div className="homepage-body-listing-container">
-          <h2 className="homepage-body-title">Newly Listed Apartments</h2>
+          <h2 className="homepage-body-title">Popular Apartments</h2>
           <div className="homepage-body-listings">
-            {listings.slice(0, 6).map((listing) => (
-              <AddressBlock
-                url={`/apartment/${listing.id}`}
-                address={listing.address}
-                s
-                bedrooms={listing.bedrooms}
-                bathroom={listing.bathroom}
-              />
-            ))}
-          </div>
-        </div>
-        <div className="homepage-body-listing-container">
-          <h2 className="homepage-body-title">Explore All Apartments</h2>
-          <div className="homepage-body-listings">
-            {listings.slice(0, 4).map((listing) => (
+            {listings.slice(0, 20).map((listing) => (
               <AddressBlock
                 url={`/apartment/${listing.id}`}
                 address={listing.address}

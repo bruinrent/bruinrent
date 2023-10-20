@@ -7,7 +7,7 @@
 .address-block-apartment {
   margin-top: 0.35rem;
   font-family: Lato;
-  font-size: 1rem;
+  font-size: 1.25rem;
   font-weight: 700;
   line-height: 1.5rem;
   letter-spacing: 0em;
@@ -17,7 +17,7 @@
 
 .address-block-details {
   font-family: Lato;
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-style: italic;
   font-weight: 500;
   line-height: 0.9rem;
@@ -28,8 +28,15 @@
 
 @media only screen and (max-device-width: 600px) {
   .address-block-image {
-    max-width: 12rem;
-    max-height: 8rem;
-    border-radius: 1rem;
+    max-width: 20rem;
+    border-radius: 0.5rem;
+  }
+
+  .address-block-apartment {
+    font-size: 1rem;
+  }
+
+  .address-block-details {
+    font-size: 0.85rem;
   }
 }
