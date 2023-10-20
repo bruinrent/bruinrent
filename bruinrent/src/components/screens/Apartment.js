@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { Tooltip } from 'react-tooltip'
 import ReviewSumPart from "../reviewSummaryPart.jsx";
 import addressToLongLat from "../addressToLongLat.js"
+import GoogleMap from "../GoogleMap.js";
 
 // firebase stuff
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -333,6 +334,13 @@ useEffect(() => {
 
             </div>
           </BoxTemplate>
+
+          {/* <BoxTemplate>
+            <div className="content-container">
+              <div className="header"> Google Map</div>
+                    <GoogleMap/>
+            </div>
+          </BoxTemplate> */}
 
           <BoxTemplate>
             <div className="content-container">

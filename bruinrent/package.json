@@ -10,6 +10,7 @@
     "csvtojson": "^2.0.10",
     "dotenv": "^16.3.1",
     "firebase": "^10.3.1",
+    "google-map-react": "^2.2.1",
     "leaflet": "^1.9.4",
     "nodemailer": "^6.9.3",
     "papaparse": "^5.4.1",

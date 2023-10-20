@@ -1,5 +1,6 @@
 /* BoxTemplate.css */
 .resizablebox-template {
+    height:auto;
     display: flex;
     padding: 2rem;
     overflow: auto; /* Add scrollbars when content overflows */
@@ -9,5 +10,6 @@
     margin-bottom:2rem;
     justify-content: center;
     align-items: center;
+    margin-bottom:2rem;
 }
 
