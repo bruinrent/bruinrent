@@ -8,6 +8,7 @@ import Map from "./Map.js";
 import { Link } from "react-router-dom";
 import { Tooltip } from 'react-tooltip'
 import ReviewSumPart from "../reviewSummaryPart.jsx";
+import addressToLongLat from "../addressToLongLat.js"
 
 // firebase stuff
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -15,15 +16,17 @@ import { doc, getDoc } from "firebase/firestore";
 import { app, firestore } from "../../firebase.js"; 
 import { useParams } from "react-router-dom";
 
-const markers = [
+let markers = [
   { lat: 51.505, lng: -0.09, popupContent: "Marker 1" },
   //Add more markers as needed
 ];
 
 const ApartmentPage = () => {
   // Get the document ID from the URL parameter
+  const [markers, setMarkers] = useState([{ lat: 51.505, lng: -0.09, popupContent: "Marker 1" }]);
   const { id } = useParams();
   const [imageFiles, setImageFiles] = useState([]);
+  const [latLong, setLatLong] = useState([]);
   const [apartmentData, setApartmentData] = useState({
     address: "",
     addressDesc: "",
@@ -49,6 +52,8 @@ const ApartmentPage = () => {
   });
   
   useEffect(() => {
+
+
     // Function to fetch apartment data from Firebase and update state
     const fetchDataFromFirebase = async () => {
        try {
@@ -70,9 +75,32 @@ const ApartmentPage = () => {
        }
     };
 
-    fetchDataFromFirebase();
+
+
+    fetchDataFromFirebase()
+    
  }, [id]); // Include the ID in the dependency array to re-fetch data when the ID changes
 
+
+ //Temporary, should NOT be calling API to get latlong, should be created when listing is made
+ useEffect(() => {
+  if (apartmentData.address) {
+      addressToLongLat(apartmentData.address).then((result) => {
+        console.log(`Result: ${result[0]}`)
+          setLatLong([result[1], result[0]])
+          console.log(latLong)
+      });
+      console.log(latLong[0] + " || "+ latLong[1])
+      // 
+  }
+}, [apartmentData.address]);
+
+useEffect(() => {
+  console.log("latlong: " + latLong);
+  if (latLong.length === 2) {
+    setMarkers([{ lat: latLong[0], lng: latLong[1], popupContent: apartmentData.address }]);
+  }
+}, [latLong]);
 
  function sendEmail(recipient) {
   const emailLink = `mailto:${recipient}`;
@@ -312,15 +340,6 @@ const ApartmentPage = () => {
 
             </div>
           </BoxTemplate>
-
-      
-
-      
-
-      
-
-      
-
       
       
     </div>
