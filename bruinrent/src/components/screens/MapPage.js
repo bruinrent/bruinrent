@@ -13,6 +13,12 @@ const MapPage = () => {
     const markers = [];
 
     const [listings, setListings] = useState([]);
+    const [visibleListings, setVisibleListings] = useState(10); // Display the first 10 listings
+
+    const loadMoreListings = () => {
+        // Increase the number of visible listings by 10
+        setVisibleListings((prevVisibleListings) => prevVisibleListings + 10);
+    };
 
     useEffect(() => {
         // Fetch data from the "listings" collection in Firestore
@@ -49,34 +55,32 @@ const MapPage = () => {
                 />
             </div>
 
-            <div className="tab">
-                <div className="tab-content">
-                    <div className="search-bar">
-                        <input
-                            type="text"
-                            placeholder="Search..."
-                            //onChange={onSearch}
-                        />
-                        <button>Button 1</button>
-                        <button>Button 2</button>
-                    </div>
-                </div>
-            </div>
-
             <div className="map-page">
                 <div className="map-container">
                     <Map markers={markers} />
                 </div>
+
                 <div className="address-list">
-                {listings.map((listing, index) => (
-                    <Link to={`/apartment/${listing.id}`} key={index}>
-                        <AddressBlock
-                            address={listing.address}s
-                            bedrooms={listing.bedrooms}
-                            bathroom={listing.bathroom}
-                        />
-                    </Link>
-                ))}
+                    {listings
+                        .slice(0, visibleListings)
+                        .map((listing, index) => (
+                            <Link to={`/apartment/${listing.id}`} key={index}>
+                                <AddressBlock
+                                    address={listing.address}
+                                    s
+                                    bedrooms={listing.bedrooms}
+                                    bathroom={listing.bathroom}
+                                    imageUrl={
+                                        listing.imageUrls
+                                            ? listing.imageUrls[0]
+                                            : null
+                                    } // Assuming you want to display the first image in the array
+                                />
+                            </Link>
+                        ))}
+                    {visibleListings < listings.length && (
+                        <button onClick={loadMoreListings}>Load More</button>
+                    )}
                 </div>
             </div>
         </div>

@@ -102,12 +102,18 @@ const Homepage = () => {
                 <div className="address-block">
                     {listings.slice(0, 6).map((listing, index) => (
                         <Link to={`/apartment/${listing.id}`} key={index}>
-                        <AddressBlock
-                            address={listing.address}s
-                            bedrooms={listing.bedrooms}
-                            bathroom={listing.bathroom}
-                        />
-                    </Link>
+                            <AddressBlock
+                                address={listing.address}
+                                s
+                                bedrooms={listing.bedrooms}
+                                bathroom={listing.bathroom}
+                                imageUrl={
+                                    listing.imageUrls
+                                        ? listing.imageUrls[0]
+                                        : null
+                                }
+                            />
+                        </Link>
                     ))}
                 </div>
             </div>
