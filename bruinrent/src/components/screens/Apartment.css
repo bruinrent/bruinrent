@@ -27,11 +27,11 @@ img {
   height: auto;
 }
 
-.homepage-container {
+.aprt-homepage-container {
     position: absolute;
     width: 100%;
     background: #FFFFFF;
-    padding: 5rem;
+    padding: 1rem;
 }
 
 .homepage-boxtop {
@@ -75,7 +75,7 @@ img {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-top: 12rem;
+    padding-top: 1rem;
     width: 100%;
     height: 40rem;
     align-items: flex-start; /* Align items to the start (left side) of the container */

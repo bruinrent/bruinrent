@@ -10,6 +10,7 @@ import { Tooltip } from 'react-tooltip'
 import ReviewSumPart from "../reviewSummaryPart.jsx";
 import addressToLongLat from "../addressToLongLat.js"
 import GoogleMap from "../GoogleMap.js";
+import Header from "../Header.jsx";
 
 // firebase stuff
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -111,8 +112,8 @@ useEffect(() => {
 // Reviews (compiled ratings, individual review info, etc) 
 // Note: Headers inside or outside boxes?
   return (
-    <div className="homepage-container">
-      
+    <div className="aprt-homepage-container">
+      <Header />
       {/* Images Group at the top of Apartment Page */}
 
       {/* NOTE: Probably want to add aspect ratio when rescaling */}
