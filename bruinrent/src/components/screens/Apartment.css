@@ -31,7 +31,9 @@ img {
     position: absolute;
     width: 100%;
     background: #FFFFFF;
-    padding: 5rem;
+    padding-top: 2rem;
+    padding-left: 5rem;
+    padding-right: 5rem;
 }
 
 .homepage-boxtop {
@@ -75,7 +77,6 @@ img {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-top: 12rem;
     width: 100%;
     height: 40rem;
     align-items: flex-start; /* Align items to the start (left side) of the container */
@@ -263,7 +264,16 @@ img {
 /* SubSection START*/
 .content-container {
   background-color: #ffffff;
-  width: 40%;
+  width: 100%;
+  display:flex;
+  flex-direction: column;
+  gap:1rem;
+}
+
+.map-container {
+  background-color: #ffffff;
+  width: 100%;
+  width: 100%;
   display:flex;
   flex-direction: column;
   gap:1rem;
@@ -379,10 +389,12 @@ img {
 
 .pin-text {
   background-color: #00BFF6;
-  border-radius: 50%;
+  border-radius: 5%;
   text-align: center;
   align-items: center;
   justify-content: center;
+  align-self: center;
+  padding-top: 50%;
 
 }
 

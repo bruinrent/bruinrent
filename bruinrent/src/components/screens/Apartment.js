@@ -10,6 +10,8 @@ import { Tooltip } from 'react-tooltip'
 import ReviewSumPart from "../reviewSummaryPart.jsx";
 import addressToLongLat from "../addressToLongLat.js"
 import GoogleMap from "../GoogleMap.js";
+import Header from "../Header.jsx";
+
 
 // firebase stuff
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -112,12 +114,15 @@ useEffect(() => {
 // Reviews (compiled ratings, individual review info, etc) 
 // Note: Headers inside or outside boxes?
   return (
+    <div>
+      <Header/>
     <div className="apartment-homepage-container">
       
       {/* Images Group at the top of Apartment Page */}
 
       {/* NOTE: Probably want to add aspect ratio when rescaling */}
       <div className="image-group">
+        
         <div className="individual-img-container">
           <img src={apart2} alt="Large Scenic View" className="big-image" />
         </div>
@@ -308,12 +313,13 @@ useEffect(() => {
             </div>
           </BoxTemplate>
 
+          <div className="header">Location</div>
+
           <BoxTemplate>
             <div className="content-container">
-              <div className="header">Location</div>
-              <div className="map">
-                  {/* <Map markers={markers} /> */}
-              </div>
+              <div className="map-container">
+                    <GoogleMap markers={markers}/>
+            </div>
               <div className="main-features">
                 <div className="main-features-header">
                   Transportation
@@ -336,12 +342,7 @@ useEffect(() => {
             </div>
           </BoxTemplate>
 
-          <BoxTemplate>
-            <div className="content-container">
-              <div className="header"> Google Map</div>
-                    <GoogleMap markers={markers}/>
-            </div>
-          </BoxTemplate>
+          
 
           <BoxTemplate>
             <div className="content-container">
@@ -351,6 +352,7 @@ useEffect(() => {
           </BoxTemplate>
       
       
+    </div>
     </div>
   );
 };
