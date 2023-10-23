@@ -1,30 +1,39 @@
 import React from "react";
 import GoogleMapReact from 'google-map-react';
+import "./screens/Apartment.css"
 
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
+const AnyComp = ({ text }) => (
+<div>
+  {text}
+</div>);
 
-export default function GoogleMap(){
+export default function GoogleMap({ markers }){
   const defaultProps = {
     center: {
-      lat: 10.99835602,
-      lng: 77.01502627
+      lat: 34.0689,
+      lng: -118.4452
     },
-    zoom: 11
+    zoom: 15
   };
 
   return (
     // Important! Always set the container height explicitly
     <div style={{ height: '100vh', width: '100%' }}>
       <GoogleMapReact
-        bootstrapURLKeys={{ key: "" }}
+        yesIWantToUseGoogleMapApiInternals
+        bootstrapURLKeys={{ key: "AIzaSyA5pc3UpR2pjZVAJWbS0kbTu-WW0CepOE8" }}
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}
       >
-        <AnyReactComponent
-          lat={59.955413}
-          lng={30.337844}
-          text="My Marker"
-        />
+
+      {markers.map((marker, index) => (
+                <AnyComp 
+                text={marker.text} 
+                lat={34.066}
+                lng={-118.4452}
+                key={index}
+                />
+            ))}
       </GoogleMapReact>
     </div>
   );

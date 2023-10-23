@@ -27,7 +27,7 @@ img {
   height: auto;
 }
 
-.homepage-container {
+.apartment-homepage-container {
     position: absolute;
     width: 100%;
     background: #FFFFFF;
@@ -365,6 +365,27 @@ img {
   align-items: center;
   justify-content: center;
 }
+
+.pin {
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: #00BFF6;
+  border-radius: 50%;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+}
+
+.pin-text {
+  background-color: #00BFF6;
+  border-radius: 50%;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+
+}
+
 
 .info-circle {
   display: flex;

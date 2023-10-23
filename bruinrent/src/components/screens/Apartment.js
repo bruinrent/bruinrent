@@ -18,13 +18,14 @@ import { app, firestore } from "../../firebase.js";
 import { useParams } from "react-router-dom";
 
 let markers = [
-  { lat: 51.505, lng: -0.09, popupContent: "Marker 1" },
+  { lat: 51.505, lng: -0.09, text: "Marker 1" },
+  { lat: 51.805, lng: -0.19, text: "Marker 2" },
   //Add more markers as needed
 ];
 
 const ApartmentPage = () => {
   // Get the document ID from the URL parameter
-  const [markers, setMarkers] = useState([{ lat: 51.505, lng: -0.09, popupContent: "Marker 1" }]);
+  const [markers, setMarkers] = useState([{ lat: 51.505, lng: -0.09, text: "Marker 1" },{ lat: 51.805, lng: -0.19, text: "Marker 2" },]);
   const { id } = useParams();
   const [imageFiles, setImageFiles] = useState([]);
   const [latLong, setLatLong] = useState([]);
@@ -97,9 +98,9 @@ const ApartmentPage = () => {
 }, [apartmentData.address]);
 
 useEffect(() => {
-  console.log("latlong: " + latLong);
+  console.log("latlong updated, latlong: " + latLong);
   if (latLong.length === 2) {
-    setMarkers([{ lat: latLong[0], lng: latLong[1], popupContent: apartmentData.address }]);
+    setMarkers([{ lat: 51.505, lng: -0.09, popupContent: "Marker 1" },{ lat: latLong[0], lng: latLong[1], text: apartmentData.address }]);
   }
 }, [latLong]);
 
@@ -111,7 +112,7 @@ useEffect(() => {
 // Reviews (compiled ratings, individual review info, etc) 
 // Note: Headers inside or outside boxes?
   return (
-    <div className="homepage-container">
+    <div className="apartment-homepage-container">
       
       {/* Images Group at the top of Apartment Page */}
 
@@ -311,7 +312,7 @@ useEffect(() => {
             <div className="content-container">
               <div className="header">Location</div>
               <div className="map">
-                  <Map markers={markers} />
+                  {/* <Map markers={markers} /> */}
               </div>
               <div className="main-features">
                 <div className="main-features-header">
@@ -335,12 +336,12 @@ useEffect(() => {
             </div>
           </BoxTemplate>
 
-          {/* <BoxTemplate>
+          <BoxTemplate>
             <div className="content-container">
               <div className="header"> Google Map</div>
-                    <GoogleMap/>
+                    <GoogleMap markers={markers}/>
             </div>
-          </BoxTemplate> */}
+          </BoxTemplate>
 
           <BoxTemplate>
             <div className="content-container">
