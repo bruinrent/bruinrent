@@ -12,6 +12,7 @@ import "./ListingPage.css";
 import Sidebar from "./Sidebar.js";
 import CheckBox from "./Checkbox.js";
 import Header from "../Header.jsx";
+import addressToLongLat from "../addressToLongLat.js";
 
 const ListingPage = () => {
   const navigate = useNavigate();
@@ -127,10 +128,13 @@ const ListingPage = () => {
         console.error("Error uploading image: ", error);
       }
     }
+    const longLat = await addressToLongLat(address);
+    const latLong = [longLat[1], longLat[0]]
 
     const formData = {
       address,
       addressDesc,
+      latLong,
       size,
       bedrooms,
       rent1,

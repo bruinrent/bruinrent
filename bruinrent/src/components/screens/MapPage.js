@@ -8,6 +8,7 @@ import Map from "./Map.js";
 import { app, firestore } from "../../firebase.js";
 import "leaflet/dist/leaflet.css";
 import { list } from "firebase/storage";
+import GoogleMap from "../GoogleMap.js"
 import Header from "../Header.jsx";
 
 const MapPage = () => {
@@ -50,7 +51,7 @@ const MapPage = () => {
 
       <div className="map-page">
         <div className="map-container">
-          <Map markers={markers} />
+        <GoogleMap markers = {markers}/>
         </div>
         <div className="address-list">
           {listings.map((listing, index) => (

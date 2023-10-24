@@ -1,16 +1,17 @@
 import GoogleMap from 'google-maps-react-markers'
 import React from "react";
 import { useState, useRef} from "react";
+import pin from "../assets/Google_Maps_pin.svg";
 
 
 const APIKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
 
 const Marker = ({ text }) => (
-  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center'}}>
-    <div className="pin" style={{zIndex:'9999'}}/>
-    <p>{text}</p>
-
+  <div className='pin-container'>
+     <img src={pin} alt="Your SVG" />
+    {/* <div className="pin" style={{zIndex:'9999'}}/> */}
+    <p style={{textAlign:'center', width:'5rem'}}>{text}</p>
   </div>
 )
 
