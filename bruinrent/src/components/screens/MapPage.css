@@ -2,12 +2,32 @@
 
 .map-page-container {
   box-sizing: border-box;
-  min-height: 100vh;
-  width: 100vw;
+  height: 100vh;
+  width: 100%;
 }
 
-.map-page {
+.map-page-body {
+  border-top: 1px solid rgba(175, 175, 175, 0.5);
+}
+
+.map-page-search {
+  height: 20%;
+  padding: 2rem 1rem 1rem 1rem;
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.map-page-search-bar {
+  width: 100%;
+  border-radius: 1rem;
+  border: 2px solid #89d2f3;
+  padding: 0.5rem;
+}
+
+.map-page-listings {
+  height: 80%;
 }
 
 .map-container {
@@ -36,4 +56,20 @@
   padding: 10px;
   background-color: white;
   border: 1px solid #ccc;
+}
+
+@media only screen and (max-device-width: 600px) {
+  .map-container {
+    display: none;
+  }
+
+  .address-list {
+    margin-top: 0;
+    margin-right: 0;
+    padding: 0;
+    width: 100%; /* Width of the scrolling window */
+    display: flex; /* Add this line to use flexbox */
+    flex-direction: column; /* Stack address blocks vertically */
+    gap: 2rem;
+  }
 }

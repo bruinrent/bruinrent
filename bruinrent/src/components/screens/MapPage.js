@@ -33,36 +33,31 @@ const MapPage = () => {
   return (
     <div className="map-page-container">
       <Header />
-
-      <div className="tab">
-        <div className="tab-content">
-          <div className="search-bar">
-            <input
-              type="text"
-              placeholder="Search..."
-              //onChange={onSearch}
-            />
-            <button>Button 1</button>
-            <button>Button 2</button>
+      <div className="map-page-body">
+        <div className="map-page-search">
+          <input
+            className="map-page-search-bar"
+            type="text"
+            placeholder="Point of Interest"
+            //onChange={onSearch}
+          />
+        </div>
+        <div className="map-page-listings">
+          <div className="map-container">
+            <Map markers={markers} />
           </div>
-        </div>
-      </div>
-
-      <div className="map-page">
-        <div className="map-container">
-          <Map markers={markers} />
-        </div>
-        <div className="address-list">
-          {listings.map((listing, index) => (
-            <Link to={`/apartment/${listing.id}`} key={index}>
-              <AddressBlock
-                address={listing.address}
-                s
-                bedrooms={listing.bedrooms}
-                bathroom={listing.bathroom}
-              />
-            </Link>
-          ))}
+          <div className="address-list">
+            {listings.map((listing, index) => (
+              <Link to={`/apartment/${listing.id}`} key={index}>
+                <AddressBlock
+                  address={listing.address}
+                  s
+                  bedrooms={listing.bedrooms}
+                  bathroom={listing.bathroom}
+                />
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </div>
