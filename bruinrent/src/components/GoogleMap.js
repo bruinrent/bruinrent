@@ -9,7 +9,7 @@ const APIKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
 const Marker = ({ text }) => (
   <div className='pin-container'>
-     <img src={pin} alt="Your SVG" />
+     <img src={pin} alt="Pin" />
     {/* <div className="pin" style={{zIndex:'9999'}}/> */}
     <p style={{textAlign:'center', width:'5rem'}}>{text}</p>
   </div>
@@ -35,6 +35,7 @@ if (!APIKey) {
   const onGoogleApiLoaded = ({ map, maps }) => {
     mapRef.current = map
     setMapReady(true)
+
   }
 
   

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./homepage.css"; // Import a separate CSS file for component-specific styles
+import "./MapPage.css"; // Import a separate CSS file for component-specific styles
+
 import { collection, getDocs } from "firebase/firestore";
 import apart1 from "../../assets/apart_1.png";
 import { Link } from "react-router-dom";
@@ -12,9 +14,9 @@ import GoogleMap from "../GoogleMap.js"
 import Header from "../Header.jsx";
 
 const MapPage = () => {
-  const markers = [];
 
   const [listings, setListings] = useState([]);
+  const [markers, setMarkers] = useState([]);
 
   useEffect(() => {
     // Fetch data from the "listings" collection in Firestore
@@ -31,9 +33,26 @@ const MapPage = () => {
     fetchListings();
   }, []);
 
+  useEffect( () => {
+    console.log(`Markers array: ${markers}`);
+
+    console.log('listings useffect');
+    listings.forEach( (listing) => { 
+      if (listing.latLong) {
+        console.log(listing.latLong);
+        // need to add to useeffect array
+        setMarkers(markers => [...markers, {lat:listing.latLong[0], lng:listing.latLong[1],text:listing.address}]);
+        // markers.push( {lat:listing.latLong[0], lng:listing.latLong[1],text:listing.address} );
+      }
+    })
+    console.log({markers});
+  }, [listings]);
+
   return (
-    <div className="map-page-container">
+    <div>      
       <Header />
+    
+    <div className="map-page-container">
 
       <div className="tab">
         <div className="tab-content">
@@ -51,7 +70,7 @@ const MapPage = () => {
 
       <div className="map-page">
         <div className="map-container">
-        <GoogleMap markers = {markers}/>
+        <GoogleMap markers={markers}/>
         </div>
         <div className="address-list">
           {listings.map((listing, index) => (
@@ -66,6 +85,7 @@ const MapPage = () => {
           ))}
         </div>
       </div>
+    </div>
     </div>
   );
 };

@@ -17,6 +17,7 @@ import addressToLongLat from "../addressToLongLat.js";
 const ListingPage = () => {
   const navigate = useNavigate();
   const [address, setAddress] = useState("");
+  const [latLong, setLatLong] = useState("");
   const [addressDesc, setAddressDesc] = useState("");
   const [size, setSize] = useState("");
   const [bedrooms, setBedrooms] = useState("");
@@ -60,6 +61,8 @@ const ListingPage = () => {
     "Heating",
     "Gas Stoves",
   ];
+
+  
 
   const [buildingFeatures, setBuildingFeatures] = useState(
     buildingFeatureData.map((label, id) => ({
@@ -129,7 +132,16 @@ const ListingPage = () => {
       }
     }
     const longLat = await addressToLongLat(address);
-    const latLong = [longLat[1], longLat[0]]
+    setLatLong([longLat[1], longLat[0]]);
+
+    // const titleAddress = address.replace(/\b\w+/g,
+    // (s) => {
+    //   return s.charAt(0).toUpperCase() + s.substr(1).toLowerCase();
+    // })
+
+    // await setAddress(titleAddress);
+    // console.log(address)
+    // const address = titleAddress;
 
     const formData = {
       address,
