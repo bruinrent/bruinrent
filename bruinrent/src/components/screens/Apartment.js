@@ -12,6 +12,7 @@ import addressToLongLat from "../addressToLongLat.js"
 import GoogleMap from "../GoogleMap.js";
 import Header from "../Header.jsx";
 
+
 // firebase stuff
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { doc, getDoc } from "firebase/firestore";
@@ -19,13 +20,14 @@ import { app, firestore } from "../../firebase.js";
 import { useParams } from "react-router-dom";
 
 let markers = [
-  { lat: 51.505, lng: -0.09, popupContent: "Marker 1" },
+  { lat: 51.505, lng: -0.09, text: "Marker 1" },
+  { lat: 51.805, lng: -0.19, text: "Marker 2" },
   //Add more markers as needed
 ];
 
 const ApartmentPage = () => {
   // Get the document ID from the URL parameter
-  const [markers, setMarkers] = useState([{ lat: 51.505, lng: -0.09, popupContent: "Marker 1" }]);
+  const [markers, setMarkers] = useState([{ lat: 51.505, lng: -0.09, text: "Marker 1" },{ lat: 51.805, lng: -0.19, text: "Marker 2" },]);
   const { id } = useParams();
   const [imageFiles, setImageFiles] = useState([]);
   const [latLong, setLatLong] = useState([]);
@@ -98,9 +100,9 @@ const ApartmentPage = () => {
 }, [apartmentData.address]);
 
 useEffect(() => {
-  console.log("latlong: " + latLong);
+  console.log("latlong updated, latlong: " + latLong);
   if (latLong.length === 2) {
-    setMarkers([{ lat: latLong[0], lng: latLong[1], popupContent: apartmentData.address }]);
+    setMarkers([{ lat: 51.505, lng: -0.09, popupContent: "Marker 1" },{ lat: latLong[0], lng: latLong[1], text: apartmentData.address }]);
   }
 }, [latLong]);
 
@@ -112,12 +114,15 @@ useEffect(() => {
 // Reviews (compiled ratings, individual review info, etc) 
 // Note: Headers inside or outside boxes?
   return (
-    <div className="aprt-homepage-container">
-      <Header />
+    <div>
+      <Header/>
+    <div className="apartment-homepage-container">
+      
       {/* Images Group at the top of Apartment Page */}
 
       {/* NOTE: Probably want to add aspect ratio when rescaling */}
       <div className="image-group">
+        
         <div className="individual-img-container">
           <img src={apart2} alt="Large Scenic View" className="big-image" />
         </div>
@@ -308,12 +313,13 @@ useEffect(() => {
             </div>
           </BoxTemplate>
 
+          <div className="header">Location</div>
+
           <BoxTemplate>
             <div className="content-container">
-              <div className="header">Location</div>
-              <div className="map">
-                  <Map markers={markers} />
-              </div>
+              <div className="map-container">
+                    <GoogleMap markers={markers}/>
+            </div>
               <div className="main-features">
                 <div className="main-features-header">
                   Transportation
@@ -336,12 +342,7 @@ useEffect(() => {
             </div>
           </BoxTemplate>
 
-          {/* <BoxTemplate>
-            <div className="content-container">
-              <div className="header"> Google Map</div>
-                    <GoogleMap/>
-            </div>
-          </BoxTemplate> */}
+          
 
           <BoxTemplate>
             <div className="content-container">
@@ -351,6 +352,7 @@ useEffect(() => {
           </BoxTemplate>
       
       
+    </div>
     </div>
   );
 };
