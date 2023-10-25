@@ -1,7 +1,6 @@
 /* BoxTemplate.css */
 .resizablebox-template {
-
-    height: auto; /* Allow the height to adjust based on content */
+    height:auto;
     display: flex;
     padding: 2rem;
     overflow: auto; /* Add scrollbars when content overflows */
@@ -9,9 +8,8 @@
     border: 0.1rem solid rgba(175, 175, 175, 0.50);
     background: #FFF;
     margin-bottom:2rem;
-
-
     justify-content: center;
     align-items: center;
+    margin-bottom:2rem;
 }
 
