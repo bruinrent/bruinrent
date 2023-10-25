@@ -56,23 +56,24 @@ const MapPage = () => {
                         {listings
                             .slice(0, visibleListings)
                             .map((listing, index) => (
-                                <Link
-                                    to={`/apartment/${listing.id}`}
-                                    key={index}
-                                >
-                                    <AddressBlock
-                                        address={listing.address}
-                                        s
-                                        bedrooms={listing.bedrooms}
-                                        bathroom={listing.bathroom}
-                                        imageUrl={
-                                            listing.imageUrls
-                                                ? listing.imageUrls[0]
-                                                : null
-                                        }
-                                    />
-                                </Link>
+                                <AddressBlock
+                                    url={`/apartment/${listing.id}`}
+                                    address={listing.address}
+                                    s
+                                    bedrooms={listing.bedrooms}
+                                    bathroom={listing.bathroom}
+                                    imageUrl={
+                                        listing.imageUrls
+                                            ? listing.imageUrls[0]
+                                            : null
+                                    }
+                                />
                             ))}
+                        {visibleListings < listings.length && (
+                            <button onClick={loadMoreListings}>
+                                Load More
+                            </button>
+                        )}
                     </div>
                 </div>
             </div>
