@@ -3,8 +3,7 @@ import React from "react";
 import { useState, useRef} from "react";
 
 
-const APIKey = process.env;
-
+const APIKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
 const Marker = ({ text }) => (
   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center'}}>
