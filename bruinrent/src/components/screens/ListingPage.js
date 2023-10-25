@@ -3,7 +3,6 @@ import "./homepage.css"; // Import a separate CSS file for component-specific st
 import { collection, addDoc } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
-import logo from "../../assets/logo_white.png";
 import { Link, useNavigate } from "react-router-dom";
 import "./MapPage.css";
 import { app, firestore } from "../../firebase.js";
@@ -12,6 +11,7 @@ import House from "../../assets/Map.png";
 import "./ListingPage.css";
 import Sidebar from "./Sidebar.js";
 import CheckBox from "./Checkbox.js";
+import Header from "../Header.jsx";
 
 const ListingPage = () => {
     const navigate = useNavigate();
@@ -168,49 +168,21 @@ const ListingPage = () => {
         navigate("/MapPage");
     };
 
-    const headerStyle = {
-        color: "#100F0D",
-        fontFamily: "Lato",
-        fontSize: "30px",
-        fontStyle: "normal",
-        fontWeight: 700,
-        lineHeight: "normal",
-        marginLeft: "250px",
-    };
-
     return (
-        <div className="homepage-boxtop">
-            <div className="homepage-content">
-                <h2 className="homepage-header">BruinRent</h2>
-
-                <Link to="/Construction">
-                    <button className="homepage-button1">List With Us</button>
-                </Link>
-
-                <Link to="/Construction">
-                    <button className="homepage-button2">Sign In</button>
-                </Link>
-
-                <img
-                    className="homepage-logo"
-                    src={logo}
-                    alt="Bruin Rent Logo"
-                />
-            </div>
-            <div className="page-container">
+        <div className="listing-page-container">
+            <Header />
+            <div className="listing-page-main">
                 <div className="sidebar-container">
                     <Sidebar />
                 </div>
-                <div className="content-container">
-                    <h2 style={headerStyle}>List Your Property</h2>
-                    <BoxTemplate>
+
+                <div className="listing-page-body">
+                    <h2 className="listing-page-content-title">
+                        List Your Property
+                    </h2>
+                    <div className="listing-page-basic-details">
                         <img
-                            style={{
-                                maxWidth: "100%",
-                                maxheight: "100%",
-                                objectFit: "contain",
-                                // marginLeft: "50px",
-                            }}
+                            className="listing-page-basic-details-img"
                             src={House}
                             alt="House"
                         />
@@ -227,7 +199,7 @@ const ListingPage = () => {
                             <text className="address">
                                 Describe Your Property:
                             </text>
-                            <input
+                            <textarea
                                 className="property-text"
                                 type="addressDesc"
                                 value={addressDesc}
@@ -235,18 +207,11 @@ const ListingPage = () => {
                                 //onChange={onSearch}
                             />
                         </div>
-                    </BoxTemplate>
-                    <BoxTemplate>
-                        <div className="content-container">
-                            <div className="centered-text">
-                                <text className="unit-details">
-                                    Unit Details
-                                </text>
-                            </div>
-                            <div
-                                className="left-aligned-content"
-                                style={{ marginBottom: "30px" }}
-                            >
+                    </div>
+                    <div className="listing-page-unit-details">
+                        <text className="unit-details">Unit Details</text>
+                        <div className="unit-details-selectors">
+                            <div className="unit-details-size">
                                 <text className="unit-details-text">Size:</text>
                                 <input
                                     className="unit-details-input"
@@ -254,12 +219,10 @@ const ListingPage = () => {
                                     value={size}
                                     onChange={(e) => setSize(e.target.value)}
                                 />
-                                <text className="grey-text">sq ft:</text>
-
-                                <text
-                                    className="unit-details-text"
-                                    style={{ marginLeft: "50px" }}
-                                >
+                                <text className="grey-text">sqft</text>
+                            </div>
+                            <div className="unit-details-bedrooms">
+                                <text className="unit-details-text">
                                     Bedrooms:
                                 </text>
 
@@ -271,13 +234,9 @@ const ListingPage = () => {
                                         setBedrooms(e.target.value)
                                     }
                                 />
-
-                                <text
-                                    className="unit-details-text"
-                                    style={{ marginLeft: "60px" }}
-                                >
-                                    Rent:
-                                </text>
+                            </div>
+                            <div className="unit-details-rent">
+                                <text className="unit-details-text">Rent:</text>
 
                                 <input
                                     className="unit-details-input"
@@ -286,12 +245,7 @@ const ListingPage = () => {
                                     onChange={(e) => setRent1(e.target.value)}
                                 />
 
-                                <text
-                                    className="unit-details-text"
-                                    style={{ marginLeft: "5px" }}
-                                >
-                                    to
-                                </text>
+                                <text className="unit-details-text">to</text>
                                 <input
                                     className="unit-details-input"
                                     type="rent"
@@ -299,7 +253,7 @@ const ListingPage = () => {
                                     onChange={(e) => setRent2(e.target.value)}
                                 />
                             </div>
-                            <div className="left-aligned-content">
+                            <div className="unit-details-units">
                                 <text className="unit-details-text">
                                     Units:
                                 </text>
@@ -309,11 +263,9 @@ const ListingPage = () => {
                                     value={units}
                                     onChange={(e) => setUnits(e.target.value)}
                                 />
-
-                                <text
-                                    className="unit-details-text"
-                                    style={{ marginLeft: "105px" }}
-                                >
+                            </div>
+                            <div className="unit-details-baths">
+                                <text className="unit-details-text">
                                     Baths:
                                 </text>
 
@@ -323,11 +275,9 @@ const ListingPage = () => {
                                     value={baths}
                                     onChange={(e) => setBaths(e.target.value)}
                                 />
-
-                                <text
-                                    className="unit-details-text"
-                                    style={{ marginLeft: "50px" }}
-                                >
+                            </div>
+                            <div className="unit-details-lease">
+                                <text className="unit-details-text">
                                     Lease:
                                 </text>
 
@@ -338,380 +288,242 @@ const ListingPage = () => {
                                     onChange={(e) => setLease1(e.target.value)}
                                 />
 
-                                <text
-                                    className="unit-details-text"
-                                    style={{ marginLeft: "5px" }}
-                                >
-                                    to
-                                </text>
+                                <text className="unit-details-text">to</text>
                                 <input
                                     className="unit-details-input"
                                     type="lease"
                                     value={lease2}
                                     onChange={(e) => setLease2(e.target.value)}
                                 />
-                                <text className="grey-text">months:</text>
+                                <text className="grey-text">months</text>
                             </div>
                         </div>
-                    </BoxTemplate>
+                    </div>
 
-                    <BoxTemplate>
-                        <div className="content-container">
-                            <div className="centered-text">
-                                <text className="unit-details">
-                                    Add a Video Tour{" "}
-                                </text>
-                            </div>
-                            <div className="centered-text">
-                                <text className="add-photos-text">
-                                    By showing a video renters are able to see
-                                    exactly what the apartment looks like!
-                                </text>
-                            </div>
-                            <div className="centered-text">
-                                <button className="upload-button">
-                                    Upload
-                                </button>
-                            </div>
-                            <div className="centered-text">
-                                <text className="add-photos-text">
-                                    If your video is on a 3rd party link (ex.
-                                    Youtube), add the link here:
-                                </text>
-                            </div>
+                    <div className="listing-page-unit-videos">
+                        <text className="unit-details">Add a Video Tour </text>
+                        <text className="add-attachment-text">
+                            By showing a video renters are able to see exactly
+                            what the apartment looks like!
+                        </text>
+                        <button className="upload-button">Upload</button>
+                        <text className="add-attachment-text">
+                            If your video is on a 3rd party link (ex. Youtube),
+                            add the link here:
+                        </text>
 
-                            <div className="centered-text">
-                                <input
-                                    className="video-bar"
-                                    type="video"
-                                    value={videoLink}
-                                    onChange={(e) =>
-                                        setVideoLink(e.target.value)
-                                    }
-                                ></input>
-                            </div>
-                        </div>
-                    </BoxTemplate>
-                    <BoxTemplate>
-                        <div
-                            className="content-container"
+                        <input
+                            className="video-bar"
+                            type="video"
+                            value={videoLink}
+                            onChange={(e) => setVideoLink(e.target.value)}
+                        />
+                    </div>
+                    <div className="listing-page-unit-photos">
+                        <text className="unit-details unit-photos-title">
+                            Add Photos
+                        </text>
+                        <text className="add-attachment-text add-photos-text">
+                            Remember to choose photos that showcase all
+                            important aspects of the home!
+                        </text>
+                        <img
                             style={{
-                                // marginTop: "55px",
-                                height: "300px",
-                                padding: "0px",
+                                maxWidth: "15rem",
+                                maxheight: "10rem",
+                                objectFit: "contain",
+                                borderRadius: "30px",
+                                flexShrink: "0",
                             }}
-                        >
-                            <div className="centered-text">
-                                <text
-                                    className="unit-details"
-                                    style={{ marginTop: "12px" }}
-                                >
-                                    Add Photos
-                                </text>
-                            </div>
-                            <div className="centered-text">
-                                <text className="add-photos-text">
-                                    Remember to choose photos that showcase all
-                                    important aspects of the home!
-                                </text>
-                            </div>
-                            <div className="centered-text">
-                                <img
-                                    style={{
-                                        maxWidth: "300.52px",
-                                        maxheight: "207.822px",
-                                        objectFit: "contain",
-                                        borderRadius: "30px",
-                                        flexShrink: "0",
-                                        marginRight: "40px",
-
-                                        // marginLeft: "50px",
-                                    }}
-                                    src={House}
-                                    alt="House"
-                                />
-                                <img
-                                    style={{
-                                        maxWidth: "300.52px",
-                                        maxheight: "207.822px",
-                                        objectFit: "contain",
-                                        borderRadius: "30px",
-                                        flexShrink: "0",
-                                        marginRight: "40px",
-
-                                        // marginLeft: "50px",
-                                    }}
-                                    src={House}
-                                    alt="House"
-                                />
-                                <img
-                                    style={{
-                                        maxWidth: "300.52px",
-                                        maxheight: "207.822px",
-                                        objectFit: "contain",
-                                        borderRadius: "30px",
-                                        flexShrink: "0",
-
-                                        // marginLeft: "50px",
-                                    }}
-                                    src={House}
-                                    alt="House"
-                                />
-                            </div>
-                            <div className="centered-text">
-                                <div className="custom-file-input">
-                                    <label
-                                        htmlFor="file-upload"
-                                        className="custom-file-label"
-                                    >
-                                        Choose Images
-                                    </label>
-                                    <input
-                                        type="file"
-                                        id="file-upload"
-                                        className="hidden-file-input"
-                                        accept="image/*"
-                                        onChange={handleFileSelect}
-                                        multiple
-                                    />
-                                </div>
-                                <div>
-                                    <p>Selected Files:</p>
-                                    <ul>
-                                        {imageFiles.map((file, index) => (
-                                            <li key={index}>{file.name}</li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </BoxTemplate>
-                    <BoxTemplate>
-                        <div
-                            className="content-container"
-                            style={{ padding: "20px" }}
-                        >
-                            <div className="centered-text">
-                                <text className="unit-details">
-                                    Building Features
-                                </text>
-                            </div>
-                            <div
-                                className="left-aligned-content"
-                                style={{ paddingLeft: "50px" }}
+                            src={House}
+                            alt="House"
+                        />
+                        <img
+                            style={{
+                                maxWidth: "15rem",
+                                maxheight: "10rem",
+                                objectFit: "contain",
+                                borderRadius: "30px",
+                                flexShrink: "0",
+                            }}
+                            src={House}
+                            alt="House"
+                        />
+                        <img
+                            style={{
+                                maxWidth: "15rem",
+                                maxheight: "10rem",
+                                objectFit: "contain",
+                                borderRadius: "30px",
+                                flexShrink: "0",
+                            }}
+                            src={House}
+                            alt="House"
+                        />
+                        <div className="custom-file-input">
+                            <label
+                                htmlFor="file-upload"
+                                className="custom-file-label"
                             >
-                                {buildingFeatures.map((data) => (
-                                    <CheckBox
-                                        key={data.id}
-                                        label={data.label}
-                                        checked={data.checked}
-                                        onChange={() =>
-                                            handleCheckboxChange(
-                                                data.id,
-                                                buildingFeatures,
-                                                setBuildingFeatures
-                                            )
-                                        }
-                                    />
+                                Choose Images
+                            </label>
+                            <input
+                                type="file"
+                                id="file-upload"
+                                className="hidden-file-input"
+                                accept="image/*"
+                                onChange={handleFileSelect}
+                                multiple
+                            />
+                        </div>
+                        <div className="unit-photos-selected-files">
+                            <p>Selected Files:</p>
+                            <ul>
+                                {imageFiles.map((file, index) => (
+                                    <li key={index}>{file.name}</li>
                                 ))}
-                            </div>
+                            </ul>
                         </div>
-                    </BoxTemplate>
-                    <BoxTemplate>
-                        <div
-                            className="content-container"
-                            style={{ padding: "30px" }}
-                        >
-                            <div className="centered-text">
-                                <text className="unit-details">
-                                    Apartment Features
-                                </text>
-                            </div>
-                            <div
-                                className="left-aligned-content"
-                                style={{ paddingLeft: "50px" }}
-                            >
-                                {apartmentFeatures.map((data) => (
-                                    <CheckBox
-                                        key={data.id}
-                                        label={data.label}
-                                        checked={data.checked}
-                                        onChange={() =>
-                                            handleCheckboxChange(
-                                                data.id,
-                                                apartmentFeatures,
-                                                setApartmentFeatures
-                                            )
-                                        }
-                                    />
-                                ))}
-                            </div>
+                    </div>
+                    <div className="listing-page-unit-features">
+                        <text className="unit-details">Building Features</text>
+                        <div className="features-selector">
+                            {buildingFeatures.map((data) => (
+                                <CheckBox
+                                    key={data.id}
+                                    label={data.label}
+                                    checked={data.checked}
+                                    onChange={() =>
+                                        handleCheckboxChange(
+                                            data.id,
+                                            buildingFeatures,
+                                            setBuildingFeatures
+                                        )
+                                    }
+                                />
+                            ))}
                         </div>
-                    </BoxTemplate>
-
-                    <BoxTemplate>
-                        <div className="content-container">
-                            <div className="centered-text">
-                                <text className="unit-details">Parking</text>
-                            </div>
-
-                            <div
-                                className="left-aligned-content"
-                                style={{ marginTop: "30px" }}
-                            >
-                                <text className="unit-details-text">
-                                    Single Price:
-                                </text>
-
-                                <input
-                                    className="unit-details-input"
-                                    type="price"
-                                    value={parkingSinglePrice}
-                                    onChange={(e) =>
-                                        setParkingSinglePrice(e.target.value)
-                                    }
-                                    //onChange={onSearch}
-                                />
-
-                                <text
-                                    className="unit-details-text"
-                                    style={{ marginLeft: "30px" }}
-                                >
-                                    Tandem Price:
-                                </text>
-
-                                <input
-                                    className="unit-details-input"
-                                    type="price"
-                                    value={parkingTandemPrice}
-                                    onChange={(e) =>
-                                        setParkingTandemPrice(e.target.value)
+                    </div>
+                    <div className="listing-page-unit-features">
+                        <text className="unit-details">Apartment Features</text>
+                        <div className="features-selector">
+                            {apartmentFeatures.map((data) => (
+                                <CheckBox
+                                    key={data.id}
+                                    label={data.label}
+                                    checked={data.checked}
+                                    onChange={() =>
+                                        handleCheckboxChange(
+                                            data.id,
+                                            apartmentFeatures,
+                                            setApartmentFeatures
+                                        )
                                     }
                                 />
-
-                                <text
-                                    className="unit-details-text"
-                                    style={{ marginLeft: "30px" }}
-                                >
-                                    Type available:
-                                </text>
-
-                                <input
-                                    className="unit-details-input"
-                                    type="price"
-                                    value={parkingType}
-                                    onChange={(e) =>
-                                        setParkingType(e.target.value)
-                                    }
-                                />
-                            </div>
+                            ))}
                         </div>
-                    </BoxTemplate>
-                    <BoxTemplate>
-                        <div className="content-container">
-                            <div className="centered-text">
-                                <text className="unit-details">Contact</text>
-                            </div>
+                    </div>
+                    <div className="listing-page-unit-parking">
+                        <text className="unit-details unit-parking-title">
+                            Parking
+                        </text>
 
-                            <div
-                                className="left-aligned-content"
-                                style={{ marginTop: "-50px" }}
-                            >
-                                <text className="unit-details-text">
-                                    First Name:
-                                </text>
+                        <div className="unit-parking-input">
+                            <text className="unit-details-text">
+                                Single Price:
+                            </text>
 
-                                <text
-                                    className="unit-details-text"
-                                    style={{ marginLeft: "250px" }}
-                                >
-                                    Last Name:
-                                </text>
-                            </div>
-
-                            <div
-                                className="left-aligned-content"
-                                style={{
-                                    marginTop: "15px",
-                                    marginLeft: "-10px",
-                                }}
-                            >
-                                <input
-                                    className="unit-details-input"
-                                    style={{
-                                        width: "266.098px",
-                                    }}
-                                    type="name"
-                                    value={firstName}
-                                    onChange={(e) =>
-                                        setFirstName(e.target.value)
-                                    }
-                                />
-
-                                <input
-                                    className="unit-details-input"
-                                    style={{
-                                        marginLeft: "40px",
-                                        width: "266.098px",
-                                    }}
-                                    type="name"
-                                    value={lastName}
-                                    onChange={(e) =>
-                                        setLastName(e.target.value)
-                                    }
-                                />
-                            </div>
-
-                            <div
-                                className="left-aligned-text"
-                                style={{ marginTop: "15px" }}
-                            >
-                                <text className="unit-details-text">
-                                    Email:
-                                </text>
-
-                                <text
-                                    className="unit-details-text"
-                                    style={{ marginLeft: "500px" }}
-                                >
-                                    Phone Number:
-                                </text>
-                            </div>
-
-                            <div
-                                className="left-aligned-text"
-                                style={{
-                                    marginTop: "10px",
-                                    marginLeft: "-10px",
-                                }}
-                            >
-                                <input
-                                    className="unit-details-input"
-                                    style={{
-                                        width: "500.355px",
-                                    }}
-                                    type="email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                />
-
-                                <input
-                                    className="unit-details-input"
-                                    style={{
-                                        marginLeft: "20px",
-                                        width: "500.355px",
-                                    }}
-                                    type="name"
-                                    value={phone}
-                                    onChange={(e) => setPhone(e.target.value)}
-                                />
-                            </div>
+                            <input
+                                className="unit-details-input"
+                                type="price"
+                                value={parkingSinglePrice}
+                                onChange={(e) =>
+                                    setParkingSinglePrice(e.target.value)
+                                }
+                                //onChange={onSearch}
+                            />
                         </div>
-                    </BoxTemplate>
+
+                        <div className="unit-parking-input">
+                            <text className="unit-details-text">
+                                Tandem Price:
+                            </text>
+
+                            <input
+                                className="unit-details-input"
+                                type="price"
+                                value={parkingTandemPrice}
+                                onChange={(e) =>
+                                    setParkingTandemPrice(e.target.value)
+                                }
+                            />
+                        </div>
+
+                        <div className="unit-parking-input">
+                            <text className="unit-details-text">
+                                Type available:
+                            </text>
+
+                            <input
+                                className="unit-details-input"
+                                type="price"
+                                value={parkingType}
+                                onChange={(e) => setParkingType(e.target.value)}
+                            />
+                        </div>
+                    </div>
+                    <div className="listing-page-unit-contact">
+                        <text className="unit-details unit-contact-title">
+                            Contact
+                        </text>
+
+                        <div className="unit-contact-input">
+                            <text className="unit-details-text">
+                                First Name:
+                            </text>
+                            <input
+                                className="unit-details-input unit-contact-input-box"
+                                type="name"
+                                value={firstName}
+                                onChange={(e) => setFirstName(e.target.value)}
+                            />
+                        </div>
+                        <div className="unit-contact-input">
+                            <text className="unit-details-text">
+                                Last Name:
+                            </text>
+                            <input
+                                className="unit-details-input unit-contact-input-box"
+                                type="name"
+                                value={lastName}
+                                onChange={(e) => setLastName(e.target.value)}
+                            />
+                        </div>
+
+                        <div className="unit-contact-input">
+                            <text className="unit-details-text">Email:</text>
+                            <input
+                                className="unit-details-input unit-contact-input-box"
+                                type="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                        </div>
+                        <div className="unit-contact-input">
+                            <text className="unit-details-text">
+                                Phone Number:
+                            </text>
+                            <input
+                                className="unit-details-input unit-contact-input-box"
+                                type="name"
+                                value={phone}
+                                onChange={(e) => setPhone(e.target.value)}
+                            />
+                        </div>
+                    </div>
                     <div style={{ display: "flex", justifyContent: "center" }}>
                         <button
                             className="upload-button"
-                            style={{ marginBottom: "50px" }}
                             onClick={handleSubmit}
                         >
                             Submit

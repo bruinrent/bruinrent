@@ -1,0 +1,88 @@
+.header-container {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 5%;
+  padding: 1rem;
+  width: 100vw;
+}
+
+.header-title {
+  width: 100%;
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 2rem;
+  text-align: center;
+  color: #000000;
+  justify-self: center;
+}
+
+.header-links {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 2rem;
+  width: 20%;
+  height: 100%;
+  padding: 0 1.5rem 0 0;
+  white-space: nowrap;
+}
+
+.header-button {
+  border: none; /* Remove border */
+  background: none;
+  color: #00bff6;
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.25rem;
+  line-height: 1.5rem;
+}
+
+.header-logo-container {
+  width: 20%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.header-logo {
+  width: 2rem;
+  height: auto;
+  left: 20px;
+  top: 20px;
+}
+
+@media only screen and (max-device-width: 600px) {
+  .header-container {
+    padding: 0.5rem;
+  }
+
+  .header-title {
+    font-size: 1.25rem;
+  }
+
+  .header-links {
+    width: 30%;
+    gap: 0.5rem;
+    padding: 0 0.25rem 0 0;
+  }
+
+  .header-button {
+    font-size: 0.75rem;
+    line-height: 1rem;
+  }
+
+  .header-logo-container {
+    width: 30%;
+  }
+
+  .header-logo {
+    width: 1.75rem;
+  }
+}

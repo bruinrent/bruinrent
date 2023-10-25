@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./homepage.css"; // Import a separate CSS file for component-specific styles
 import { collection, getDocs } from "firebase/firestore";
-import logo from "../../assets/logo_white.png";
+import apart1 from "../../assets/apart_1.png";
 import { Link } from "react-router-dom";
 import AddressBlock from "./AddressBlock.js";
 import Map from "./Map.js";
 import { app, firestore } from "../../firebase.js";
 import "leaflet/dist/leaflet.css";
 import { list } from "firebase/storage";
+import Header from "../Header.jsx";
 
 const MapPage = () => {
     const markers = [];
@@ -36,51 +37,33 @@ const MapPage = () => {
     }, []);
 
     return (
-        <div className="homepage-boxtop">
-            <div className="homepage-content">
-                <h2 className="homepage-header">BruinRent</h2>
-
-                <Link to="/Construction">
-                    <button className="homepage-button1">List With Us</button>
-                </Link>
-
-                <Link to="/Construction">
-                    <button className="homepage-button2">Sign In</button>
-                </Link>
-
-                <img
-                    className="homepage-logo"
-                    src={logo}
-                    alt="Bruin Rent Logo"
-                />
-            </div>
-
-            <div className="map-page">
-                <div className="map-container">
-                    <Map markers={markers} />
+        <div className="map-page-container">
+            <Header />
+            <div className="map-page-body">
+                <div className="map-page-search">
+                    <input
+                        className="map-page-search-bar"
+                        type="text"
+                        placeholder="Point of Interest"
+                        //onChange={onSearch}
+                    />
                 </div>
-
-                <div className="address-list">
-                    {listings
-                        .slice(0, visibleListings)
-                        .map((listing, index) => (
+                <div className="map-page-listings">
+                    <div className="map-container">
+                        <Map markers={markers} />
+                    </div>
+                    <div className="address-list">
+                        {listings.map((listing, index) => (
                             <Link to={`/apartment/${listing.id}`} key={index}>
                                 <AddressBlock
                                     address={listing.address}
                                     s
                                     bedrooms={listing.bedrooms}
                                     bathroom={listing.bathroom}
-                                    imageUrl={
-                                        listing.imageUrls
-                                            ? listing.imageUrls[0]
-                                            : null
-                                    } // Assuming you want to display the first image in the array
                                 />
                             </Link>
                         ))}
-                    {visibleListings < listings.length && (
-                        <button onClick={loadMoreListings}>Load More</button>
-                    )}
+                    </div>
                 </div>
             </div>
         </div>

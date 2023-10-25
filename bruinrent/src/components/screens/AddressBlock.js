@@ -1,24 +1,21 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import "./AddressBlock.css";
 import apart1 from "../../assets/apart_1.png";
-import "./homepage.css";
 
-const AddressBlock = ({ address, bedrooms, bathroom, imageUrl }) => {
+const AddressBlock = ({ url, address, bedrooms, bathroom }) => {
     return (
-        <div className="homepage-image-item">
-            {imageUrl ? (
-                <img className="homepage-image" src={imageUrl} alt={address} />
-            ) : (
-                <img
-                    className="homepage-image"
-                    src={apart1}
-                    alt="Stock Image"
-                />
-            )}
-            <p className="homepage-image-detail1">{address}</p>
-            <p className="homepage-image-detail2">
-                {bedrooms} Bed {bathroom} Bath
+        <Link to={url} style={{ textDecoration: "none" }}>
+            <img
+                className="address-block-image"
+                src={apart1}
+                alt="Apartment 1"
+            />
+            <p className="address-block-apartment">{address}</p>
+            <p className="address-block-details">
+                {bedrooms} Bed {bathroom} Bath{" "}
             </p>
-        </div>
+        </Link>
     );
 };
 
