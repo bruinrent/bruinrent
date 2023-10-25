@@ -59,6 +59,11 @@ const Homepage = () => {
                                 s
                                 bedrooms={listing.bedrooms}
                                 bathroom={listing.bathroom}
+                                imageUrl={
+                                    listing.imageUrls
+                                        ? listing.imageUrls[0]
+                                        : null
+                                }
                             />
                         ))}
                     </div>
