@@ -43,7 +43,7 @@ const MapPage = () => {
     console.log(`Markers array: ${markers}`);
 
     console.log('listings useffect');
-    listings.forEach( (listing) => { 
+    listings.slice(0, visibleListings).forEach( (listing) => { 
       if (listing.latLong) {
         console.log(listing.latLong);
         // need to add to useeffect array
@@ -52,7 +52,7 @@ const MapPage = () => {
       }
     })
     console.log({markers});
-  }, [listings]);
+  }, [listings, visibleListings]);
 
     return (
         <div className="map-page-container">

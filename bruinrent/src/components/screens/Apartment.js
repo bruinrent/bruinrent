@@ -15,13 +15,11 @@ import Header from "../Header.jsx";
 
 // firebase stuff
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { app, firestore } from "../../firebase.js"; 
 import { useParams } from "react-router-dom";
 
 let markers = [
-  { lat: 51.505, lng: -0.09, text: "Marker 1" },
-  { lat: 51.805, lng: -0.19, text: "Marker 2" },
   //Add more markers as needed
 ];
 
@@ -103,6 +101,9 @@ useEffect(() => {
   console.log("latlong updated, latlong: " + latLong);
   if (latLong.length === 2) {
     setMarkers([{ lat: 51.505, lng: -0.09, popupContent: "Marker 1" },{ lat: latLong[0], lng: latLong[1], text: apartmentData.address }]);
+    const apartmentDocRef = doc(firestore, "listings", id);
+    setDoc(apartmentDocRef, { latLong: [latLong[0],latLong[1]] }, { merge: true });
+    console.log(id);
   }
 }, [latLong]);
 
