@@ -1,10 +1,11 @@
 .address-block-image {
-  max-width: 17rem;
-  max-height: 11.5rem;
+  width: 15rem;
+  height: 10rem;
   border-radius: 2rem;
 }
 
 .address-block-apartment {
+  width: 15rem;
   margin-top: 0.35rem;
   font-family: Lato;
   font-size: 1.25rem;
@@ -26,14 +27,26 @@
   color: rgba(157, 157, 157, 1);
 }
 
-@media only screen and (max-device-width: 600px) {
+@media screen and (max-width: 1060px) {
+  .address-block-apartment {
+    font-size: 1rem;
+  }
+
+  .address-block-details {
+    font-size: 0.85rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
   .address-block-image {
-    max-width: 20rem;
+    width: 20rem;
+    height: 10rem;
     border-radius: 0.5rem;
   }
 
   .address-block-apartment {
     font-size: 1rem;
+    width: 20rem;
   }
 
   .address-block-details {

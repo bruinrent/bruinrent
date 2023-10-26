@@ -22,9 +22,9 @@
 
 .homepage-banner-title {
   font-family: Lato;
-  font-size: 5rem;
+  font-size: 3.5rem;
   font-weight: 700;
-  line-height: 5.5rem;
+  line-height: 4rem;
   letter-spacing: 0em;
   text-align: center;
   color: rgba(255, 255, 255, 1);
@@ -44,11 +44,11 @@
   background: rgba(0, 191, 246, 1);
   color: rgba(255, 255, 255, 1);
   border: none;
-  border-radius: 1rem;
-  width: 14rem;
-  height: 3rem;
+  border-radius: 0.8rem;
+  width: 12rem;
+  height: 2.5rem;
   font-family: Lato;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: 600;
   line-height: 2rem;
   letter-spacing: 0em;
@@ -81,8 +81,42 @@
   width: 100%;
 }
 
+@media screen and (max-width: 1060px) {
+  /* .homepage-banner {
+    height: 35%;
+  } */
+
+  .homepage-banner-title {
+    font-size: 2.5rem;
+    line-height: 3rem;
+  }
+
+  .homepage-banner-button-container {
+    width: 22rem;
+  }
+
+  .homepage-banner-button {
+    border-radius: 0.65rem;
+    width: 10rem;
+    height: 2.25rem;
+    font-size: 1rem;
+  }
+
+  .homepage-body-title {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    padding: 0 0 1.5rem 0;
+  }
+
+  .homepage-body-listings {
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    row-gap: 1.5rem;
+    column-gap: 0.75rem;
+  }
+}
+
 /* Responsive for phones */
-@media only screen and (max-device-width: 600px) {
+@media screen and (max-width: 600px) {
   .homepage-banner {
     height: 35%;
   }
@@ -97,7 +131,7 @@
   }
 
   .homepage-banner-button {
-    border-radius: 0.85rem;
+    border-radius: 0.5rem;
     width: 8rem;
     height: 2rem;
     font-size: 0.85rem;
@@ -116,6 +150,7 @@
   .homepage-body-listings {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 1.5rem;
   }
 }
