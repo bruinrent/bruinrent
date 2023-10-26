@@ -19,13 +19,9 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import { app, firestore } from "../../firebase.js"; 
 import { useParams } from "react-router-dom";
 
-let markers = [
-  //Add more markers as needed
-];
-
 const ApartmentPage = () => {
   // Get the document ID from the URL parameter
-  const [markers, setMarkers] = useState([{ lat: 51.505, lng: -0.09, text: "Marker 1" },{ lat: 51.805, lng: -0.19, text: "Marker 2" },]);
+  const [markers, setMarkers] = useState([]);
   const { id } = useParams();
   const [imageFiles, setImageFiles] = useState([]);
   const [latLong, setLatLong] = useState([]);
@@ -100,7 +96,7 @@ const ApartmentPage = () => {
 useEffect(() => {
   console.log("latlong updated, latlong: " + latLong);
   if (latLong.length === 2) {
-    setMarkers([{ lat: 51.505, lng: -0.09, popupContent: "Marker 1" },{ lat: latLong[0], lng: latLong[1], text: apartmentData.address }]);
+    setMarkers([{ lat: latLong[0], lng: latLong[1], text: apartmentData.address, id: id }]);
     const apartmentDocRef = doc(firestore, "listings", id);
     setDoc(apartmentDocRef, { latLong: [latLong[0],latLong[1]] }, { merge: true });
     console.log(id);
@@ -317,9 +313,9 @@ useEffect(() => {
           <div className="header">Location</div>
 
           <BoxTemplate>
-            <div className="content-container">
-              <div className="map-container">
-                    <GoogleMap markers={markers}/>
+            <div className="content-container" style={{margin:0,padding:0}}>
+            <div className="apartment-map-container">
+                  <GoogleMap markers={markers}/>
             </div>
               <div className="main-features">
                 <div className="main-features-header">

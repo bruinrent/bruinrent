@@ -40,14 +40,14 @@ const MapPage = () => {
     }, []);
 
   useEffect( () => {
-    console.log(`Markers array: ${markers}`);
-
     console.log('listings useffect');
+    // listings[0] && console.log(`Listing 0 id: ${listings[0].id}`);
     listings.slice(0, visibleListings).forEach( (listing) => { 
       if (listing.latLong) {
         console.log(listing.latLong);
+        console.log(listing.id);
         // need to add to useeffect array
-        setMarkers(markers => [...markers, {lat:listing.latLong[0], lng:listing.latLong[1],text:listing.address}]);
+        setMarkers(markers => [...markers, {lat:listing.latLong[0], lng:listing.latLong[1],text:listing.address, id:listing.id}]);
         // markers.push( {lat:listing.latLong[0], lng:listing.latLong[1],text:listing.address} );
       }
     })
