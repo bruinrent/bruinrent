@@ -11,6 +11,7 @@ import { BrowserRouter as Router, Route, Routes, Switch } from "react-router-dom
 import ListingPage from "./components/screens/ListingPage.js";
 import { Navigate } from "react-router-dom";
 import ApartmentPage from "./components/screens/Apartment.js";
+import Account from './components/Account.jsx'
 
 /** Testing pages
  * 
@@ -49,6 +50,7 @@ function App() {
                 <Route path="/MapPage" element={<MapPage />} />
                 <Route path="/ListingPage" element={<ListingPage />} />
                 <Route path="/apartment/:id" element={<Apartment />} />
+                <Route path="/account" element={<Account />} />
                 {/* <Route path="/Apartment" element={<Apartment />} /> */}
             </Routes>
         </Router>
