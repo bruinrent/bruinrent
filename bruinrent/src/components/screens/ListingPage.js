@@ -12,10 +12,12 @@ import "./ListingPage.css";
 import Sidebar from "./Sidebar.js";
 import CheckBox from "./Checkbox.js";
 import Header from "../Header.jsx";
+import addressToLongLat from "../addressToLongLat.js";
 
 const ListingPage = () => {
     const navigate = useNavigate();
     const [address, setAddress] = useState("");
+  const [latLong, setLatLong] = useState("");
     const [addressDesc, setAddressDesc] = useState("");
     const [size, setSize] = useState("");
     const [bedrooms, setBedrooms] = useState("");
@@ -61,6 +63,8 @@ const ListingPage = () => {
         "Gas Stoves",
         "Laundry - In Unit",
     ];
+
+  
 
     const [buildingFeatures, setBuildingFeatures] = useState(
         buildingFeatureData.map((label, id) => ({
@@ -129,10 +133,22 @@ const ListingPage = () => {
                 console.error("Error uploading image: ", error);
             }
         }
+    const longLat = await addressToLongLat(address);
+    setLatLong([longLat[1], longLat[0]]);
+
+    // const titleAddress = address.replace(/\b\w+/g,
+    // (s) => {
+    //   return s.charAt(0).toUpperCase() + s.substr(1).toLowerCase();
+    // })
+
+    // await setAddress(titleAddress);
+    // console.log(address)
+    // const address = titleAddress;
 
         const formData = {
             address,
             addressDesc,
+      latLong,
             size,
             bedrooms,
             rent1,
