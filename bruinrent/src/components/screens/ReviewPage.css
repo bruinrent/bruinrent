@@ -1,0 +1,27 @@
+.review-page-container {
+    box-sizing: border-box;
+    min-height: 100vh;
+    width: 100%;
+  }
+
+.review-details {
+box-sizing: border-box;
+padding-top: 3rem;
+min-height: 100vh;
+width: 100%;
+text-align: center;
+border-top: 1px solid rgba(175, 175, 175, 0.5);
+}
+
+
+
+
+.leave-review-text {
+color: #00bff6;
+text-align: center;
+font-family: Lato;
+font-size: 1.75rem;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+}
