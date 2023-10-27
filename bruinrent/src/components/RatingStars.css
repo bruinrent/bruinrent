@@ -1,0 +1,37 @@
+.star-rating i {
+  color: #ccc; /* default color */
+}
+
+.star {
+  font-size: 2rem; /* Adjust the size as needed */
+  color: grey; /* Default color for stars (e.g., grey) */
+  margin-right: 2rem; /* Increase the margin between stars */
+  margin-left: 1rem; /* Increase the margin between stars */
+  cursor: pointer; /* Make the stars appear clickable */
+}
+.star-rating i.rated {
+  color: #f5c518; /* rated color */ 
+}
+.radio {
+  display: none;
+  margin-right: 10px; /* Increase the margin to control spacing */
+}
+
+.star-label {
+  display: flex; /* Use flexbox */
+  flex-direction: row;
+}
+
+.title-text {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #00BFF6;
+  font-family: Lato;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+
+}
