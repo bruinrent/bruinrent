@@ -2,16 +2,22 @@ import React, { useState } from "react";
 import { FaStar } from "react-icons/fa/index.esm.js";
 import "./RatingStars.css";
 
-const RatingStars = ({ title, id }) => {
+const RatingStars = ({ title, id, onRatingChange }) => {
     const defaultColor = "#00A7E1"; // Define defaultColor
     const ratedColor = "blue"; // Define ratedColor
     // const initialRating = rating || 0; // Set a default value if rating is not provided
 
     const [rating, setCurrentRating] = useState(0);
+    // const handleRatingChange = (newRating) => {
+    //     setRating(newRating);
+    //     // Call the parent component's callback to pass the rating back
+    //     onRatingChange(newRating);
+    // };
 
     const handleStarClick = (selectedRating) => {
         setCurrentRating(selectedRating);
         console.log(`Rating for ${id}: ${selectedRating}`);
+        onRatingChange(selectedRating);
     };
 
     return (
