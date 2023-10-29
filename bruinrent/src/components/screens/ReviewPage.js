@@ -2,27 +2,60 @@ import React, { useState } from "react";
 import "./ReviewPage.css";
 import Header from "../Header.jsx";
 // import RatingStars from "../RatingStars";
+import { useNavigate } from "react-router-dom";
+
 import RatingStars from "../RatingStars.js";
+import { collection, addDoc } from "firebase/firestore";
+import { app, firestore } from "../../firebase.js";
+import { async } from "@firebase/util";
+
 //import { star} from "react-star-ratings";
 
 const ReviewPage = ({ addReview }) => {
-    const [rating, setRating] = useState(0);
+    const navigate = useNavigate();
+    const [rating, setRating] = useState({
+        overall: 0,
+        cleanliness: 0,
+        social: 0,
+        landlord: 0,
+        location: 0,
+    });
     const [review, setReview] = useState("");
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [email, setEmail] = useState("");
-    const [phone, setPhone] = useState("");
+    const [address, setAddress] = useState("");
 
-    const handleRatingChange = (newRating) => {
-        setRating(newRating);
+    // const [firstName, setFirstName] = useState("");
+    // const [lastName, setLastName] = useState("");
+    // const [email, setEmail] = useState("");
+    // const [phone, setPhone] = useState("");
+
+    const handleRatingChange = (category, newRating) => {
+        // Update the rating for the specific category
+        setRating((prevRating) => ({
+            ...prevRating,
+            [category]: newRating,
+        }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if (review.trim() !== "") {
-            addReview(review);
-            setReview("");
+        const formData = {
+            address: address,
+            review: review,
+            rating: rating,
+        };
+
+        const collectionRef = collection(firestore, "reviews");
+
+        try {
+            const docRef = await addDoc(collectionRef, formData);
+            console.log("Document written with ID: ", docRef.id);
+        } catch (error) {
+            console.error("Error adding document: ", error);
         }
+
+        navigate("/");
+
+        console.log(formData);
     };
 
     return (
@@ -36,6 +69,8 @@ const ReviewPage = ({ addReview }) => {
                     <textarea
                         className="address-review-text"
                         type="address"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
                         // value={addressDesc}
                         // onChange={(e) => setAddressDesc(e.target.value)}
                         //onChange={onSearch}
@@ -44,16 +79,48 @@ const ReviewPage = ({ addReview }) => {
                     <textarea
                         className="review-text"
                         type="review"
+                        value={review}
+                        onChange={(e) => setReview(e.target.value)}
                         // value={addressDesc}
                         // onChange={(e) => setAddressDesc(e.target.value)}
                         //onChange={onSearch}
                     />
                 </div>
-                <RatingStars id="overall" title="Overall Rating" />
-                <RatingStars id="cleanliness" title="Cleanliness" />
-                <RatingStars id="social" title="Social" />
-                <RatingStars id="landlord" title="Landlord" />
-                <RatingStars id="location" title="Location" />
+                <RatingStars
+                    id="overall"
+                    title="Overall Rating"
+                    onRatingChange={(newRating) =>
+                        handleRatingChange("overall", newRating)
+                    }
+                />
+                <RatingStars
+                    id="cleanliness"
+                    title="Cleanliness"
+                    onRatingChange={(newRating) =>
+                        handleRatingChange("cleanliness", newRating)
+                    }
+                />
+                <RatingStars
+                    id="social"
+                    title="Social"
+                    onRatingChange={(newRating) =>
+                        handleRatingChange("social", newRating)
+                    }
+                />
+                <RatingStars
+                    id="landlord"
+                    title="Landlord"
+                    onRatingChange={(newRating) =>
+                        handleRatingChange("landlord", newRating)
+                    }
+                />
+                <RatingStars
+                    id="location"
+                    title="Location"
+                    onRatingChange={(newRating) =>
+                        handleRatingChange("location", newRating)
+                    }
+                />
             </div>
             <div
                 style={{
