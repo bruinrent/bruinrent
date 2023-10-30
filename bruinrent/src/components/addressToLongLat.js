@@ -1,7 +1,11 @@
+
+const masterAddress = "Los Angeles, California"
+
 export default async function addressToLongLat(input) {
-    console.log(`Fetching foordinates from input ${input}`)
+    console.log(`Fetching foordinates from input ${input + " " + masterAddress}`)
     try {
-      const apiUrl = `https://nominatim.openstreetmap.org/search?q=${input}&format=geojson`;
+      const apiUrl = `https://nominatim.openstreetmap.org/search?q=${input + " " + masterAddress}&format=geojson`;
+      console.log(apiUrl);
       const response = await fetch(apiUrl);
   
       if (!response.ok) {
