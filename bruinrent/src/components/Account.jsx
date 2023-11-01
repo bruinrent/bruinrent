@@ -1,13 +1,24 @@
 import React from 'react';
 import Header from "./Header.jsx";
+import { useAuthContext, AuthContextProvider } from './AuthContext.js';
 
 const Account = () => {
+    const { user } = useAuthContext();
+    React.useEffect(() => {
+        if (user == null) {console.log("Noone here")}
+        else {
+          console.log("User ID: "+user['uid']);
+          console.log(user);
+        }
+    },[])
     return(
+        // <AuthContextProvider>
         <div>
             <Header/>
             <h1 className='header-title'>ACCOUNT</h1>
-            <p>Welcome, USER</p>
+            <p>Welcome, USER {user?user.uid:""}</p>
         </div>
+        // </AuthContextProvider>
     );
 };
 

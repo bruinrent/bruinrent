@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { getAuth, signInWithPopup, signOut, GoogleAuthProvider, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 import { auth } from '../firebase.js';
+import { useAuthContext, AuthContextProvider } from './AuthContext.js';
 import { useNavigate } from "react-router-dom";
 
 
@@ -62,9 +63,11 @@ const Header = () => {
   
         const userData = {
           email: user.email, // Update the email field
-          year: user.year, // Update the year 
         };
-  
+        
+        console.log(userRef);
+        console.log(userData);
+
         setDoc(userRef, userData, { merge: true })
           .then(() => {
             navigate("/account");
