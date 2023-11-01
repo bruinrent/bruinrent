@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { getAuth, signInWithPopup, signOut, GoogleAuthProvider, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 import { auth } from '../firebase.js';
-import { useAuthContext, AuthContextProvider } from './AuthContext.js';
+import { useAuthContext } from './AuthContext.js';
 import { useNavigate } from "react-router-dom";
 
 
@@ -13,6 +13,7 @@ const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [userData, setUserData] = useState({})
   const navigate = useNavigate(); // Initialize navigate
+  const { user } = useAuthContext();
 
     useEffect(() => {
       const unsubscribe = onAuthStateChanged(auth, (result) => {
@@ -96,7 +97,9 @@ const Header = () => {
         <Link to="/ReviewPage">
           <button className="header-button">Leave a Review</button>
         </Link>
-        <button className="header-button" onClick={handleSignInWithGoogle}>Sign In</button>
+        {user === null ?(<button className="header-button" onClick={handleSignInWithGoogle}>Sign In</button>):
+        (<button className="header-button" onClick={Logout}>Logout</button>)
+        }
         <Link
           target="_blank"
           to="https://docs.google.com/forms/d/e/1FAIpQLSfHY7fNYDFBbNYr3Xy4caIz7yqNmvDnYfAB9HZlq1aH7vl0Qw/viewform"

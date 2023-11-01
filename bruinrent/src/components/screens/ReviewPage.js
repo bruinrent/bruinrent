@@ -9,6 +9,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { app, firestore } from "../../firebase.js";
 import { async } from "@firebase/util";
 import { useAuthContext } from '../AuthContext.js';
+import addressToLongLat from "../addressToLongLat.js";
 
 
 //import { star} from "react-star-ratings";
@@ -45,8 +46,11 @@ const ReviewPage = ({ addReview }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const longLat = await addressToLongLat(address);
+        const latLong = [longLat[1], longLat[0]];
         const formData = {
             address: address,
+            latLong: latLong,
             review: review,
             rating: rating,
         };
