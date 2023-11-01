@@ -76,6 +76,7 @@ const ReviewPage = ({ addReview }) => {
 
             <div className="rating-details">
                 <text className="leave-review-text">Leave a Review</text>
+                {user===null ? ("You Are not signed in, sign in with google at the top!"):("")}
                 <div className="write-review-container">
                     <text className="title-text">Address</text>
                     <textarea

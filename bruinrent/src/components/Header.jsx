@@ -71,7 +71,7 @@ const Header = () => {
 
         setDoc(userRef, userData, { merge: true })
           .then(() => {
-            navigate("/account");
+            // navigate("/account");
           })
           .catch((error) => {
             console.error("Error writing user data to Firestore: ", error);

@@ -16,7 +16,7 @@ const Account = () => {
         <div>
             <Header/>
             <h1 className='header-title'>ACCOUNT</h1>
-            <p>Welcome, USER {user?user.uid:""}</p>
+            <p style={{paddingTop:'1rem', textAlign:'center'}}>{user?`Welcome, ${user.displayName}`:"Sign in in the bar above!"}</p>
         </div>
         // </AuthContextProvider>
     );
