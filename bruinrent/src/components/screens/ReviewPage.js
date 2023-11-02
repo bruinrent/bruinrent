@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./ReviewPage.css";
 import Header from "../Header.jsx";
 // import RatingStars from "../RatingStars";
@@ -8,6 +8,9 @@ import RatingStars from "../RatingStars.js";
 import { collection, addDoc } from "firebase/firestore";
 import { app, firestore } from "../../firebase.js";
 import { async } from "@firebase/util";
+import { useAuthContext } from '../AuthContext.js';
+import addressToLongLat from "../addressToLongLat.js";
+
 
 //import { star} from "react-star-ratings";
 
@@ -20,6 +23,7 @@ const ReviewPage = ({ addReview }) => {
         landlord: 0,
         location: 0,
     });
+    const { user } = useAuthContext();
     const [review, setReview] = useState("");
     const [address, setAddress] = useState("");
 
@@ -27,7 +31,11 @@ const ReviewPage = ({ addReview }) => {
     // const [lastName, setLastName] = useState("");
     // const [email, setEmail] = useState("");
     // const [phone, setPhone] = useState("");
-
+    useEffect(() => {
+        if (user != null) {
+            console.log("USER ID: " + user.uid);
+        }   
+    }, [user])
     const handleRatingChange = (category, newRating) => {
         // Update the rating for the specific category
         setRating((prevRating) => ({
@@ -38,13 +46,16 @@ const ReviewPage = ({ addReview }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const longLat = await addressToLongLat(address);
+        const latLong = [longLat[1], longLat[0]];
         const formData = {
             address: address,
+            latLong: latLong,
             review: review,
             rating: rating,
         };
 
-        const collectionRef = collection(firestore, "reviews");
+        const collectionRef = collection(firestore, `users/${user.uid}/reviews`);
 
         try {
             const docRef = await addDoc(collectionRef, formData);
@@ -59,11 +70,13 @@ const ReviewPage = ({ addReview }) => {
     };
 
     return (
+
         <div className="review-page-container">
             <Header />
 
             <div className="rating-details">
                 <text className="leave-review-text">Leave a Review</text>
+                {user===null ? ("You Are not signed in, sign in with google at the top!"):("")}
                 <div className="write-review-container">
                     <text className="title-text">Address</text>
                     <textarea
@@ -134,6 +147,7 @@ const ReviewPage = ({ addReview }) => {
                 </button>
             </div>
         </div>
+
     );
 };
 

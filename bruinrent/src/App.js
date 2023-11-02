@@ -18,6 +18,7 @@ import ListingPage from "./components/screens/ListingPage.js";
 import { Navigate } from "react-router-dom";
 import ApartmentPage from "./components/screens/Apartment.js";
 import Account from './components/Account.jsx'
+import { useAuthContext, AuthContextProvider } from "./components/AuthContext.js"
 
 /** Testing pages
  *
@@ -48,6 +49,7 @@ function App() {
 
     //  return thankYou ? <ThankYou /> : <Waitlist handleSubmit={handleSubmit} errorMsg={errorMsg}/>;
     return (
+        <AuthContextProvider>
         <Router>
             <Routes>
                 <Route exact path="/" element={<Homepage />} />
@@ -61,6 +63,7 @@ function App() {
                 {/* <Route path="/Apartment" element={<Apartment />} /> */}
             </Routes>
         </Router>
+        </AuthContextProvider>
     );
 }
 
