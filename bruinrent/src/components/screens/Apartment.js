@@ -121,15 +121,28 @@ useEffect(() => {
       <div className="image-group">
         
         <div className="individual-img-container">
-          <img src={apart2} alt="Large Scenic View" className="big-image" />
+          {apartmentData.imageUrls[0] ? ( // Check if imageUrls[0] exists
+              <img src={apartmentData.imageUrls[0]} alt="Main image" className="big-image"/>
+              ) : (
+                <img src={apart2} alt="Placeholder image" className="big-image"/>
+              )}
         </div>
 
         <div className="small-image-container">
           <div className="individual-small-img-container">
-            <img src={apart1} alt="Small 1" />
+              {apartmentData.imageUrls[1] ? ( // Check if imageUrls[0] exists
+              <img src={apartmentData.imageUrls[1]} alt="Secondary Image" />
+              ) : (
+                <img src={apart1} alt="Placeholder image" />
+              )}
+            
           </div>
           <div className="individual-small-img-container">
-            <img src={apart1} alt="Small 2" className="filtered-image"/>
+          {apartmentData.imageUrls[2] ? ( // Check if imageUrls[0] exists
+              <img src={apartmentData.imageUrls[2]} alt="Secondary Image" className="filtered-image" />
+              ) : (
+                <img src={apart1} alt="Placeholder image" className="filtered-image"/>
+              )}
             <button className="show-all-button">Show All Photos</button>
           </div>
             
@@ -284,7 +297,7 @@ useEffect(() => {
                 <ReviewSumPart rating={"3.0"} label={"Location"} tooltip={"Rating for the location of the unit relative to UCLA and Westwood Village, with 1 being a very poor location and 5 being a good location"}/>
               </div>
 
-              <div className="date">Jan. 29, 2021</div>
+              {/* <div className="date">Jan. 29, 2021</div>
               <div className="review-text">
                 <p>
                   General: Overall value and worth of the unit for its price, with 1 having very low value and 5 being very valuable
@@ -306,7 +319,7 @@ useEffect(() => {
                 Lorem ipsum dolor sit amet consectetur adipiscing elit nibh augue tortor, est mollis non dui bibendum imperdiet 
                 urna convallis magna sodales, vitae facilisis dapibus fermentum hendrerit vulputate sed
                 </p>
-              </div>
+              </div> */}
             </div>
           </BoxTemplate>
 

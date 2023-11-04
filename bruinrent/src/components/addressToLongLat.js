@@ -1,5 +1,5 @@
 
-const masterAddress = "Los Angeles, California"
+const masterAddress = "Los Angeles, California, 90024"
 
 export default async function addressToLongLat(input) {
     console.log(`Fetching foordinates from input ${input + " " + masterAddress}`)
