@@ -11,13 +11,29 @@ import ReviewSumPart from "../reviewSummaryPart.jsx";
 import addressToLongLat from "../addressToLongLat.js"
 import GoogleMap from "../GoogleMap.js";
 import Header from "../Header.jsx";
-
-
+import Box from '@mui/material/Box/index.js';
+import Button from '@mui/material/Button/index.js';
+import Typography from '@mui/material/Typography/index.js';
+import Modal from '@mui/material/Modal/index.js';
 // firebase stuff
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { app, firestore } from "../../firebase.js"; 
 import { useParams } from "react-router-dom";
+
+
+
+const modalStyle = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 
 const ApartmentPage = () => {
   // Get the document ID from the URL parameter
@@ -25,6 +41,11 @@ const ApartmentPage = () => {
   const { id } = useParams();
   const [imageFiles, setImageFiles] = useState([]);
   const [latLong, setLatLong] = useState([]);
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   const [apartmentData, setApartmentData] = useState({
     address: "",
     addressDesc: "",
@@ -113,6 +134,21 @@ useEffect(() => {
   return (
     <div>
       <Header/>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={modalStyle}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Text in a modal
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+          </Typography>
+        </Box>
+      </Modal>
     <div className="apartment-homepage-container">
       
       {/* Images Group at the top of Apartment Page */}
@@ -143,7 +179,7 @@ useEffect(() => {
               ) : (
                 <img src={apart1} alt="Placeholder image" className="filtered-image"/>
               )}
-            <button className="show-all-button">Show All Photos</button>
+            <button className="show-all-button" onClick={handleOpen}>Show All Photos</button>
           </div>
             
         </div>
