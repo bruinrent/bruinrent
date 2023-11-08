@@ -30,12 +30,19 @@ const ReviewPage = ({ addReview }) => {
     // const [firstName, setFirstName] = useState("");
     // const [lastName, setLastName] = useState("");
     // const [email, setEmail] = useState("");
+    // useEffect(() => {
+    //     if (user == null) {
+    //         alert("Sign in with google in the top bar before leaving a review! :)");
+    //     }   
+    // }, [])
+
     // const [phone, setPhone] = useState("");
     useEffect(() => {
         if (user != null) {
             console.log("USER ID: " + user.uid);
         }   
     }, [user])
+
     const handleRatingChange = (category, newRating) => {
         // Update the rating for the specific category
         setRating((prevRating) => ({
@@ -73,10 +80,10 @@ const ReviewPage = ({ addReview }) => {
 
         <div className="review-page-container">
             <Header />
-
+            {user===null ? (<span className="leave-review-text" style={{alignSelf:'center',width:'100%', display:'inline-block'}}>Complete signing in to leave a review!</span>):(
+            <div>
             <div className="rating-details">
                 <text className="leave-review-text">Leave a Review</text>
-                {user===null ? ("You Are not signed in, sign in with google at the top!"):("")}
                 <div className="write-review-container">
                     <text className="title-text">Address</text>
                     <textarea
@@ -145,7 +152,10 @@ const ReviewPage = ({ addReview }) => {
                 <button className="upload-button" onClick={handleSubmit}>
                     Submit
                 </button>
+
             </div>
+            </div>
+            )}
         </div>
 
     );

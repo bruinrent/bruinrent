@@ -41,7 +41,11 @@ const Header = () => {
         console.log({ error });
       });
     }  
-
+  
+  const handleSignInWithGoogleAndRedirect = () => {
+    handleSignInWithGoogle();
+    navigate("/ReviewPage");
+  }
 
   const handleSignInWithGoogle = () => {
     const provider = new GoogleAuthProvider();
@@ -94,9 +98,12 @@ const Header = () => {
       </Link>
 
       <div className="header-links">
-        <Link to="/ReviewPage">
-          <button className="header-button">Leave a Review</button>
-        </Link>
+        
+        {user === null ?(<button className="header-button" onClick={handleSignInWithGoogleAndRedirect}>Leave a Review</button>): (
+          <Link to="/ReviewPage">
+            <button className="header-button">Leave a Review</button>
+          </Link>)
+        }
         {user === null ?(<button className="header-button" onClick={handleSignInWithGoogle}>Sign In</button>):
         (<button className="header-button" onClick={Logout}>Logout</button>)
         }
