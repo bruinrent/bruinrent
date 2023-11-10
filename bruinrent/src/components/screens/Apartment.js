@@ -20,6 +20,11 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { app, firestore } from "../../firebase.js"; 
 import { useParams } from "react-router-dom";
+import ImageGallery from "react-image-gallery";
+// import "react-image-gallery/styles/css/image-gallery.css";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from 'react-responsive-carousel';
+
 
 
 
@@ -35,11 +40,14 @@ const modalStyle = {
   p: 4,
 };
 
+
+
 const ApartmentPage = () => {
+  
   // Get the document ID from the URL parameter
   const [markers, setMarkers] = useState([]);
   const { id } = useParams();
-  const [imageFiles, setImageFiles] = useState([]);
+  const [imageFiles, setImageFiles] = useState({});
   const [latLong, setLatLong] = useState([]);
 
   const [open, setOpen] = React.useState(false);
@@ -115,6 +123,19 @@ const ApartmentPage = () => {
 }, [apartmentData.address]);
 
 useEffect(() => {
+  if (apartmentData.imageUrls) {
+      
+    const images = apartmentData.imageUrls.map((url) => ({
+      original: url,
+      thumbnail: url,
+    }));
+    setImageFiles(images);
+    console.log("Image files: " + JSON.stringify(images));
+      // 
+  }
+}, [apartmentData.imageUrls]);
+
+useEffect(() => {
   console.log("latlong updated, latlong: " + latLong);
   if (latLong.length === 2) {
     setMarkers([{ lat: latLong[0], lng: latLong[1], text: apartmentData.address, id: id }]);
@@ -131,9 +152,54 @@ useEffect(() => {
 // Note: Not sure about the access/current backend state of:
 // Reviews (compiled ratings, individual review info, etc) 
 // Note: Headers inside or outside boxes?
+
+class DemoCarousel extends React.Component {
+  render() {
+    return (
+      <div>
+      { (apartmentData.imageUrls) ? (
+          <Carousel>
+              <div>
+                  <img src={apartmentData.imageUrls[0]} />
+                  <p className="legend">Legend 1</p>
+              </div>
+              <div>
+                  <img src={apartmentData.imageUrls[1]} />
+                  <p className="legend">Legend 2</p>
+              </div>
+              <div>
+                  <img src={apartmentData.imageUrls[2]} />
+                  <p className="legend">Legend 3</p>
+              </div>
+          </Carousel>) : <React.Fragment/>
+        }
+          </div>
+      );
+  }
+};
+
+class ShowAllCarousel extends React.Component {
+  render() {
+      return (
+        <div>
+        { (apartmentData.imageUrls) ? (
+        <Carousel axis="horizontal">
+         
+              {apartmentData.imageUrls.map((src, index) => (
+                 <div><img key={index} src={src} alt={`Image ${index + 1}`} /></div>
+              ))}
+          
+        </Carousel> ) : <React.Fragment/>
+        }
+        </div>
+      );
+  }
+};
+
   return (
     <div>
       <Header/>
+      
       <Modal
         open={open}
         onClose={handleClose}
@@ -141,12 +207,9 @@ useEffect(() => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={modalStyle}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
+         <ShowAllCarousel/>
+
+          
         </Box>
       </Modal>
     <div className="apartment-homepage-container">
@@ -158,26 +221,26 @@ useEffect(() => {
         
         <div className="individual-img-container">
           {apartmentData.imageUrls[0] ? ( // Check if imageUrls[0] exists
-              <img src={apartmentData.imageUrls[0]} alt="Main image" className="big-image"/>
+              <img src={apartmentData.imageUrls[0]} alt="Main" className="big-image"/>
               ) : (
-                <img src={apart2} alt="Placeholder image" className="big-image"/>
+                <img src={apart2} alt="Placeholder" className="big-image"/>
               )}
         </div>
 
         <div className="small-image-container">
           <div className="individual-small-img-container">
               {apartmentData.imageUrls[1] ? ( // Check if imageUrls[0] exists
-              <img src={apartmentData.imageUrls[1]} alt="Secondary Image" />
+              <img src={apartmentData.imageUrls[1]} alt="Secondary" />
               ) : (
-                <img src={apart1} alt="Placeholder image" />
+                <img src={apart1} alt="Placeholder" />
               )}
             
           </div>
           <div className="individual-small-img-container">
           {apartmentData.imageUrls[2] ? ( // Check if imageUrls[0] exists
-              <img src={apartmentData.imageUrls[2]} alt="Secondary Image" className="filtered-image" />
+              <img src={apartmentData.imageUrls[2]} alt="Secondary" className="filtered-image" />
               ) : (
-                <img src={apart1} alt="Placeholder image" className="filtered-image"/>
+                <img src={apart1} alt="Placeholder" className="filtered-image"/>
               )}
             <button className="show-all-button" onClick={handleOpen}>Show All Photos</button>
           </div>
