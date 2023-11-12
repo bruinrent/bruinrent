@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./ReviewPage.css";
 import Header from "../Header.jsx";
 // import RatingStars from "../RatingStars";
@@ -8,6 +8,9 @@ import RatingStars from "../RatingStars.js";
 import { collection, addDoc } from "firebase/firestore";
 import { app, firestore } from "../../firebase.js";
 import { async } from "@firebase/util";
+import { useAuthContext } from '../AuthContext.js';
+import addressToLongLat from "../addressToLongLat.js";
+
 
 //import { star} from "react-star-ratings";
 
@@ -20,13 +23,25 @@ const ReviewPage = ({ addReview }) => {
         landlord: 0,
         location: 0,
     });
+    const { user } = useAuthContext();
     const [review, setReview] = useState("");
     const [address, setAddress] = useState("");
 
     // const [firstName, setFirstName] = useState("");
     // const [lastName, setLastName] = useState("");
     // const [email, setEmail] = useState("");
+    // useEffect(() => {
+    //     if (user == null) {
+    //         alert("Sign in with google in the top bar before leaving a review! :)");
+    //     }   
+    // }, [])
+
     // const [phone, setPhone] = useState("");
+    useEffect(() => {
+        if (user != null) {
+            console.log("USER ID: " + user.uid);
+        }   
+    }, [user])
 
     const handleRatingChange = (category, newRating) => {
         // Update the rating for the specific category
@@ -38,13 +53,16 @@ const ReviewPage = ({ addReview }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const longLat = await addressToLongLat(address);
+        const latLong = [longLat[1], longLat[0]];
         const formData = {
             address: address,
+            latLong: latLong,
             review: review,
             rating: rating,
         };
 
-        const collectionRef = collection(firestore, "reviews");
+        const collectionRef = collection(firestore, `users/${user.uid}/reviews`);
 
         try {
             const docRef = await addDoc(collectionRef, formData);
@@ -59,9 +77,11 @@ const ReviewPage = ({ addReview }) => {
     };
 
     return (
+
         <div className="review-page-container">
             <Header />
-
+            {user===null ? (<span className="leave-review-text" style={{alignSelf:'center',width:'100%', display:'inline-block'}}>Complete signing in to leave a review!</span>):(
+            <div>
             <div className="rating-details">
                 <text className="leave-review-text">Leave a Review</text>
                 <div className="write-review-container">
@@ -132,8 +152,12 @@ const ReviewPage = ({ addReview }) => {
                 <button className="upload-button" onClick={handleSubmit}>
                     Submit
                 </button>
+
             </div>
+            </div>
+            )}
         </div>
+
     );
 };
 

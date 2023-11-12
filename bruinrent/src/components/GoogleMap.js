@@ -1,20 +1,22 @@
 import GoogleMap from 'google-maps-react-markers'
 import React from "react";
 import { useState, useRef} from "react";
+import pin from "../assets/Google_Maps_pin.svg";
+import { Link, useNavigate } from "react-router-dom";
 
 
-const APIKey = process.env;
+const APIKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
-
-const Marker = ({ text }) => (
-  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center'}}>
-    <div className="pin" style={{zIndex:'9999'}}/>
-    <p>{text}</p>
-
+const Marker = ({ text, onClick}) => (
+  <div className='pin-container' onClick={onClick}>
+     <img src={pin} alt="Pin" />
+    {/* <div className="pin" style={{zIndex:'9999'}}/> */}
+    <p style={{textAlign:'center', width:'5rem'}}>{text}</p>
   </div>
 )
 
 const App = ( {markers} ) => {
+  const navigate = useNavigate();
 
 if (!APIKey) {
   console.error('Did you set the required environment variables in .env?');
@@ -34,12 +36,18 @@ if (!APIKey) {
   const onGoogleApiLoaded = ({ map, maps }) => {
     mapRef.current = map
     setMapReady(true)
+
   }
 
   
 
-  const onMarkerClick = (e, { markerId, lat, lng }) => {
-    console.log('This is ->', markerId)
+  const onMarkerClick = (id, lat, lng ) => {
+    // console.log('This is ->', id)
+    // console.log(lat)
+    // console.log(lng)
+    navigate(`/apartment/${id}`);
+    
+
 
     // inside the map instance you can call any google maps method
     mapRef.current.setCenter({ lat, lng })
@@ -47,7 +55,7 @@ if (!APIKey) {
   }
 
   return (
-    <>
+    <div style={{width:'100%',height:'100vh',alignContent:'center', boxSizing:'border-box'}}>
       {mapReady}
       <GoogleMap
         apiKey={APIKey}
@@ -56,15 +64,15 @@ if (!APIKey) {
         mapMinHeight="100vh"
         onGoogleApiLoaded={onGoogleApiLoaded}
         onChange={(map) => console.log('Map moved', map)}
+        style={{width:'100%',minHeight:'100vh', boxSizing:'border-box'}}
       >
-        {markers.map(({ lat, lng, text }, index) => (
+        {markers.map(({ lat, lng, text, id }, index) => (
           <Marker
             key={index}
             lat= {lat}
             lng={lng}
-            markerId={text}
             text={text}
-            // onClick={onMarkerClick} // you need to manage this prop on your Marker component!
+            onClick={() => onMarkerClick( id, lat, lng )} // you need to manage this prop on your Marker component!
             // draggable={true}
             // onDragStart={(e, { latLng }) => {}}
             // onDrag={(e, { latLng }) => {}}
@@ -72,7 +80,7 @@ if (!APIKey) {
           /> 
         ))}   
       </GoogleMap>
-    </>
+    </div>
   )
 }
 
