@@ -1,30 +1,11 @@
 .review-page-container {
-    box-sizing: border-box;
-    min-height: 100vh;
-    width: 100%;
-
-    align-items: center;
-  }
-
-.rating-details {
-    display: flex;
-    flex-direction: column; /* To stack elements vertically */
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    padding-top: 3rem;
-    /* min-height: 100vh; */
-    width: 100%;
-    text-align: center;
-    border-top: 1px solid rgba(175, 175, 175, 0.5);
-    justify-content: center;
-    flex: content;
-
+  box-sizing: border-box;
+  min-height: 100vh;
+  width: 100%;
+  padding: 10px;
 }
 
-
-.write-review-container
-{    
+.rating-details {
   display: flex;
   flex-direction: column; /* To stack elements vertically */
   align-items: center;
@@ -34,20 +15,31 @@
   /* min-height: 100vh; */
   width: 100%;
   text-align: center;
-
-  justify-content: center;
+  border-top: 1px solid rgba(175, 175, 175, 0.5);
   flex: content;
+}
 
+.write-review-container {
+  display: flex;
+  flex-direction: column; /* To stack elements vertically */
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding-top: 3rem;
+  /* min-height: 100vh; */
+  width: 100%;
+  text-align: center;
+  flex: content;
 }
 
 .leave-review-text {
-color: #00bff6;
-text-align: center;
-font-family: Lato;
-font-size: 1.75rem;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
+  color: #00bff6;
+  text-align: center;
+  font-family: Lato;
+  font-size: 1.75rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 }
 
 .review-text {
@@ -66,7 +58,7 @@ line-height: normal;
   padding: 0.75rem;
 }
 
-.address-review-text{
+.address-review-text {
   /* margin-top: 2rem;
   vertical-align: top;
   width: 10%;
@@ -86,6 +78,19 @@ line-height: normal;
   flex-shrink: 0;
   border-radius: 1rem;
   border: 3px solid #89d2f3;
-  padding: 0.75rem;
+  padding: 0.5rem 0.75rem 0.25rem 0.75rem;
+}
 
+@media screen and (max-width: 1060px) {
+  .write-review-container {
+    padding-top: 0;
+  }
+
+  .address-review-text {
+    width: 80%;
+  }
+
+  .review-text {
+    width: 80%;
+  }
 }
