@@ -18,6 +18,7 @@ const ReviewPage = ({ addReview }) => {
     const [rating, setRating] = useState({
         overall: 0,
         cleanliness: 0,
+        noise: 0,
         social: 0,
         landlord: 0,
         location: 0,
@@ -202,6 +203,88 @@ const ReviewPage = ({ addReview }) => {
                         </button>
                     </div>
                 </div>
+            {user===null ? (<span className="leave-review-text" style={{alignSelf:'center',width:'100%', display:'inline-block'}}>Complete signing in to leave a review!</span>):(
+            <div>
+            <div className="rating-details">
+                <text className="leave-review-text">Leave a Review</text>
+                <div className="write-review-container">
+                    <text className="title-text">Address</text>
+                    <textarea
+                        className="address-review-text"
+                        type="address"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                        // value={addressDesc}
+                        // onChange={(e) => setAddressDesc(e.target.value)}
+                        //onChange={onSearch}
+                    />
+                    <text className="title-text">Write a Review</text>
+                    <textarea
+                        className="review-text"
+                        type="review"
+                        value={review}
+                        onChange={(e) => setReview(e.target.value)}
+                        // value={addressDesc}
+                        // onChange={(e) => setAddressDesc(e.target.value)}
+                        //onChange={onSearch}
+                    />
+                </div>
+                <RatingStars
+                    id="overall"
+                    title="Overall Rating"
+                    onRatingChange={(newRating) =>
+                        handleRatingChange("overall", newRating)
+                    }
+                />
+                <RatingStars
+                    id="cleanliness"
+                    title="Cleanliness"
+                    onRatingChange={(newRating) =>
+                        handleRatingChange("cleanliness", newRating)
+                    }
+                />
+                <RatingStars
+                    id="noise"
+                    title="Noise"
+                    onRatingChange={(newRating) =>
+                        handleRatingChange("noise", newRating)
+                    }
+                />
+                <RatingStars
+                    id="social"
+                    title="Social"
+                    onRatingChange={(newRating) =>
+                        handleRatingChange("social", newRating)
+                    }
+                />
+                <RatingStars
+                    id="landlord"
+                    title="Landlord"
+                    onRatingChange={(newRating) =>
+                        handleRatingChange("landlord", newRating)
+                    }
+                />
+                <RatingStars
+                    id="location"
+                    title="Location"
+                    onRatingChange={(newRating) =>
+                        handleRatingChange("location", newRating)
+                    }
+                />
+            </div>
+            <div
+                style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginTop: "10px",
+                }}
+            >
+                <button className="upload-button" onClick={handleSubmit}>
+                    Submit
+                </button>
+
+            </div>
+            </div>
             )}
         </div>
     );
