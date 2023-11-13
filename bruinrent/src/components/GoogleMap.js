@@ -7,13 +7,35 @@ import { Link, useNavigate } from "react-router-dom";
 
 const APIKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
-const Marker = ({ text, onClick }) => (
-    <div className="pin-container" onClick={onClick}>
-        <img src={MapMarker} alt="Pin" />
-        {/* <div className="pin" style={{zIndex:'9999'}}/> */}
-        <p style={{ textAlign: "center", width: "5rem" }}>{text}</p>
-    </div>
-);
+// const Marker = ({ text, onClick }) => (
+//     <div className="pin-container" onClick={onClick}>
+//         <img src={MapMarker} alt="Pin" />
+//         {/* <div className="pin" style={{zIndex:'9999'}}/> */}
+//         <p style={{ textAlign: "center", width: "5rem" }}>{text}</p>
+//     </div>
+// );
+
+const Marker = ({ text, onClick }) => {
+    const [isHovered, setIsHovered] = useState(false);
+
+    return (
+        <div
+            className="pin-container"
+            onClick={onClick}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+        >
+            <img
+                src={MapMarker}
+                alt="Pin"
+                style={{ width: "30px", height: "30px" }}
+            />
+            {isHovered && (
+                <p style={{ textAlign: "center", width: "5rem" }}>{text}</p>
+            )}
+        </div>
+    );
+};
 
 const App = ({ markers }) => {
     const navigate = useNavigate();
@@ -60,8 +82,8 @@ const App = ({ markers }) => {
             {mapReady}
             <GoogleMap
                 apiKey={APIKey}
-                defaultCenter={{ lat: 34.0689, lng: -118.4452 }}
-                defaultZoom={15}
+                defaultCenter={{ lat: 34.0689, lng: -118.45 }}
+                defaultZoom={16}
                 mapMinHeight="100vh"
                 onGoogleApiLoaded={onGoogleApiLoaded}
                 onChange={(map) => console.log("Map moved", map)}
