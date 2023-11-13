@@ -36,6 +36,7 @@ const ListingPage = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [imageFiles, setImageFiles] = useState([]);
+  const [coverImageFiles, setCoverImageFiles] = useState([]);
   // const [buildingFeaturesTrue, setBuildingFeaturesTrue] = useState(false);
   // const [apartmentFeaturesTrue, setApartmentFeaturesTrue] = useState(false);
   const buildingFeatureData = [
@@ -98,6 +99,10 @@ const ListingPage = () => {
     const selectedFiles = e.target.files;
     setImageFiles(Array.from(selectedFiles));
   };
+  const handleCoverFileSelect = (e) => {
+    const selectedFiles = e.target.files;
+    setCoverImageFiles(Array.from(selectedFiles));
+  };
 
   // For building features
   const checkedBuildingFeatureLabels = buildingFeatures
@@ -115,6 +120,23 @@ const ListingPage = () => {
 
     // Upload each selected image to Firebase Storage
     const imageUrls = [];
+    // Cover image will be first file in imageUrls
+    for (const coverImageFile of coverImageFiles) {
+      const coverImageRef = ref(storage, "images/" + coverImageFile.name);
+
+      try {
+        // Upload the image file
+        await uploadBytes(coverImageRef, coverImageFile);
+
+        // Get the download URL for the uploaded image
+        const coverImageUrl = await getDownloadURL(coverImageRef);
+
+        // Add the image URL to the array
+        imageUrls.push(coverImageUrl);
+      } catch (error) {
+        console.error("Error uploading cover image: ", error);
+      }
+    }
     for (const imageFile of imageFiles) {
       const imageRef = ref(storage, "images/" + imageFile.name);
 
@@ -327,6 +349,42 @@ const ListingPage = () => {
           <div className="listing-page-unit-photos">
             <text className="unit-details unit-photos-title">Add Photos</text>
             <text className="add-attachment-text add-photos-text">
+              Choose a cover photo that best represents your listing! It will be
+              your listing's icon photo and main photo
+            </text>
+            <img
+              style={{
+                maxWidth: "15rem",
+                maxheight: "10rem",
+                objectFit: "contain",
+                borderRadius: "30px",
+                flexShrink: "0",
+              }}
+              src={House}
+              alt="House"
+              className="listing-page-unit-photos-cover"
+            />
+            <div className="custom-file-input">
+              <label htmlFor="file-upload" className="custom-file-label">
+                Choose Cover Photo
+              </label>
+              <input
+                type="file"
+                id="file-upload"
+                className="hidden-file-input"
+                accept="image/*"
+                onChange={handleCoverFileSelect}
+              />
+            </div>
+            <div className="unit-photos-selected-files">
+              <p>Selected Cover Photo:</p>
+              <ul>
+                {imageFiles.map((file, index) => (
+                  <li key={index}>{file.name}</li>
+                ))}
+              </ul>
+            </div>
+            <text className="add-attachment-text add-photos-text">
               Remember to choose photos that showcase all important aspects of
               the home!
             </text>
@@ -377,7 +435,7 @@ const ListingPage = () => {
               />
             </div>
             <div className="unit-photos-selected-files">
-              <p>Selected Files:</p>
+              <p>Selected Images:</p>
               <ul>
                 {imageFiles.map((file, index) => (
                   <li key={index}>{file.name}</li>

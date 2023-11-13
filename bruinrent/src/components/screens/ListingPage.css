@@ -209,6 +209,10 @@
   justify-items: center;
 }
 
+.listing-page-unit-photos-cover {
+  grid-column: 2;
+}
+
 .unit-photos-title {
   grid-column: 1 / 4;
 }
