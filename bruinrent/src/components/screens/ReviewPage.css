@@ -80,6 +80,22 @@
   padding: 0.5rem 0.75rem 0.25rem 0.75rem;
 }
 
+.resident-info-year {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 30%;
+  padding-top: 1rem;
+}
+
+#resident-year {
+  width: 60%;
+  height: 2.5rem;
+  border-radius: 0.85rem;
+  border: 3px solid #89d2f3;
+}
+
 @media screen and (max-width: 1060px) {
   .write-review-container {
     padding-top: 0;
@@ -91,5 +107,14 @@
 
   .review-text {
     width: 80%;
+  }
+
+  .resident-info-year {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 75%;
+    gap: 0.5rem;
   }
 }

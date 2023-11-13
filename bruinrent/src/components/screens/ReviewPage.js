@@ -23,6 +23,9 @@ const ReviewPage = ({ addReview }) => {
     landlord: 0,
     location: 0,
   });
+  const [userInfo, setUserInfo] = useState({
+    year: "freshman",
+  });
   const { user } = useAuthContext();
   const [review, setReview] = useState("");
   const [address, setAddress] = useState("");
@@ -89,6 +92,7 @@ const ReviewPage = ({ addReview }) => {
         latLong: latLong,
         review: review,
         rating: rating,
+        userInfo: userInfo,
       };
 
       const collectionRef = collection(firestore, `users/${user.uid}/reviews`);
@@ -136,6 +140,26 @@ const ReviewPage = ({ addReview }) => {
                 // onChange={(e) => setAddressDesc(e.target.value)}
                 //onChange={onSearch}
               />
+              <text className="title-text">Resident Info</text>
+              <div className="resident-info-year">
+                <label for="resident-year">Your Year:</label>
+                <select
+                  name="resident-year"
+                  id="resident-year"
+                  onChange={(e) =>
+                    setUserInfo((prevInfo) => ({
+                      ...prevInfo,
+                      year: e.target.value,
+                    }))
+                  }
+                >
+                  <option value="freshman">Freshman</option>
+                  <option value="sophomore">Sophomore</option>
+                  <option value="junior">Junior</option>
+                  <option value="senior">Senior</option>
+                  <option value="super-senior">Super Senior</option>
+                </select>
+              </div>
               <text className="title-text">Write a Review</text>
               <textarea
                 className="review-text"
