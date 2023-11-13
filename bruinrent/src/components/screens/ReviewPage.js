@@ -19,6 +19,7 @@ const ReviewPage = ({ addReview }) => {
     const [rating, setRating] = useState({
         overall: 0,
         cleanliness: 0,
+        noise: 0,
         social: 0,
         landlord: 0,
         location: 0,
@@ -118,6 +119,13 @@ const ReviewPage = ({ addReview }) => {
                     title="Cleanliness"
                     onRatingChange={(newRating) =>
                         handleRatingChange("cleanliness", newRating)
+                    }
+                />
+                <RatingStars
+                    id="noise"
+                    title="Noise"
+                    onRatingChange={(newRating) =>
+                        handleRatingChange("noise", newRating)
                     }
                 />
                 <RatingStars

@@ -52,7 +52,7 @@ const Homepage = () => {
                 <div className="homepage-body-listing-container">
                     <h2 className="homepage-body-title">Popular Apartments</h2>
                     <div className="homepage-body-listings">
-                        {listings.slice(0, 6).map((listing) => (
+                        {listings.slice(0, 8).map((listing) => (
                             <AddressBlock
                                 url={`/apartment/${listing.id}`}
                                 address={listing.address}

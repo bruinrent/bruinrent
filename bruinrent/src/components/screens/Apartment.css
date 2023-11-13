@@ -113,7 +113,7 @@ img {
   width: 100%;
   position: relative;
   justify-content: center; /* Center horizontally */
-  align-items: center; 
+  align-items: center;
 }
 
 .small-image-container img {
@@ -140,8 +140,8 @@ img {
 .filtered-image {
   mix-blend-mode: darken; /* Apply mix-blend-mode to Small 2 */
   filter: contrast(50%); /* Apply contrast filter to Small 2 */
-  position:absolute;
-  top:0;
+  position: absolute;
+  top: 0;
 }
 
 .small-image-button {
@@ -154,20 +154,19 @@ img {
 .show-all-button {
   color: #ffffff;
   font-size: 2rem;
-  font-style: italic; 
+  font-style: italic;
   font-weight: 700;
   border: none;
   border-radius: 0.5rem;
   background: none;
   cursor: pointer;
   text-align: center;
-  position:absolute;
-  width:75%;
-  height:20%;
+  position: absolute;
+  width: 75%;
+  height: 20%;
   box-sizing: content-box;
-  left:12.5%;
-  top:40%;
-
+  left: 12.5%;
+  top: 40%;
 }
 
 .columned-page {
@@ -255,6 +254,7 @@ img {
   color: #fff;
   font-size: 1.2rem;
   text-align: center;
+  border: none;
 }
 
 .phone-number {
@@ -262,6 +262,9 @@ img {
   font-size: 1.2rem;
   font-style: normal;
   text-decoration-line: underline;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 /* SubSection START*/
@@ -280,7 +283,7 @@ img {
   gap: 1rem;
   align-items: center;
   align-content: center;
-  box-sizing:border-box
+  box-sizing: border-box;
 }
 
 .header {
@@ -330,7 +333,6 @@ img {
   flex: 1;
   text-align: right;
 }
-
 
 /*Review Section*/
 .reviews-container {
@@ -388,7 +390,6 @@ img {
   text-align: center;
   align-items: center;
   justify-content: center;
-
 }
 
 .pin-container {
@@ -509,5 +510,4 @@ img {
   .review-word {
     font-size: 1rem;
   }
-  
 }
