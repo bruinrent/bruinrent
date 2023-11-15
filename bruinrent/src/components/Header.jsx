@@ -111,18 +111,9 @@ const Header = () => {
 
       {isDropdownOpen && (
         <div className="header-dropdown">
-          {user === null ? (
-            <button
-              className="header-button"
-              onClick={handleSignInWithGoogleAndRedirect}
-            >
-              Leave a Review
-            </button>
-          ) : (
-            <Link to="/ReviewPage">
-              <button className="header-button">Leave a Review</button>
-            </Link>
-          )}
+          <Link to="ListingPage">
+            <button className="header-button">List a Property</button>
+          </Link>
           {user === null ? (
             <button className="header-button" onClick={handleSignInWithGoogle}>
               Sign In
