@@ -9,14 +9,27 @@ import { useAuthContext } from "../AuthContext.js";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import { useSpring, useInView, animated } from "@react-spring/web";
 
 const Homepage = () => {
   // const handleWaitlistClick = () => {
   //     // window.location.href = "/Waitlist";
   // };
+  const NUMBER_OF_POP_LISTINGS = 8;
   const [listings, setListings] = useState([]);
   const { user } = useAuthContext();
   const navigate = useNavigate();
+
+  const [titleRef, titleInView] = useInView();
+  const titleSpring = useSpring({
+    from: { opacity: 0, height: 0, x: 20 },
+    to: {
+      opacity: titleInView ? 1 : 0,
+      height: titleInView ? 80 : 0,
+      x: titleInView ? 0 : 20,
+    },
+    config: { mass: 5, tension: 2000, friction: 200, duration: 300 },
+  });
 
   useEffect(() => {
     // Fetch data from Firestore and set it in the state
@@ -32,11 +45,6 @@ const Homepage = () => {
 
     fetchListings();
   }, []);
-
-  const handleSignInWithGoogleAndRedirect = () => {
-    handleSignInWithGoogle();
-    navigate("/ReviewPage");
-  };
 
   const handleSignInWithGoogle = () => {
     const provider = new GoogleAuthProvider();
@@ -82,7 +90,13 @@ const Homepage = () => {
     <div className="homepage-container">
       <Header />
       <div className="homepage-banner">
-        <h1 className="homepage-banner-title">Housing Made Easy For Bruins.</h1>
+        <animated.h1
+          className="homepage-banner-title"
+          style={titleSpring}
+          ref={titleRef}
+        >
+          Housing Made Easy For Bruins.
+        </animated.h1>
         <div className="homepage-banner-button-container">
           {user === null ? (
             <button
@@ -111,7 +125,7 @@ const Homepage = () => {
         <div className="homepage-body-listing-container">
           <h2 className="homepage-body-title">Popular Apartments</h2>
           <div className="homepage-body-listings">
-            {listings.slice(0, 8).map((listing) => (
+            {listings.slice(0, NUMBER_OF_POP_LISTINGS).map((listing) => (
               <AddressBlock
                 url={`/apartment/${listing.id}`}
                 address={listing.address}
@@ -119,6 +133,7 @@ const Homepage = () => {
                 bedrooms={listing.bedrooms}
                 bathroom={listing.bathroom}
                 imageUrl={listing.imageUrls ? listing.imageUrls[0] : null}
+                className="homepage-body-listing-item"
               />
             ))}
           </div>

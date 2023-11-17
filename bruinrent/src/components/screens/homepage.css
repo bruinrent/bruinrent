@@ -57,6 +57,12 @@
   line-height: 2rem;
   letter-spacing: 0em;
   text-align: center;
+  transition: transform 300ms, background 400ms;
+}
+
+.homepage-banner-button:hover {
+  transform: scale(1.15);
+  background: rgb(1, 155, 197);
 }
 
 .homepage-body-listing-container {
@@ -83,6 +89,14 @@
   grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
   row-gap: 2rem;
   width: 100%;
+}
+
+.homepage-body-listing-item {
+  transition: transform 300ms;
+}
+
+.homepage-body-listing-item:hover {
+  transform: scale(1.1);
 }
 
 @media screen and (max-width: 1060px) {
