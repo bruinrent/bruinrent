@@ -56,10 +56,9 @@ const ApartmentPage = () => {
 
   const [propertyDetailsBoxRef, propertyDetailsBoxInView] = useInView();
   const propertyDetailsBoxSpring = useSpring({
-    from: { opacity: 0, height: 0, x: -30 },
+    from: { opacity: 0, x: -30 },
     to: {
       opacity: propertyDetailsBoxInView ? 1 : 0,
-      height: propertyDetailsBoxInView ? 500 : 0,
       x: propertyDetailsBoxInView ? 0 : -30,
     },
     config: { mass: 5, tension: 2000, friction: 200, duration: 300 },
@@ -67,10 +66,9 @@ const ApartmentPage = () => {
 
   const [utilitiesDetailsBoxRef, utilitiesDetailsBoxInView] = useInView();
   const utilitiesDetailsBoxSpring = useSpring({
-    from: { opacity: 0, height: 0, x: 30 },
+    from: { opacity: 0, x: 30 },
     to: {
       opacity: utilitiesDetailsBoxInView ? 1 : 0,
-      height: utilitiesDetailsBoxInView ? 525 : 0,
       x: utilitiesDetailsBoxInView ? 0 : 30,
     },
     config: { mass: 5, tension: 2000, friction: 200, duration: 300 },

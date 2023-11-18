@@ -1,4 +1,4 @@
-import "../styles/Header.css";
+import "./Header.css";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo_white.png";
 import { useEffect, useState } from "react";
@@ -13,6 +13,7 @@ import { getFirestore, doc, setDoc } from "firebase/firestore";
 import { auth } from "../firebase.js";
 import { useAuthContext } from "./AuthContext.js";
 import { useNavigate } from "react-router-dom";
+import { useSpring, animated } from "@react-spring/web";
 
 import { FaBars } from "react-icons/fa/index.esm";
 
@@ -23,6 +24,15 @@ const Header = () => {
   const [userData, setUserData] = useState({});
   const navigate = useNavigate(); // Initialize navigate
   const { user } = useAuthContext();
+
+  const dropdownSpring = useSpring({
+    from: { opacity: 0, height: 0 },
+    to: {
+      opacity: isDropdownOpen ? 1 : 0,
+      height: isDropdownOpen ? 150 : 0,
+    },
+    config: { mass: 5, tension: 2000, friction: 200, duration: 300 },
+  });
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (result) => {
@@ -110,7 +120,7 @@ const Header = () => {
       </div>
 
       {isDropdownOpen && (
-        <div className="header-dropdown">
+        <animated.div className="header-dropdown" style={dropdownSpring}>
           <Link to="ListingPage">
             <button className="header-button">List a Property</button>
           </Link>
@@ -129,7 +139,7 @@ const Header = () => {
           >
             <button className="header-button">Feedback</button>
           </Link>
-        </div>
+        </animated.div>
       )}
     </div>
   );
