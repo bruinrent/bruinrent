@@ -15,10 +15,14 @@ import {
     Switch,
 } from "react-router-dom";
 import ListingPage from "./components/screens/ListingPage.js";
+import TalleyReview from "./components/screens/TallyReview.js";
 import { Navigate } from "react-router-dom";
 import ApartmentPage from "./components/screens/Apartment.js";
-import Account from './components/Account.jsx'
-import { useAuthContext, AuthContextProvider } from "./components/AuthContext.js"
+import Account from "./components/Account.jsx";
+import {
+    useAuthContext,
+    AuthContextProvider,
+} from "./components/AuthContext.js";
 
 /** Testing pages
  *
@@ -50,19 +54,22 @@ function App() {
     //  return thankYou ? <ThankYou /> : <Waitlist handleSubmit={handleSubmit} errorMsg={errorMsg}/>;
     return (
         <AuthContextProvider>
-        <Router>
-            <Routes>
-                <Route exact path="/" element={<Homepage />} />
-                <Route path="/Waitlist" element={<Waitlist />} />
-                <Route path="/Construction" element={<UnderConstruction />} />
-                <Route path="/MapPage" element={<MapPage />} />
-                <Route path="/ListingPage" element={<ListingPage />} />
-                <Route path="/apartment/:id" element={<Apartment />} />
-                <Route path="/ReviewPage" element={<ReviewPage />} />
-                <Route path="/account" element={<Account />} />
-                {/* <Route path="/Apartment" element={<Apartment />} /> */}
-            </Routes>
-        </Router>
+            <Router>
+                <Routes>
+                    <Route exact path="/" element={<Homepage />} />
+                    <Route path="/Waitlist" element={<Waitlist />} />
+                    <Route
+                        path="/Construction"
+                        element={<UnderConstruction />}
+                    />
+                    <Route path="/MapPage" element={<MapPage />} />
+                    <Route path="/ListingPage" element={<ListingPage />} />
+                    <Route path="/apartment/:id" element={<Apartment />} />
+                    <Route path="/ReviewPage" element={<TalleyReview />} />
+                    <Route path="/account" element={<Account />} />
+                    {/* <Route path="/Apartment" element={<Apartment />} /> */}
+                </Routes>
+            </Router>
         </AuthContextProvider>
     );
 }
