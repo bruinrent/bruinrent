@@ -207,7 +207,7 @@ const ListingPage = () => {
   return (
     <div className="listing-page-container">
       <Header />
-      <div className="listing-page-main">
+      <div>
         <div className="sidebar-container">
           <Sidebar />
         </div>

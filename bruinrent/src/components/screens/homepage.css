@@ -8,20 +8,21 @@
 }
 
 .homepage-banner {
-  height: 45%;
+  height: 60%;
   background: linear-gradient(
     180deg,
     #8bceed 26.58%,
     rgba(139, 206, 237, 0.21) 100%
   );
-  background: url("../../assets/homepage_background_image.png") no-repeat right
-      10% top 35%,
-    linear-gradient(180deg, #8bceed 26.58%, rgba(139, 206, 237, 0.21) 100%);
-  background-size: 600px;
+  background-image: url("../../assets/homepage_banner_background.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  padding-top: 5%;
 }
 
 .homepage-banner-title {
@@ -31,8 +32,8 @@
   line-height: 4rem;
   letter-spacing: 0em;
   text-align: center;
-  color: rgba(255, 255, 255, 1);
-  width: 60%;
+  color: rgba(0, 0, 0, 1);
+  width: 75%;
   margin: 3rem;
 }
 
@@ -86,7 +87,7 @@
 
 .homepage-body-listings {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   row-gap: 2rem;
   width: 100%;
 }
@@ -101,20 +102,13 @@
 
 @media screen and (max-width: 1060px) {
   .homepage-banner {
-    background: linear-gradient(
-      180deg,
-      #8bceed 26.58%,
-      rgba(139, 206, 237, 0.21) 100%
-    );
-    background: url("../../assets/homepage_background_image.png") no-repeat
-        right 20% top,
-      linear-gradient(180deg, #8bceed 26.58%, rgba(139, 206, 237, 0.21) 100%);
-    background-size: 350px;
+    height: 45%;
   }
 
   .homepage-banner-title {
     font-size: 2.5rem;
     line-height: 3rem;
+    margin: 1rem;
   }
 
   .homepage-banner-button-container {
@@ -135,14 +129,52 @@
   }
 
   .homepage-body-listings {
-    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
     row-gap: 1.5rem;
-    column-gap: 0.75rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .homepage-banner {
+    height: 30%;
+    padding-top: 2%;
+  }
+
+  .homepage-banner-title {
+    font-size: 1.75rem;
+    line-height: 2rem;
+    margin: 0.75rem;
+  }
+
+  .homepage-banner-button-container {
+    width: 15rem;
+  }
+
+  .homepage-banner-button {
+    border-radius: 0.5rem;
+    width: 7rem;
+    height: 1.8rem;
+    font-size: 0.8rem;
+    line-height: 1rem;
+  }
+
+  .homepage-body-listing-container {
+    padding: 1.5rem 1.5rem 0.5rem 1.5rem;
+  }
+
+  .homepage-body-title {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    padding: 0 0 1.5rem 0;
+  }
+
+  .homepage-body-listings {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 2rem;
   }
 }
 
 /* Responsive for phones */
-@media screen and (max-width: 600px) {
+@media screen and (max-device-width: 600px) {
   .homepage-banner {
     height: 35%;
   }

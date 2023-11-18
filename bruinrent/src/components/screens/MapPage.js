@@ -59,12 +59,12 @@ const MapPage = () => {
   return (
     <div className="map-page-container">
       <Header />
-      <div className="map-page-body">
+      <div>
         <div className="map-page-search">
           <input
             className="map-page-search-bar"
             type="text"
-            placeholder="Point of Interest"
+            placeholder="Search Apartment"
             //onChange={onSearch}
           />
         </div>
@@ -79,7 +79,7 @@ const MapPage = () => {
                 address={listing.address}
                 s
                 bedrooms={listing.bedrooms}
-                bathroom={listing.bathroom}
+                bathroom={listing.baths}
                 imageUrl={listing.imageUrls ? listing.imageUrls[0] : null}
                 className="address-list-item"
               />

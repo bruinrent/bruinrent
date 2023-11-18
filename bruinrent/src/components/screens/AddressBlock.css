@@ -28,16 +28,60 @@
 }
 
 @media screen and (max-width: 1060px) {
+  .address-block-image {
+    width: 12rem;
+    height: 8rem;
+    border-radius: 2rem;
+  }
+
   .address-block-apartment {
-    font-size: 1rem;
+    font-size: 0.9rem;
+    width: 12rem;
   }
 
   .address-block-details {
-    font-size: 0.85rem;
+    font-size: 0.75rem;
+    width: 12rem;
+  }
+}
+
+@media screen and (max-width: 865px) {
+  .address-block-image {
+    width: 8rem;
+    height: 6rem;
+    border-radius: 1rem;
+  }
+
+  .address-block-apartment {
+    font-size: 0.75rem;
+    width: 8rem;
+  }
+
+  .address-block-details {
+    font-size: 0.6rem;
+    width: 8rem;
   }
 }
 
 @media screen and (max-width: 600px) {
+  .address-block-image {
+    width: 12rem;
+    height: 8rem;
+    border-radius: 1.5rem;
+  }
+
+  .address-block-apartment {
+    font-size: 1rem;
+    width: 12rem;
+  }
+
+  .address-block-details {
+    font-size: 0.85rem;
+    width: 12rem;
+  }
+}
+
+@media screen and (max-device-width: 600px) {
   .address-block-image {
     width: 20rem;
     height: 10rem;
