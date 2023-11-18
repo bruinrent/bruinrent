@@ -23,7 +23,7 @@ import {
     useAuthContext,
     AuthContextProvider,
 } from "./components/AuthContext.js";
-
+import TallyEmbed from "./components/screens/TallyEmbed.js";
 /** Testing pages
  *
  */
@@ -65,7 +65,7 @@ function App() {
                     <Route path="/MapPage" element={<MapPage />} />
                     <Route path="/ListingPage" element={<ListingPage />} />
                     <Route path="/apartment/:id" element={<Apartment />} />
-                    <Route path="/ReviewPage" element={<TalleyReview />} />
+                    <Route path="/ReviewPage" element={<TallyEmbed />} />
                     <Route path="/account" element={<Account />} />
                     {/* <Route path="/Apartment" element={<Apartment />} /> */}
                 </Routes>

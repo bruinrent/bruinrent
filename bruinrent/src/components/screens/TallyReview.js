@@ -1,5 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
+import Header from "../Header.jsx";
 
 const TalleyReview = () => {
     return (
@@ -14,12 +15,27 @@ const TalleyReview = () => {
                 <style type="text/css">
                     {`
             html { margin: 0; height: 100%; overflow: hidden; }
-            iframe { position: absolute; top: 0; right: 0; bottom: 0; left: 0; border: 0; }
+            body { margin: 0; } /* Reset body margin */
+            .header {
+                position: relative; /* Ensure the header is positioned relative to the body */
+                z-index: 6; /* Set z-index to appear above other elements */
+            }
+            .review-iframe {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                border: 0;
+                z-index: 1; /* Set z-index lower than the header to appear below it */
+            }
           `}
                 </style>
             </Helmet>
-            <body>
+            <div>
+                <Header className="header" />
                 <iframe
+                    className="review-iframe"
                     data-tally-src="https://tally.so/r/3qR52G?transparentBackground=1"
                     width="100%"
                     height="100%"
@@ -28,7 +44,7 @@ const TalleyReview = () => {
                     marginWidth="0"
                     title="Leave a Review"
                 ></iframe>
-            </body>
+            </div>
         </div>
     );
 };
