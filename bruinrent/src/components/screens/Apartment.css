@@ -116,6 +116,20 @@ img {
   align-items: center;
 }
 
+.show-all-img-container {
+  overflow: hidden;
+  flex: 1;
+  width: 100%;
+  position: relative;
+  justify-content: center; /* Center horizontally */
+  align-items: center;
+  transition: filter 250ms;
+}
+
+.show-all-img-container:hover {
+  filter: brightness(66%);
+}
+
 .small-image-container img {
   flex: 1;
   /* width:100%; */
@@ -255,6 +269,12 @@ img {
   font-size: 1.2rem;
   text-align: center;
   border: none;
+  transition: transform 300ms, background 400ms;
+}
+
+.blue-contact-button:hover {
+  transform: scale(1.15);
+  background: rgb(1, 155, 197);
 }
 
 .phone-number {

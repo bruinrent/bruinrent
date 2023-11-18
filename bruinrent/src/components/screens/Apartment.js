@@ -1,29 +1,23 @@
 import React, { useState, useEffect } from "react";
 import "./Apartment.css"; // Import the CSS file for component-specific styles
-import logo from "../../assets/logo_white.png"; // Import your logo image
 import apart1 from "../../assets/apart_1.png";
 import apart2 from "../../assets/apart_2.png";
 import BoxTemplate from "./ResizableBox.js";
-import Map from "./Map.js";
-import { Link } from "react-router-dom";
-import { Tooltip } from "react-tooltip";
 import ReviewSumPart from "../reviewSummaryPart.jsx";
 import addressToLongLat from "../addressToLongLat.js";
 import GoogleMap from "../GoogleMap.js";
 import Header from "../Header.jsx";
 import Box from "@mui/material/Box/index.js";
-import Button from "@mui/material/Button/index.js";
-import Typography from "@mui/material/Typography/index.js";
 import Modal from "@mui/material/Modal/index.js";
 // firebase stuff
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { app, firestore } from "../../firebase.js";
+import { firestore } from "../../firebase.js";
 import { useParams } from "react-router-dom";
 // import "react-image-gallery/styles/css/image-gallery.css";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 import { FaMobile } from "react-icons/fa/index.esm.js";
+import { useSpring, useInView, animated } from "@react-spring/web";
 
 const modalStyle = {
   position: "absolute",
@@ -47,6 +41,40 @@ const ApartmentPage = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  // For animations
+  const [contactBoxRef, contactBoxInView] = useInView();
+  const contactBoxSpring = useSpring({
+    from: { opacity: 0, height: 0, x: 30 },
+    to: {
+      opacity: contactBoxInView ? 1 : 0,
+      height: contactBoxInView ? 300 : 0,
+      x: contactBoxInView ? 0 : 30,
+    },
+    config: { mass: 5, tension: 2000, friction: 200, duration: 300 },
+  });
+
+  const [propertyDetailsBoxRef, propertyDetailsBoxInView] = useInView();
+  const propertyDetailsBoxSpring = useSpring({
+    from: { opacity: 0, height: 0, x: -30 },
+    to: {
+      opacity: propertyDetailsBoxInView ? 1 : 0,
+      height: propertyDetailsBoxInView ? 500 : 0,
+      x: propertyDetailsBoxInView ? 0 : -30,
+    },
+    config: { mass: 5, tension: 2000, friction: 200, duration: 300 },
+  });
+
+  const [utilitiesDetailsBoxRef, utilitiesDetailsBoxInView] = useInView();
+  const utilitiesDetailsBoxSpring = useSpring({
+    from: { opacity: 0, height: 0, x: 30 },
+    to: {
+      opacity: utilitiesDetailsBoxInView ? 1 : 0,
+      height: utilitiesDetailsBoxInView ? 525 : 0,
+      x: utilitiesDetailsBoxInView ? 0 : 30,
+    },
+    config: { mass: 5, tension: 2000, friction: 200, duration: 300 },
+  });
 
   const [apartmentData, setApartmentData] = useState({
     address: "",
@@ -238,7 +266,7 @@ const ApartmentPage = () => {
                 <img src={apart1} alt="Placeholder" />
               )}
             </div>
-            <div className="individual-small-img-container">
+            <div className="show-all-img-container">
               {apartmentData.imageUrls[2] ? ( // Check if imageUrls[0] exists
                 <img
                   src={apartmentData.imageUrls[2]}
@@ -266,7 +294,10 @@ const ApartmentPage = () => {
             {/* Listing Header */}
             <div className="listing-header">
               <p className="header-subtext">
-                Rent: {apartmentData.rent1} - {apartmentData.rent2}
+                Rent:{" "}
+                {apartmentData.rent1 == apartmentData.rent2
+                  ? `$${apartmentData.rent1}`
+                  : `$${apartmentData.rent1} - $${apartmentData.rent2}`}
               </p>
               <div className="big-Header">{apartmentData.address}</div>
               <div className="header-subtext">
@@ -299,7 +330,11 @@ const ApartmentPage = () => {
 
           {/* CONTACT COLUMN */}
           <div className="smaller-column">
-            <div className="contact-box">
+            <animated.div
+              className="contact-box"
+              ref={contactBoxRef}
+              style={contactBoxSpring}
+            >
               <div className="contact-head">Contact This Property</div>
               <button className="blue-contact-button">Request Tour</button>
 
@@ -313,13 +348,18 @@ const ApartmentPage = () => {
               <div className="phone-number">
                 <FaMobile /> {apartmentData.phone}
               </div>
-            </div>
+            </animated.div>
           </div>
         </div>
         {/* SECOND COLUMN SET*/}
 
         <div className="columned-page">
-          <div className="smaller-column">
+          {/* Property Details */}
+          <animated.div
+            className="smaller-column"
+            ref={propertyDetailsBoxRef}
+            style={propertyDetailsBoxSpring}
+          >
             <div className="header">Property Details</div>
             <BoxTemplate>
               <div className="content-container">
@@ -354,9 +394,14 @@ const ApartmentPage = () => {
                 </div>
               </div>
             </BoxTemplate>
-          </div>
+          </animated.div>
 
-          <div className="smaller-column">
+          {/* Utilities and Parking */}
+          <animated.div
+            className="smaller-column"
+            ref={utilitiesDetailsBoxRef}
+            style={utilitiesDetailsBoxSpring}
+          >
             {/* Utilities */}
             <div className="header">Utilities</div>
             <BoxTemplate>
@@ -393,7 +438,7 @@ const ApartmentPage = () => {
                 </div>
               </div>
             </BoxTemplate>
-          </div>
+          </animated.div>
         </div>
 
         <div className="review-num-word" style={{ paddingBottom: "1rem" }}>
