@@ -10,7 +10,10 @@ import Header from "../Header.jsx";
 
 const MapPage = () => {
   const [listings, setListings] = useState([]);
+  const [filteredListings, setFilteredListings] = useState([]);
   const [markers, setMarkers] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+
   const [visibleListings, setVisibleListings] = useState(10); // Display the first 10 listings
 
   const loadMoreListings = () => {
@@ -33,10 +36,32 @@ const MapPage = () => {
     fetchListings();
   }, []);
 
+
+  useEffect( () => {
+    handleSearch();
+  }, [searchQuery])
+
+  const handleSearch = () => {
+    const filteredData = listings.filter((doc) => {
+        const addressWithoutSpaces = doc.address.replace(/\s|'/g, '');
+        const searchQueryWithoutSpaces = searchQuery.replace(/\s|'/g, '');
+    
+        return addressWithoutSpaces.toLowerCase().includes(searchQueryWithoutSpaces.toLowerCase());
+      });
+
+      setFilteredListings(filteredData);
+
+  }
+
   useEffect(() => {
+    const displayedListings = searchQuery.length > 0 ? filteredListings : listings.slice(0, visibleListings);
+    if (searchQuery.length > 0) {
+        setMarkers([]);
+    }
     console.log("listings useffect");
     // listings[0] && console.log(`Listing 0 id: ${listings[0].id}`);
-    listings.slice(0, visibleListings).forEach((listing) => {
+    console.log(`Displayed listings for marker setting useeffect: ${displayedListings}`)
+    displayedListings.forEach((listing) => {
       if (listing.latLong) {
         console.log(listing.latLong);
         console.log(listing.id);
@@ -54,26 +79,13 @@ const MapPage = () => {
       }
     });
     console.log({ markers });
-  }, [listings, visibleListings]);
+  }, [listings, visibleListings, filteredListings]);
 
-  return (
-    <div className="map-page-container">
-      <Header />
-      <div className="map-page-body">
-        <div className="map-page-search">
-          <input
-            className="map-page-search-bar"
-            type="text"
-            placeholder="Point of Interest"
-            //onChange={onSearch}
-          />
-        </div>
-        <div className="map-page-listings">
-          <div className="map-container">
-            <GoogleMap markers={markers} />
-          </div>
-          <div className="address-list">
-            {listings.slice(0, visibleListings).map((listing, index) => (
+  const AddressList = () => {
+    const displayedListings = searchQuery.length > 0 ? filteredListings : listings.slice(0, visibleListings);
+    return (
+        <div className="address-list">
+            {displayedListings.map((listing, index) => (
               <AddressBlock
                 url={`/apartment/${listing.id}`}
                 address={listing.address}
@@ -92,7 +104,28 @@ const MapPage = () => {
                 Load More
               </button>
             )}
+        </div>  
+    );
+  }
+
+  return (
+    <div className="map-page-container">
+      <Header />
+      <div className="map-page-body">
+        <div className="map-page-search">
+          <input
+            className="map-page-search-bar"
+            type="text"
+            placeholder="Point of Interest"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+        <div className="map-page-listings">
+          <div className="map-container">
+            <GoogleMap markers={markers} />
           </div>
+          <AddressList/>
         </div>
       </div>
     </div>
