@@ -116,7 +116,10 @@ const Header = () => {
       </Link>
 
       <div className="header-links">
-        <FaBars onClick={() => setDropdownOpen(!isDropdownOpen)} />
+        <FaBars
+          onClick={() => setDropdownOpen(!isDropdownOpen)}
+          onMouseEnter={() => setDropdownOpen(true)}
+        />
       </div>
 
       {isDropdownOpen && (
