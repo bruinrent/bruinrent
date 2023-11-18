@@ -1,28 +1,34 @@
 /* Add this CSS in your stylesheets or styled-components */
 .pin-container {
-    position: relative;
-    cursor: pointer;
-  }
-  
-  .pin-container img {
-    display: block; /* Ensure the image behaves like a block element */
-  }
-  
-  .pin-container p {
-    position: absolute;
-    top: 100%; /* Position the text below the pin */
-    left: 50%; /* Center the text horizontally */
-    transform: translateX(-50%); /* Adjust for centering */
-    margin-top: 5px; /* Add some spacing between the pin and text */
-    font-size: 14px;
-    background-color: white; /* Set background color for better readability */
-    padding: 5px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
-    display: none; /* Initially hide the text */
-  }
-  
-  .pin-container:hover p {
-    display: block; /* Display the text on hover */
-  }
-  
+  position: relative;
+  cursor: pointer;
+}
+
+.pin-container img {
+  display: block; /* Ensure the image behaves like a block element */
+  transition: transform 300ms;
+}
+
+.pin-container:hover img {
+  transform: scale(1.25) translateY(-0.5rem);
+}
+
+.pin-container p {
+  position: absolute;
+  top: 100%; /* Position the text below the pin */
+  left: 50%; /* Center the text horizontally */
+  transform: translateX(-50%); /* Adjust for centering */
+  margin-top: 5px; /* Add some spacing between the pin and text */
+  font-size: 14px;
+  background-color: white; /* Set background color for better readability */
+  padding: 5px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+  display: none; /* Initially hide the text */
+  text-align: center;
+  width: 5rem;
+}
+
+.pin-container:hover p {
+  display: block; /* Display the text on hover */
+}

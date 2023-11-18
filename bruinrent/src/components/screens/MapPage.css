@@ -50,9 +50,33 @@
   gap: 1rem;
 }
 
-.address-block {
-  background-color: white;
-  border: 1px solid #ccc;
+.address-list-item {
+  transition: transform 300ms;
+}
+
+.address-list-item:hover {
+  transform: scale(1.1);
+}
+
+.address-list-load-more {
+  background: rgba(0, 191, 246, 1);
+  color: rgba(255, 255, 255, 1);
+  border: none;
+  border-radius: 0.8rem;
+  width: 10rem;
+  height: 2.5rem;
+  font-family: Lato;
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.8rem;
+  letter-spacing: 0em;
+  text-align: center;
+  transition: transform 300ms, background 400ms;
+}
+
+.address-list-load-more:hover {
+  transform: scale(1.15);
+  background: rgb(1, 155, 197);
 }
 
 @media only screen and (max-device-width: 600px) {
