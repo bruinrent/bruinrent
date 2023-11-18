@@ -7,6 +7,7 @@ import { firestore } from "../../firebase.js";
 import "leaflet/dist/leaflet.css";
 import GoogleMap from "../GoogleMap.js";
 import Header from "../Header.jsx";
+import Fuse from "fuse.js";
 
 const MapPage = () => {
   const [listings, setListings] = useState([]);
@@ -37,19 +38,42 @@ const MapPage = () => {
   }, []);
 
 
+  const fuseOptions = {
+	// isCaseSensitive: false,
+	// includeScore: false,
+	// shouldSort: true,
+	// includeMatches: false,
+	// findAllMatches: false,
+	// minMatchCharLength: 1,
+	// location: 0,
+	threshold: 0.3,
+	// distance: 100,
+	// useExtendedSearch: false,
+	// ignoreLocation: false,
+	// ignoreFieldNorm: false,
+	// fieldNormWeight: 1,
+	keys: [
+		"address",
+	]
+};
+const fuse = new Fuse(listings, fuseOptions);
+
   useEffect( () => {
     handleSearch();
   }, [searchQuery])
 
   const handleSearch = () => {
-    const filteredData = listings.filter((doc) => {
-        const addressWithoutSpaces = doc.address.replace(/\s|'/g, '');
-        const searchQueryWithoutSpaces = searchQuery.replace(/\s|'/g, '');
+    // const filteredData = listings.filter((doc) => {
+    //     const addressWithoutSpaces = doc.address.replace(/\s|'/g, '');
+    //     const searchQueryWithoutSpaces = searchQuery.replace(/\s|'/g, '');
     
-        return addressWithoutSpaces.toLowerCase().includes(searchQueryWithoutSpaces.toLowerCase());
-      });
+    //     return addressWithoutSpaces.toLowerCase().includes(searchQueryWithoutSpaces.toLowerCase());
+    //   });
+    const searchedListings = fuse.search(searchQuery)
+    const sortedListings = searchedListings.sort((a, b) => a.refIndex - b.refIndex);
+    const sortedItems = sortedListings.map(obj => obj.item);
 
-      setFilteredListings(filteredData);
+      setFilteredListings(sortedItems);
 
   }
 
@@ -116,7 +140,7 @@ const MapPage = () => {
           <input
             className="map-page-search-bar"
             type="text"
-            placeholder="Point of Interest"
+            placeholder="Search for address"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
