@@ -1,4 +1,4 @@
-import "../styles/Header.css";
+import "./reviewSummaryPart.css";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo_white.png";
 import { Tooltip } from 'react-tooltip'

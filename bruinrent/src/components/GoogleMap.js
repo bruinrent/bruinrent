@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import pin from "../assets/Google_Maps_pin.svg";
 import MapMarker from "../assets/MapMarker.png";
 import { Link, useNavigate } from "react-router-dom";
+import "./GoogleMap.css"
 
 const APIKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
@@ -16,23 +17,17 @@ const APIKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 // );
 
 const Marker = ({ text, onClick }) => {
-    const [isHovered, setIsHovered] = useState(false);
 
     return (
         <div
             className="pin-container"
             onClick={onClick}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
         >
             <img
                 src={MapMarker}
                 alt="Pin"
-                style={{ width: "30px", height: "30px" }}
             />
-            {isHovered && (
-                <p style={{ textAlign: "center", width: "5rem" }}>{text}</p>
-            )}
+            <p>{text}</p>
         </div>
     );
 };
