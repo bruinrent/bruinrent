@@ -1,14 +1,13 @@
+import "./ListingPage.css";
+import "./MapPage.css";
+
 import React, { useState } from "react";
-import "./homepage.css"; // Import a separate CSS file for component-specific styles
 import { collection, addDoc } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { useNavigate } from "react-router-dom";
+import { firestore } from "../../firebase.js";
 
-import { Link, useNavigate } from "react-router-dom";
-import "./MapPage.css";
-import { app, firestore } from "../../firebase.js";
-import BoxTemplate from "./Box.js";
 import House from "../../assets/Map.png";
-import "./ListingPage.css";
 import Sidebar from "./Sidebar.js";
 import CheckBox from "./Checkbox.js";
 import Header from "../Header.jsx";
