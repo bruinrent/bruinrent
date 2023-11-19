@@ -169,6 +169,12 @@
   height: 2.5rem;
   border-radius: 1rem;
   flex-shrink: 0;
+  transition: transform 300ms, background 400ms;
+}
+
+.upload-button:hover {
+  transform: scale(1.15);
+  background: rgb(1, 155, 197);
 }
 
 .add-attachment-text {
@@ -222,6 +228,12 @@
   position: relative;
   cursor: pointer;
   grid-column: 2;
+  transition: transform 300ms, background 400ms;
+}
+
+.custom-file-input:hover {
+  transform: scale(1.15);
+  background: rgb(1, 155, 197);
 }
 
 .custom-file-label {
@@ -372,7 +384,7 @@
   }
 } */
 
-@media only screen and (max-device-width: 600px) {
+@media only screen and (max-width: 600px) {
   .listing-page-body {
     width: 100%;
     float: none;
