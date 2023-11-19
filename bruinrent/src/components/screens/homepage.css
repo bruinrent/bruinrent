@@ -181,18 +181,19 @@
 
   .homepage-banner-title {
     font-size: 2rem;
-    line-height: 3rem;
+    line-height: 2.5rem;
+    margin: 1.5rem;
   }
 
   .homepage-banner-button-container {
-    width: 18rem;
+    width: 15rem;
   }
 
   .homepage-banner-button {
     border-radius: 0.5rem;
-    width: 8rem;
-    height: 2rem;
-    font-size: 0.85rem;
+    width: 7rem;
+    height: 1.75rem;
+    font-size: 0.75rem;
   }
 
   .homepage-body-listing-container {
