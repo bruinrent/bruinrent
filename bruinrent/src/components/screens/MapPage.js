@@ -120,7 +120,7 @@ const fuse = new Fuse(listings, fuseOptions);
                 className="address-list-item"
               />
             ))}
-            {visibleListings < listings.length && (
+            {(visibleListings < listings.length && searchQuery.length ==0) && (
               <button
                 onClick={loadMoreListings}
                 className="address-list-load-more"
