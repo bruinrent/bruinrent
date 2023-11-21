@@ -7,8 +7,7 @@
 }
 
 .map-page-search {
-  height: 20%;
-  padding: 2rem 1rem 1rem 1rem;
+  padding: 1rem;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -23,11 +22,10 @@
 }
 
 .map-page-listings {
-  height: 80%;
   display: flex;
   flex-direction: row;
-  gap: 1rem;
-  padding: 0 1rem 0 1rem;
+  padding: 0 1rem;
+  height: 82vh;
 }
 
 .map-container {
@@ -35,11 +33,13 @@
   width: 80%;
 }
 
-.address-list {
-  height: 100vh; /* Address list takes up the full viewport height */
-  overflow-y: auto; /* Enable vertical scrolling */
+.address-list-container {
+  height: 100%;
   width: 20%; /* Width of the scrolling window */
   box-sizing: border-box; /* Include padding and border in width calculation */
+}
+
+.address-list {
   display: flex; /* Add this line to use flexbox */
   flex-direction: column; /* Stack address blocks vertically */
   align-items: center; /* Center address blocks horizontally */
@@ -80,7 +80,7 @@
     width: 75%;
   }
 
-  .address-list {
+  .address-list-container {
     width: 25%; /* Width of the scrolling window */
   }
 }
@@ -90,7 +90,7 @@
     width: 70%;
   }
 
-  .address-list {
+  .address-list-container {
     width: 30%; /* Width of the scrolling window */
   }
 }
@@ -100,11 +100,14 @@
     display: none;
   }
 
-  .address-list {
+  .address-list-container {
     margin-top: 0;
     margin-right: 0;
     padding: 0;
     width: 100%; /* Width of the scrolling window */
+  }
+
+  .address-list {
     display: flex; /* Add this line to use flexbox */
     flex-direction: column; /* Stack address blocks vertically */
     gap: 2rem;
