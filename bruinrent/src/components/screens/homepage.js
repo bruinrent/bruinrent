@@ -1,21 +1,28 @@
+import "./homepage.css";
+
 import React, { useState, useEffect } from "react";
-import "./homepage.css"; // Import a separate CSS file for component-specific styles
-import { collection, getDocs } from "firebase/firestore";
-import { Link } from "react-router-dom";
-import AddressBlock from "./AddressBlock.js";
-import { app, firestore } from "../../firebase.js";
-import Header from "../Header.jsx";
-import { useAuthContext } from "../AuthContext.js";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { getFirestore, doc, setDoc } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
 import { useSpring, useInView, animated } from "@react-spring/web";
+import { useAuthContext } from "../AuthContext.js";
+import { useNavigate } from "react-router-dom";
+import { firestore } from "../../firebase.js";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import {
+  getFirestore,
+  doc,
+  collection,
+  setDoc,
+  getDocs,
+  query,
+  limit,
+} from "firebase/firestore";
+
+import { Link } from "react-router-dom";
+import Header from "../Header.jsx";
+import AddressBlock from "./AddressBlock.js";
+import Footer from "../Footer.jsx";
 
 const Homepage = () => {
-  // const handleWaitlistClick = () => {
-  //     // window.location.href = "/Waitlist";
-  // };
-  const NUMBER_OF_POP_LISTINGS = 8;
+  const NUMBER_OF_POP_LISTINGS = 4;
   const [listings, setListings] = useState([]);
   const { user } = useAuthContext();
   const navigate = useNavigate();
@@ -34,15 +41,17 @@ const Homepage = () => {
   useEffect(() => {
     // Fetch data from Firestore and set it in the state
     const fetchListings = async () => {
-      const listingsRef = collection(firestore, "listings");
-      const snapshot = await getDocs(listingsRef);
+      const q = query(
+        collection(firestore, "listings"),
+        limit(NUMBER_OF_POP_LISTINGS)
+      );
+      const snapshot = await getDocs(q);
       const listingsData = snapshot.docs.map((doc) => ({
         id: doc.id, // Include the document ID as 'id'
         ...doc.data(), // Include other data from the document
       }));
       setListings(listingsData);
     };
-
     fetchListings();
   }, []);
 
@@ -80,7 +89,6 @@ const Homepage = () => {
     }
   };
 
-  console.log("Properties:", listings); // Check if properties data is available
   return (
     <div className="homepage-container">
       <Header />
@@ -120,20 +128,22 @@ const Homepage = () => {
         <div className="homepage-body-listing-container">
           <h2 className="homepage-body-title">Popular Apartments</h2>
           <div className="homepage-body-listings">
-            {listings.slice(0, NUMBER_OF_POP_LISTINGS).map((listing) => (
-              <AddressBlock
-                url={`/apartment/${listing.id}`}
-                address={listing.address}
-                s
-                bedrooms={listing.bedrooms}
-                bathroom={listing.baths}
-                imageUrl={listing.imageUrls ? listing.imageUrls[0] : null}
-                className="homepage-body-listing-item"
-              />
-            ))}
+            {listings.length != null &&
+              listings.map((listing) => (
+                <AddressBlock
+                  url={`/apartment/${listing.id}`}
+                  address={listing.address}
+                  s
+                  bedrooms={listing.bedrooms}
+                  bathroom={listing.baths}
+                  imageUrl={listing.imageUrls ? listing.imageUrls[0] : null}
+                  className="homepage-body-listing-item"
+                />
+              ))}
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

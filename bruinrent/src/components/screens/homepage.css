@@ -1,28 +1,29 @@
 @import url("https://fonts.googleapis.com/css?family=Lato:400,700");
 
 .homepage-container {
-  height: 100vh;
+  position: relative;
+  min-height: 100vh;
   width: 100vw;
   padding: 0rem !important;
   box-sizing: border-box;
 }
 
 .homepage-banner {
-  height: 60%;
+  height: 60vh;
   background: linear-gradient(
     180deg,
     #8bceed 26.58%,
     rgba(139, 206, 237, 0.21) 100%
   );
-  background-image: url("../../assets/homepage_banner_background.png");
-  background-size: 100% 100%;
+  background-image: url("../../assets/homepage_banner_graphic.png");
+  background-size: contain;
   background-repeat: no-repeat;
-  background-position: center center;
+  background-position: bottom;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  padding-top: 5%;
+  padding-top: 5vh;
 }
 
 .homepage-banner-title {
@@ -66,6 +67,10 @@
   background: rgb(1, 155, 197);
 }
 
+.homepage-body {
+  padding-bottom: 5vh;
+}
+
 .homepage-body-listing-container {
   display: flex;
   flex-direction: column;
@@ -102,7 +107,7 @@
 
 @media screen and (max-width: 1060px) {
   .homepage-banner {
-    height: 45%;
+    height: 45vh;
   }
 
   .homepage-banner-title {
@@ -135,8 +140,8 @@
 
 @media screen and (max-width: 600px) {
   .homepage-banner {
-    height: 30%;
-    padding-top: 2%;
+    height: 30vh;
+    padding-top: 2vh;
   }
 
   .homepage-banner-title {
@@ -176,7 +181,7 @@
 /* Responsive for phones */
 @media screen and (max-device-width: 600px) {
   .homepage-banner {
-    height: 35%;
+    height: 30vh;
   }
 
   .homepage-banner-title {
