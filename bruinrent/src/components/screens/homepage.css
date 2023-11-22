@@ -15,7 +15,8 @@
     #8bceed 26.58%,
     rgba(139, 206, 237, 0.21) 100%
   );
-  background-image: url("../../assets/homepage_banner_graphic.png");
+  background: url("../../assets/homepage_banner_graphic.png"),
+    linear-gradient(180deg, #e1f8ff 0%, #fdffff 100%);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: bottom;
