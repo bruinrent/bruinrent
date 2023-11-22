@@ -22,7 +22,7 @@ import AddressBlock from "./AddressBlock.js";
 import Footer from "../Footer.jsx";
 
 const Homepage = () => {
-  const NUMBER_OF_POP_LISTINGS = 4;
+  const NUMBER_OF_POP_LISTINGS = 8;
   const [listings, setListings] = useState([]);
   const { user } = useAuthContext();
   const navigate = useNavigate();
