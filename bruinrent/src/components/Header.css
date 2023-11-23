@@ -13,7 +13,7 @@
   font-family: "Lato";
   font-style: normal;
   font-weight: 700;
-  font-size: 2rem;
+  font-size: 1.35rem;
   text-align: center;
   color: #000000;
   justify-self: center;
@@ -86,7 +86,7 @@
   }
 
   .header-title {
-    font-size: 1.25rem;
+    font-size: 0.85rem;
   }
 
   .header-dropdown {
