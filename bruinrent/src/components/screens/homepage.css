@@ -28,7 +28,7 @@
 
 .homepage-banner-title {
   font-family: Lato;
-  font-size: 3.5rem;
+  font-size: 2rem;
   font-weight: 700;
   line-height: 4rem;
   letter-spacing: 0em;
@@ -41,7 +41,7 @@
 .homepage-banner-button-container {
   display: flex;
   flex-direction: row;
-  width: 30rem;
+  width: 27rem;
   align-items: center;
   justify-content: space-between;
 }
@@ -81,7 +81,7 @@
 
 .homepage-body-title {
   font-family: Lato;
-  font-size: 2rem;
+  font-size: 1.6rem;
   font-weight: 700;
   line-height: 2rem;
   letter-spacing: 0em;
@@ -111,7 +111,7 @@
   }
 
   .homepage-banner-title {
-    font-size: 2.5rem;
+    font-size: 1.75rem;
     line-height: 3rem;
     margin: 2rem 0 0.25rem 0;
   }
@@ -128,7 +128,7 @@
   }
 
   .homepage-body-title {
-    font-size: 1.5rem;
+    font-size: 1.35rem;
     line-height: 2rem;
     padding: 0 0 1.5rem 0;
   }
@@ -145,7 +145,7 @@
   }
 
   .homepage-banner-title {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     line-height: 2rem;
     margin: 0.75rem;
     width: 50%;
@@ -168,7 +168,7 @@
   }
 
   .homepage-body-title {
-    font-size: 1.5rem;
+    font-size: 1rem;
     line-height: 2rem;
     padding: 0 0 1.5rem 0;
   }
