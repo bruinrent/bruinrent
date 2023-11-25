@@ -3,7 +3,7 @@ import "./MapPage.css"; // Import a separate CSS file for component-specific sty
 import "leaflet/dist/leaflet.css";
 import { useAuthContext } from "../AuthContext.js";
 import { firestore } from "../../firebase.js";
-import sizeof from 'firestore-size'
+import sizeof from "firestore-size";
 import {
   collection,
   getDocs,
@@ -13,7 +13,7 @@ import {
   orderBy,
   setDoc,
   doc,
-  getDoc
+  getDoc,
 } from "firebase/firestore";
 import InfiniteScroll from "react-infinite-scroll-component";
 import AddressBlock from "./AddressBlock.js";
@@ -33,7 +33,16 @@ const MapPage = () => {
   const [markers, setMarkers] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const { user } = useAuthContext();
-  const adminUIDList = ['dJ2BhadxRMUcLbes3kvLzAbcUJ82', 'qgE8ZilUG4VWEsWlGzH4a5lG5b53', 'lwjUg0pXKmVdpGOWXEPH0dZqeno1', 'hY8GizjXLzMeqe80ktnCo15XIZl2', 'dJ2BhadxRMUcLbes3kvLzAbcUJ82', 'K1JhDmiZZgYRcheXcOL7xClLUyq2', 'EMTgE8nafjZfxr1nfVtHTaUhhDM2', '1GU3X53O5Dg5ZbJKOfjYc38eBuq2'];
+  const adminUIDList = [
+    "dJ2BhadxRMUcLbes3kvLzAbcUJ82",
+    "qgE8ZilUG4VWEsWlGzH4a5lG5b53",
+    "lwjUg0pXKmVdpGOWXEPH0dZqeno1",
+    "hY8GizjXLzMeqe80ktnCo15XIZl2",
+    "dJ2BhadxRMUcLbes3kvLzAbcUJ82",
+    "K1JhDmiZZgYRcheXcOL7xClLUyq2",
+    "EMTgE8nafjZfxr1nfVtHTaUhhDM2",
+    "1GU3X53O5Dg5ZbJKOfjYc38eBuq2",
+  ];
   const isAdmin = user && adminUIDList.includes(user.uid);
 
   useEffect(() => {
@@ -49,12 +58,14 @@ const MapPage = () => {
       //   id: doc.id, // Include the document ID as 'id'
       //   ...doc.data(), // Include other data from the document
       // }));
-       // console.log("LISTING DATA", listingsData);
+      // console.log("LISTING DATA", listingsData);
       // if (listingsData.length > 0) {
       //   setLastListing(snapshot.docs[snapshot.docs.length - 1]);
       // }
-      
-      const tocData = (await getDoc(doc(firestore, 'reference', 'listings-toc'))).data();
+
+      const tocData = (
+        await getDoc(doc(firestore, "reference", "listings-toc"))
+      ).data();
       const listingsData = Object.entries(tocData).map(([id, data]) => ({
         id,
         address: data.address,
@@ -63,13 +74,12 @@ const MapPage = () => {
         bedrooms: data.bed,
         bathroom: data.bath,
         latLong: data.latLong,
-        imageUrls: [data.image]
+        imageUrls: [data.image],
       }));
-      setListings(listingsData)
-      
-      
-
-     
+      const sortedListingData = listingsData.sort((a, b) =>
+        a.address.localeCompare(b.address)
+      );
+      setListings(sortedListingData);
     };
 
     fetchListings();
@@ -109,46 +119,47 @@ const MapPage = () => {
     if (searchQuery.length > 0) {
       return;
     }
-    setVisibleListings(visibleListings +10 < listings.length ? visibleListings + 10 : listings.length);
+    setVisibleListings(
+      visibleListings + 10 < listings.length
+        ? visibleListings + 10
+        : listings.length
+    );
   };
 
   const handleAdminButton = async () => {
-    console.log('adminnnn');
+    console.log("adminnnn");
     // Get ALL listings
     const listingsRef = collection(firestore, "listings");
     const snapshot = await getDocs(listingsRef);
     const listingsData = snapshot.docs.map((doc) => ({
       [doc.id]: {
-      address: doc.data().address,
-      rent1: doc.data().rent1,
-      rent2: doc.data().rent2,
-      bed:doc.data().bedrooms,
-      bath:doc.data().baths,
-      image:doc.data().imageUrls ? doc.data().imageUrls[0] : null,
-      latLong: doc.data().latLong || null
-      }
-
+        address: doc.data().address,
+        rent1: doc.data().rent1,
+        rent2: doc.data().rent2,
+        bed: doc.data().bedrooms,
+        bath: doc.data().baths,
+        image: doc.data().imageUrls ? doc.data().imageUrls[0] : null,
+        latLong: doc.data().latLong || null,
+      },
     }));
-    console.log(listingsData)
-    
+    console.log(listingsData);
+
     const combinedData = listingsData.reduce((accumulator, currentObject) => {
       return { ...accumulator, ...currentObject };
     }, {});
-    
+
     // Now combinedData has the structure you want
     console.log(combinedData);
     const collectionRef = collection(firestore, "reference"); // Replace "listings" with your collection name
 
     try {
-      await setDoc(doc(firestore, 'reference', 'listings-toc'),combinedData);
-      
+      await setDoc(doc(firestore, "reference", "listings-toc"), combinedData);
     } catch (error) {
       console.error("Error adding document: ", error);
     }
-    const tocDocRef = await getDoc(doc(firestore, 'reference', 'listings-toc'));
+    const tocDocRef = await getDoc(doc(firestore, "reference", "listings-toc"));
     console.log(`Size of table of contents: ${sizeof(tocDocRef.data())}`);
-
-  }
+  };
 
   const fuseOptions = {
     // isCaseSensitive: false,
@@ -173,9 +184,9 @@ const MapPage = () => {
   }, [searchQuery]);
 
   const handleSearch = () => {
-    console.log('Handlesearch')
-    if (searchQuery==0) {
-      setFilteredListings(listings.slice(0,visibleListings))
+    console.log("Handlesearch");
+    if (searchQuery == 0) {
+      setFilteredListings(listings.slice(0, visibleListings));
       return;
     }
     // const filteredData = listings.filter((doc) => {
@@ -192,14 +203,14 @@ const MapPage = () => {
 
     setFilteredListings(sortedItems);
   };
-  useEffect( () => {
-    setFilteredListings(listings.slice(0,visibleListings));
-  }, [visibleListings])
+  useEffect(() => {
+    setFilteredListings(listings.slice(0, visibleListings));
+  }, [visibleListings]);
 
-  useEffect( () => {
+  useEffect(() => {
     //need to update search or based on visible listings
-    setFilteredListings(listings.slice(0,visibleListings))
-  }, [listings])
+    setFilteredListings(listings.slice(0, visibleListings));
+  }, [listings]);
   // Displaying markers
   useEffect(() => {
     // const displayedListings =
@@ -279,7 +290,13 @@ const MapPage = () => {
               dataLength={filteredListings.length}
               next={loadMoreListings}
               hasMore={hasMoreListings}
-              loader={filteredListings.length == 0 ? <h1>No results</h1> : <h1>End of results</h1>}
+              loader={
+                filteredListings.length == 0 ? (
+                  <h1>No results</h1>
+                ) : (
+                  <h1>End of results</h1>
+                )
+              }
               className="address-list"
               height="89vh"
             >
@@ -298,9 +315,12 @@ const MapPage = () => {
                 ))}
             </InfiniteScroll>
           </div>
-          
         </div>
-        {isAdmin && <button onClick={handleAdminButton}>ADMIN FUNCTION: Reload Table of Contents</button>}
+        {isAdmin && (
+          <button onClick={handleAdminButton}>
+            ADMIN FUNCTION: Reload Table of Contents
+          </button>
+        )}
       </div>
     </div>
   );
