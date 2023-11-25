@@ -3,6 +3,7 @@ import "./MapPage.css"; // Import a separate CSS file for component-specific sty
 import "leaflet/dist/leaflet.css";
 import { useAuthContext } from "../AuthContext.js";
 import { firestore } from "../../firebase.js";
+import sizeof from 'firestore-size'
 import {
   collection,
   getDocs,
@@ -136,10 +137,13 @@ const MapPage = () => {
     const collectionRef = collection(firestore, "reference"); // Replace "listings" with your collection name
 
     try {
-      setDoc(doc(firestore, 'reference', 'listings-toc'),combinedData,{ merge: true });
+      await setDoc(doc(firestore, 'reference', 'listings-toc'),combinedData);
+      
     } catch (error) {
       console.error("Error adding document: ", error);
     }
+    const tocDocRef = await getDoc(doc(firestore, 'reference', 'listings-toc'));
+    console.log(`Size of table of contents: ${sizeof(tocDocRef.data())}`);
 
   }
 
