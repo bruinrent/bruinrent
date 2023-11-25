@@ -201,7 +201,7 @@ const MapPage = () => {
               hasMore={hasMoreListings}
               loader={<h1>Loading...</h1>}
               className="address-list"
-              height="82vh"
+              height="89vh"
             >
               {listings &&
                 listings.map((listing) => (
