@@ -279,7 +279,7 @@ const MapPage = () => {
               dataLength={filteredListings.length}
               next={loadMoreListings}
               hasMore={hasMoreListings}
-              loader={filteredListings.length == 0 ? <h1>No results</h1> : <h1>Loading...</h1>}
+              loader={filteredListings.length == 0 ? <h1>No results</h1> : <h1>End of results</h1>}
               className="address-list"
               height="82vh"
             >
