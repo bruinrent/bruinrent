@@ -106,6 +106,9 @@ const MapPage = () => {
     // }
 
     // Since data for ALL listings is loaded initially from one document read, we can just increment slice variable to load more instead of dynamically loading new docs
+    if (searchQuery.length > 0) {
+      return;
+    }
     setVisibleListings(visibleListings +10 < listings.length ? visibleListings + 10 : listings.length);
   };
 
@@ -276,7 +279,7 @@ const MapPage = () => {
               dataLength={filteredListings.length}
               next={loadMoreListings}
               hasMore={hasMoreListings}
-              loader={<h1>Loading...</h1>}
+              loader={filteredListings.length == 0 ? <h1>No results</h1> : <h1>Loading...</h1>}
               className="address-list"
               height="82vh"
             >
