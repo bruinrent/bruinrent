@@ -463,14 +463,14 @@ const ApartmentPage = () => {
                                     </div>
                                 </div>
 
-                                <div className="main-features">
+                                {/* <div className="main-features">
                                     <div className="main-features-header">
                                         Surface Lot
                                         <ul className="main-features-list">
                                             <li>Single</li>
                                         </ul>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                         </BoxTemplate>
                     </animated.div>
