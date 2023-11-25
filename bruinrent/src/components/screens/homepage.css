@@ -28,7 +28,7 @@
 
 .homepage-banner-title {
   font-family: Lato;
-  font-size: 2rem;
+  font-size: 2.6rem;
   font-weight: 700;
   line-height: 4rem;
   letter-spacing: 0em;
@@ -111,7 +111,7 @@
   }
 
   .homepage-banner-title {
-    font-size: 1.75rem;
+    font-size: 2rem;
     line-height: 3rem;
     margin: 2rem 0 0.25rem 0;
   }
@@ -145,7 +145,7 @@
   }
 
   .homepage-banner-title {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     line-height: 2rem;
     margin: 0.75rem;
     width: 50%;
