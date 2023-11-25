@@ -185,7 +185,7 @@ const MapPage = () => {
           <input
             className="map-page-search-bar"
             type="text"
-            placeholder="Search for address"
+            placeholder="Search address"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
