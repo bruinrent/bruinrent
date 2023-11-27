@@ -101,21 +101,9 @@ const Homepage = () => {
           Housing Made Easy For Bruins
         </animated.h1>
         <div className="homepage-banner-button-container">
-          {user === null ? (
-            <button
-              className="homepage-banner-button"
-              onClick={async () => {
-                await handleSignInWithGoogle();
-                navigate("/ReviewPage");
-              }}
-            >
-              Leave a Review
-            </button>
-          ) : (
-            <Link to="/ReviewPage">
-              <button className="homepage-banner-button">Leave a Review</button>
-            </Link>
-          )}
+          <Link to="/ReviewPage">
+            <button className="homepage-banner-button">Leave a Review</button>
+          </Link>
 
           <Link to="MapPage">
             <button className="homepage-banner-button">
