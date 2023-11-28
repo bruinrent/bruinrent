@@ -1,46 +1,47 @@
 @import url("https://fonts.googleapis.com/css?family=Lato:400,700");
 
 .homepage-container {
-  height: 100vh;
+  position: relative;
+  min-height: 100vh;
   width: 100vw;
   padding: 0rem !important;
   box-sizing: border-box;
 }
 
 .homepage-banner {
-  height: 60%;
+  height: 45vh;
   background: linear-gradient(
     180deg,
     #8bceed 26.58%,
     rgba(139, 206, 237, 0.21) 100%
   );
-  background-image: url("../../assets/homepage_banner_background.png");
-  background-size: 100% 100%;
+  background: url("../../assets/homepage_banner_graphic.png"),
+    linear-gradient(180deg, #e1f8ff 0%, #fdffff 100%);
+  background-size: contain;
   background-repeat: no-repeat;
-  background-position: center center;
+  background-position: bottom;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  padding-top: 5%;
 }
 
 .homepage-banner-title {
   font-family: Lato;
-  font-size: 3.5rem;
+  font-size: 2.6rem;
   font-weight: 700;
   line-height: 4rem;
   letter-spacing: 0em;
   text-align: center;
   color: rgba(0, 0, 0, 1);
-  width: 75%;
-  margin: 3rem;
+  width: 100%;
+  margin: 3rem 0 1rem 0;
 }
 
 .homepage-banner-button-container {
   display: flex;
   flex-direction: row;
-  width: 30rem;
+  width: 27rem;
   align-items: center;
   justify-content: space-between;
 }
@@ -66,6 +67,10 @@
   background: rgb(1, 155, 197);
 }
 
+.homepage-body {
+  padding-bottom: 5vh;
+}
+
 .homepage-body-listing-container {
   display: flex;
   flex-direction: column;
@@ -76,7 +81,7 @@
 
 .homepage-body-title {
   font-family: Lato;
-  font-size: 2rem;
+  font-size: 1.6rem;
   font-weight: 700;
   line-height: 2rem;
   letter-spacing: 0em;
@@ -102,13 +107,13 @@
 
 @media screen and (max-width: 1060px) {
   .homepage-banner {
-    height: 45%;
+    height: 35vh;
   }
 
   .homepage-banner-title {
-    font-size: 2.5rem;
+    font-size: 2rem;
     line-height: 3rem;
-    margin: 1rem;
+    margin: 2rem 0 0.25rem 0;
   }
 
   .homepage-banner-button-container {
@@ -123,7 +128,7 @@
   }
 
   .homepage-body-title {
-    font-size: 1.5rem;
+    font-size: 1.35rem;
     line-height: 2rem;
     padding: 0 0 1.5rem 0;
   }
@@ -135,14 +140,15 @@
 
 @media screen and (max-width: 600px) {
   .homepage-banner {
-    height: 30%;
-    padding-top: 2%;
+    height: 30vh;
+    padding-top: 2vh;
   }
 
   .homepage-banner-title {
     font-size: 1.75rem;
     line-height: 2rem;
     margin: 0.75rem;
+    width: 50%;
   }
 
   .homepage-banner-button-container {
@@ -162,7 +168,7 @@
   }
 
   .homepage-body-title {
-    font-size: 1.5rem;
+    font-size: 1rem;
     line-height: 2rem;
     padding: 0 0 1.5rem 0;
   }
@@ -176,13 +182,19 @@
 /* Responsive for phones */
 @media screen and (max-device-width: 600px) {
   .homepage-banner {
-    height: 35%;
+    height: 35vh;
+    background: url("../../assets/homepage_banner_graphic_small.png"),
+      linear-gradient(180deg, #e1f8ff 0%, #fdffff 100%);
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: contain;
   }
 
   .homepage-banner-title {
     font-size: 2rem;
     line-height: 2.5rem;
     margin: 1.5rem;
+    width: 100%;
   }
 
   .homepage-banner-button-container {
