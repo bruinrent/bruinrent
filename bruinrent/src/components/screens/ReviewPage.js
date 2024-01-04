@@ -111,10 +111,11 @@ const ReviewPage = ({ addReview }) => {
     }
   };
 
+  // Currently never needs sign in. When sign in on site needed, change true to user === null
   return (
     <div className="review-page-container">
       <Header />
-      {user === null ? (
+      {true ? (
         <span
           className="leave-review-text"
           style={{

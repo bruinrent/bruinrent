@@ -50,11 +50,11 @@
 }
 
 .address-list-item {
-  transition: transform 300ms;
+  transition: filter 250ms;
 }
 
 .address-list-item:hover {
-  transform: scale(1.1);
+  filter: brightness(66%);
 }
 
 .address-list-load-more {

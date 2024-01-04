@@ -182,7 +182,7 @@
 /* Responsive for phones */
 @media screen and (max-device-width: 600px) {
   .homepage-banner {
-    height: 35vh;
+    height: 40vh;
     background: url("../../assets/homepage_banner_graphic_small.png"),
       linear-gradient(180deg, #e1f8ff 0%, #fdffff 100%);
     background-repeat: no-repeat;

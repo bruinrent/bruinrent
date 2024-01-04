@@ -2766,16 +2766,16 @@
     "@types/serve-static" "*"
 
 "@types/google-maps@*":
-  version "3.2.5"
-  resolved "https://registry.npmjs.org/@types/google-maps/-/google-maps-3.2.5.tgz"
-  integrity sha512-Cy/nQ7WhYVEz6nnan6igZu8y4mCU4N9Ta25K94b7/XncGXY6S1avrmWjSJT4ST0IUeuD0q+oF6cilKrVQwxGUA==
+  version "3.2.6"
+  resolved "https://registry.npmjs.org/@types/google-maps/-/google-maps-3.2.6.tgz"
+  integrity sha512-ySOadZErcnCnNG+Zkmv5n+QG9DyTt7Mkx5Yk1dTjjNPtD8ByFaf+klZ/CxzgYcweduWEijTP0ASkANl57D0PRQ==
   dependencies:
     "@types/google.maps" "*"
 
 "@types/google.maps@*":
-  version "3.54.8"
-  resolved "https://registry.npmjs.org/@types/google.maps/-/google.maps-3.54.8.tgz"
-  integrity sha512-xHdc9bzyMFJK4cyl3FIyXYQYrLES06apQ3TPRllVsLOcwqqCeCRB6o6OdZw8NoJPwmBPIHT+KBBb6e9bccwFkQ==
+  version "3.54.9"
+  resolved "https://registry.npmjs.org/@types/google.maps/-/google.maps-3.54.9.tgz"
+  integrity sha512-kovzglL9eC/zsMnhIpBsiuUDPwhNsRDQzjtKDHZ3D4lYHi7l7IgZPE8/yz+I4Wb96cQXkz2W0DcOiF5RaNPovA==
 
 "@types/googlemaps@^3.0.0":
   version "3.43.3"
@@ -5651,6 +5651,11 @@ firebase@^10.3.1:
     "@firebase/storage" "0.11.2"
     "@firebase/storage-compat" "0.3.2"
     "@firebase/util" "1.9.3"
+
+firestore-size@^2.0.7:
+  version "2.0.7"
+  resolved "https://registry.npmjs.org/firestore-size/-/firestore-size-2.0.7.tgz"
+  integrity sha512-K5D8e+9rrJs8YL/GIiET7ul9x5pV1WAUjK/yjZO360cF8A+71FnZg+ofO9U7g8XCr21mkbyZFM4yEf4o45FEIQ==
 
 flat-cache@^3.0.4:
   version "3.1.1"
