@@ -15,10 +15,38 @@
 }
 
 .map-page-search-bar {
-  width: 78.5%;
+  width: 28.5% !important;
   border-radius: 1rem;
   border: 2px solid #89d2f3;
   padding: 0.5rem;
+}
+
+.map-page-bed-filter {
+  
+  width: 12.%;
+  margin-left: 2%;
+  border-radius: 1rem;
+  border: 2px solid #89d2f3;
+  padding: 0.5rem;
+  background: #fff;
+}
+
+.map-page-price-filter {
+  width: 6.%;
+  margin-left: 2%;
+  border-radius: 1rem;
+  border: 2px solid #89d2f3;
+  padding: 0.5rem;
+  background: #fff;
+}
+
+.map-page-filters-filter {
+  width: 7.%;
+  margin-left: 2%;
+  border-radius: 1rem;
+  border: 2px solid #89d2f3;
+  padding: 0.5rem;
+  background: #fff;
 }
 
 .map-page-listings {
