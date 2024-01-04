@@ -6,6 +6,7 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@google-cloud/firestore": "^7.1.0",
     "@mui/material": "^5.14.17",
     "@react-spring/web": "^9.7.3",
     "@testing-library/jest-dom": "^5.16.5",
@@ -14,6 +15,7 @@
     "csvtojson": "^2.0.10",
     "dotenv": "^16.3.1",
     "firebase": "^10.3.1",
+    "firebase-admin": "^11.11.1",
     "fuse.js": "^7.0.0",
     "google-map-react": "^2.2.1",
     "google-maps-react-markers": "^2.0.5",
