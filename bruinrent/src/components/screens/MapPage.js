@@ -5,6 +5,8 @@ import { useAuthContext } from "../AuthContext.js";
 import { firestore } from "../../firebase.js";
 import { useSpring, animated } from "@react-spring/web";
 import sizeof from "firestore-size";
+import FilterBed from "../FilterButtonBed.js";
+import FilterPrice from "../FilterButtonPrice.js";
 
 import { FaChevronDown } from "react-icons/fa/index.esm.js";
 
@@ -27,10 +29,13 @@ import Fuse from "fuse.js";
 import { useInsertionEffect } from "react";
 
 const MapPage = () => {
-    const [isBeddownOpen, setBeddownOpen] = useState(false);
-    const [isPricedownOpen, setPricedownOpen] = useState(false);
-    const [isFilterdownOpen, setFilterdownOpen] = useState(false);
-    const [selectedFilter, setSelectedFilter] = useState("all");
+    // const [isBeddownOpen, setBeddownOpen] = useState(false);
+    // const [isPricedownOpen, setPricedownOpen] = useState(false);
+    // const [isFilterdownOpen, setFilterdownOpen] = useState(false);
+    // const [selectedFilter, setSelectedFilter] = useState("all");
+
+    // const [beds, setBeds] = useState("");
+    // const [baths, setBaths] = useState("");
 
     const NUMBER_OF_LISTINGS = 10;
     const [listings, setListings] = useState([]);
@@ -54,10 +59,10 @@ const MapPage = () => {
     ];
     const isAdmin = user && adminUIDList.includes(user.uid);
 
-    const handleFilterClick = (filter) => {
-        setSelectedFilter(filter);
-        setBeddownOpen(!isBeddownOpen);
-    };
+    // const handleFilterClick = (filter) => {
+    //     setSelectedFilter(filter);
+    //     setBeddownOpen(!isBeddownOpen);
+    // };
 
     useEffect(() => {
         // Fetch data from the "listings" collection in Firestore
@@ -296,15 +301,6 @@ const MapPage = () => {
         );
     };
 
-    const dropdownSpring = useSpring({
-        from: { opacity: 0, height: 0 },
-        to: {
-            opacity: isBeddownOpen ? 1 : 0,
-            height: isBeddownOpen ? 150 : 0,
-        },
-        config: { mass: 5, tension: 2000, friction: 200, duration: 300 },
-    });
-
     return (
         <div className="map-page-container">
             <Header />
@@ -318,30 +314,9 @@ const MapPage = () => {
                         onChange={(e) => setSearchQuery(e.target.value)}
                     />
 
-                    <button
-                        className={`map-page-bed-filter ${
-                            selectedFilter === "bedbath" ? "active" : ""
-                        }`}
-                        onClick={() => handleFilterClick("bedbath")}
-                    >
-                        Bed and Bath
-                        <FaChevronDown
-                            style={{
-                                marginLeft: "5px",
-                                verticalAlign: "middle",
-                            }}
-                        />
-                        <animated.div
-                            style={dropdownSpring}
-                            className="dropdown-content"
-                        >
-                            {/* Dropdown content goes here */}
-                            <p>Item 1</p>
-                            <p>Item 2</p>
-                            <p>Item 3</p>
-                        </animated.div>
-                    </button>
-                    <button
+                    <FilterBed />
+                    <FilterPrice />
+                    {/* <button
                         className={`map-page-price-filter ${
                             selectedFilter === "price" ? "active" : ""
                         }`}
@@ -354,8 +329,8 @@ const MapPage = () => {
                                 verticalAlign: "middle",
                             }}
                         />
-                    </button>
-                    <button
+                    </button> */}
+                    {/* <button
                         className={`map-page-filters-filter ${
                             selectedFilter === "filters" ? "active" : ""
                         }`}
@@ -368,7 +343,7 @@ const MapPage = () => {
                                 verticalAlign: "middle",
                             }}
                         />
-                    </button>
+                    </button> */}
                 </div>
                 <div className="map-page-listings">
                     <div className="map-container">
