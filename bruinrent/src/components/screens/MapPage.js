@@ -16,7 +16,7 @@ import {
   getDoc,
 } from "firebase/firestore";
 import InfiniteScroll from "react-infinite-scroll-component";
-import AddressBlock from "./AddressBlock.js";
+import ListingBlock from "./ListingBlock.js";
 import GoogleMap from "../GoogleMap.js";
 import Header from "../Header.jsx";
 import Fuse from "fuse.js";
@@ -249,7 +249,7 @@ const MapPage = () => {
     return (
       <div className="address-list">
         {displayedListings.map((listing, index) => (
-          <AddressBlock
+          <ListingBlock
             url={`/apartment/${listing.id}`}
             address={listing.address}
             s
@@ -302,7 +302,7 @@ const MapPage = () => {
             >
               {filteredListings &&
                 filteredListings.map((listing) => (
-                  <AddressBlock
+                  <ListingBlock
                     key={listing.id}
                     url={`/apartment/${listing.id}`}
                     address={listing.address}

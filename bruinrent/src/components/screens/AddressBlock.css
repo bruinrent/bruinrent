@@ -19,7 +19,7 @@
 .address-block-details {
   font-family: Lato;
   font-size: 1rem;
-  font-style: italic;
+  /* font-style: italic; */
   font-weight: 500;
   line-height: 0.9rem;
   letter-spacing: 0em;

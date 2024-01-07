@@ -1,0 +1,84 @@
+.listing-block-container {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid rgba(217, 217, 217, 1);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  gap: 1rem;
+  align-items: center;
+}
+
+.listing-block-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.listing-block-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.listing-block-info-break {
+  margin: 1rem 0 0.5rem 0;
+  width: 85%;
+  opacity: 65%;
+}
+
+.listing-block-details text {
+  color: rgba(117, 117, 117, 1);
+  font-family: Lato;
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1rem;
+}
+
+#listing-block-info-rent {
+  font-family: Lato;
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.5rem;
+  color: rgba(0, 0, 0, 1);
+}
+
+.listing-block-image {
+  width: 14rem;
+  height: 12rem;
+  border-radius: 0.5rem;
+}
+
+.listing-block-details-review {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+.listing-block-details-rating {
+  background-color: rgba(0, 198, 255, 1);
+  border-radius: 100%;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#listing-block-details-num-rating {
+  font-family: Lato;
+  font-size: 9px;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 11px;
+  text-align: center;
+  color: rgba(117, 117, 117, 1);
+}
+
+.listing-block-details-rating text {
+  font-family: Lato;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+}
