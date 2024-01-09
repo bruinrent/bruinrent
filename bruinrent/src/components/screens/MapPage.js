@@ -33,6 +33,9 @@ const MapPage = () => {
   const [markers, setMarkers] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const { user } = useAuthContext();
+
+
+  const [selectedReviewJSON, setSelectedReviewJSON] = useState(null);
   const adminUIDList = [
     "dJ2BhadxRMUcLbes3kvLzAbcUJ82",
     "qgE8ZilUG4VWEsWlGzH4a5lG5b53",
@@ -268,6 +271,77 @@ const MapPage = () => {
     );
   };
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+
+    if (file && file.type === 'application/json') {
+      setSelectedReviewJSON(file);
+    } else {
+      alert('Please select a valid JSON file.');
+    }
+  };
+
+  const handleProcessClick = () => {
+    console.log("Process click");
+    const reader = new FileReader();
+      reader.onload = (event) => {
+        try {
+          const cleanedJsonString = cleanInvalidCharacters(event.target.result);
+
+          const jsonData = JSON.parse(cleanedJsonString);
+          processAndAddReview(jsonData);
+        } catch (error) {
+          console.error('Error parsing JSON file:', error);
+        }
+      };
+    
+    reader.readAsText(selectedReviewJSON);
+
+  }
+
+  function processAndAddReview(jsonData) {
+    console.log("process and add review call");
+    const {
+      SubmissionID,
+      ScoreOverall,
+      ScoreLandlord,
+      ScoreCleanliness,
+      ScoreNoise,
+      ScoreLocation,
+      ...rest
+    } = jsonData;
+
+    const ratings = {
+      ScoreOverall: parseInt(ScoreOverall, 10),
+      ScoreLandlord: parseInt(ScoreLandlord, 10),
+      ScoreCleanliness: parseInt(ScoreCleanliness, 10),
+      ScoreNoise: parseInt(ScoreNoise, 10),
+      ScoreLocation: parseInt(ScoreLocation, 10),
+    };
+
+    const reviewData = {
+      ...rest,
+      SubmissionID,
+      ratings,
+    };
+
+    console.log(reviewData);
+  
+  }
+
+  const cleanInvalidCharacters = (jsonString) => {
+    // Define a regular expression to match invalid characters
+    const cleanedJsonString = jsonString
+    .split('')
+    .filter((char) => {
+      const charCode = char.charCodeAt(0);
+      return charCode === 9 || (charCode >= 32 && charCode <= 126) || (charCode >= 160 && charCode <= 1114111);
+    })
+    .join('');
+  
+    return cleanedJsonString;
+  };
+
   return (
     <div className="map-page-container">
       <Header />
@@ -321,6 +395,14 @@ const MapPage = () => {
             ADMIN FUNCTION: Reload Table of Contents
           </button>
         )}
+
+        {isAdmin && (
+          <div>
+         <input type="file" accept=".json" onChange={handleFileChange} />
+         <button onClick={handleProcessClick} >Process Reviews JSON</button> 
+         </div>
+        )}
+        
       </div>
     </div>
   );
