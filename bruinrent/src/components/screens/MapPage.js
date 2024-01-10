@@ -394,7 +394,7 @@ const MapPage = () => {
                                         address={listing.address}
                                         s
                                         bedrooms={listing.bedrooms}
-                                        bathroom={listing.baths}
+                                        bathroom={listing.bathroom}
                                         imageUrl={
                                             listing.imageUrls
                                                 ? listing.imageUrls[0]
