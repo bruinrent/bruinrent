@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaChevronDown } from "react-icons/fa/index.esm.js";
 import { useSpring, animated } from "@react-spring/web";
 import "./FilterButtonBed.css";
 
-const FilterBed = () => {
+const FilterBed = ({ onFilterChange, onSearch }) => {
     const [isBeddownOpen, setIsBeddownOpen] = useState(false);
     const [beds, setBeds] = useState("");
     const [baths, setBaths] = useState("");
+
+    useEffect(() => {
+        onFilterChange(beds, baths);
+    }, [beds, baths, onFilterChange]);
 
     const handleFilterClick = (e) => {
         // e.preventDefault(); // Prevents the default behavior of the button
@@ -15,6 +19,8 @@ const FilterBed = () => {
 
     const handleSearch = () => {
         console.log(`Searching for ${beds} beds and ${baths} baths`);
+        onSearch();
+        onFilterChange(beds, baths);
         setIsBeddownOpen(false);
     };
 

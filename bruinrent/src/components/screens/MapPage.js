@@ -29,13 +29,8 @@ import Fuse from "fuse.js";
 import { useInsertionEffect } from "react";
 
 const MapPage = () => {
-    // const [isBeddownOpen, setBeddownOpen] = useState(false);
-    // const [isPricedownOpen, setPricedownOpen] = useState(false);
-    // const [isFilterdownOpen, setFilterdownOpen] = useState(false);
-    // const [selectedFilter, setSelectedFilter] = useState("all");
-
-    // const [beds, setBeds] = useState("");
-    // const [baths, setBaths] = useState("");
+    const [selectedBeds, setSelectedBeds] = useState("");
+    const [selectedBaths, setSelectedBaths] = useState("");
 
     const NUMBER_OF_LISTINGS = 10;
     const [listings, setListings] = useState([]);
@@ -59,10 +54,12 @@ const MapPage = () => {
     ];
     const isAdmin = user && adminUIDList.includes(user.uid);
 
-    // const handleFilterClick = (filter) => {
-    //     setSelectedFilter(filter);
-    //     setBeddownOpen(!isBeddownOpen);
-    // };
+    const handleBedBathFilterChange = (beds, baths) => {
+        setSelectedBeds(beds);
+        setSelectedBaths(baths);
+        console.log(beds);
+        console.log(baths);
+    };
 
     useEffect(() => {
         // Fetch data from the "listings" collection in Firestore
@@ -210,26 +207,76 @@ const MapPage = () => {
         handleSearch();
     }, [searchQuery]);
 
+    // const handleSearch = () => {
+    //     console.log("Handlesearch");
+    //     if (searchQuery == 0) {
+    //         setFilteredListings(listings.slice(0, visibleListings));
+    //         return;
+    //     }
+    //     // const filteredData = listings.filter((doc) => {
+    //     //     const addressWithoutSpaces = doc.address.replace(/\s|'/g, '');
+    //     //     const searchQueryWithoutSpaces = searchQuery.replace(/\s|'/g, '');
+
+    //     //     return addressWithoutSpaces.toLowerCase().includes(searchQueryWithoutSpaces.toLowerCase());
+    //     //   });
+    //     const searchedListings = fuse.search(searchQuery);
+    //     const sortedListings = searchedListings.sort(
+    //         (a, b) => a.refIndex - b.refIndex
+    //     );
+    //     const sortedItems = sortedListings.map((obj) => obj.item);
+
+    //     setFilteredListings(sortedItems);
+    // };
+
     const handleSearch = () => {
         console.log("Handlesearch");
-        if (searchQuery == 0) {
+
+        // Filter based on bed and bath values
+        const bedBathFilteredListings = listings.filter((listing) => {
+            const matchBeds =
+                selectedBeds === "" ||
+                listing.bedrooms.toString() === selectedBeds;
+            const matchBaths =
+                selectedBaths === "" ||
+                listing.bathroom.toString() === selectedBaths;
+
+            return matchBeds && matchBaths;
+        });
+
+        // If both bed/bath filter and searchQuery are empty, show all listings
+        if (selectedBeds === "" && selectedBaths === "" && searchQuery === "") {
             setFilteredListings(listings.slice(0, visibleListings));
             return;
         }
-        // const filteredData = listings.filter((doc) => {
-        //     const addressWithoutSpaces = doc.address.replace(/\s|'/g, '');
-        //     const searchQueryWithoutSpaces = searchQuery.replace(/\s|'/g, '');
 
-        //     return addressWithoutSpaces.toLowerCase().includes(searchQueryWithoutSpaces.toLowerCase());
-        //   });
-        const searchedListings = fuse.search(searchQuery);
-        const sortedListings = searchedListings.sort(
-            (a, b) => a.refIndex - b.refIndex
-        );
-        const sortedItems = sortedListings.map((obj) => obj.item);
+        // Apply Fuse.js search to the bed/bath filtered listings if searchQuery is not empty
+        if (searchQuery !== "") {
+            const searchedListings = fuse.search(searchQuery, {
+                limit: visibleListings,
+            });
+            const sortedListings = searchedListings.sort(
+                (a, b) => a.refIndex - b.refIndex
+            );
+            const sortedItems = sortedListings.map((obj) => obj.item);
 
-        setFilteredListings(sortedItems);
+            // If bed/bath filter is applied, intersect the search results with the bed/bath filtered listings
+            if (selectedBeds !== "" || selectedBaths !== "") {
+                const combinedListings = sortedItems.filter((listing) =>
+                    bedBathFilteredListings.includes(listing)
+                );
+                setFilteredListings(combinedListings);
+                return;
+            }
+
+            // If only searchQuery is applied, show the search results
+            setFilteredListings(sortedItems);
+            return;
+        }
+
+        // If only bed/bath filter is applied, show the bed/bath filtered listings
+        setFilteredListings(bedBathFilteredListings.slice(0, visibleListings));
     };
+
     useEffect(() => {
         setFilteredListings(listings.slice(0, visibleListings));
     }, [visibleListings]);
@@ -314,36 +361,11 @@ const MapPage = () => {
                         onChange={(e) => setSearchQuery(e.target.value)}
                     />
 
-                    <FilterBed />
+                    <FilterBed
+                        onFilterChange={handleBedBathFilterChange}
+                        onSearch={handleSearch}
+                    />
                     <FilterPrice />
-                    {/* <button
-                        className={`map-page-price-filter ${
-                            selectedFilter === "price" ? "active" : ""
-                        }`}
-                        onClick={() => handleFilterClick("price")}
-                    >
-                        Price
-                        <FaChevronDown
-                            style={{
-                                marginLeft: "5px",
-                                verticalAlign: "middle",
-                            }}
-                        />
-                    </button> */}
-                    {/* <button
-                        className={`map-page-filters-filter ${
-                            selectedFilter === "filters" ? "active" : ""
-                        }`}
-                        onClick={() => handleFilterClick("filters")}
-                    >
-                        Filters
-                        <FaChevronDown
-                            style={{
-                                marginLeft: "5px",
-                                verticalAlign: "middle",
-                            }}
-                        />
-                    </button> */}
                 </div>
                 <div className="map-page-listings">
                     <div className="map-container">
