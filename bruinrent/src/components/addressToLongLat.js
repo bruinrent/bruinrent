@@ -25,3 +25,8 @@ export default async function addressToLongLat(input) {
       throw new Error(`Error: ${error.message}`);
     }
   }
+
+export async function addressToLatLong(input) {
+  const longLat = await addressToLongLat(input);
+  return [longLat[1],longLat[0]];
+}
