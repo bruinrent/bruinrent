@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaChevronDown } from "react-icons/fa/index.esm.js";
 import { useSpring, animated } from "@react-spring/web";
 import "./FilterButtonPrice.css";
 
-const FilterPrice = () => {
+const FilterPrice = ({ onFilterChange, onSearch }) => {
     const [isPricedownOpen, setIsPricedownOpen] = useState(false);
     const [price1, setPrice1] = useState("");
     const [price2, setPrice2] = useState("");
+
+    useEffect(() => {
+        onFilterChange(price1, price2);
+    }, [price1, price2, onFilterChange]);
 
     const handleFilterClick = (e) => {
         e.preventDefault(); // Prevents the default behavior of the button
@@ -15,6 +19,8 @@ const FilterPrice = () => {
 
     const handleSearch = () => {
         // console.log(`Searching for ${beds} beds and ${baths} baths`);
+        onSearch();
+        onFilterChange(price1, price2);
         setIsPricedownOpen(false);
     };
 

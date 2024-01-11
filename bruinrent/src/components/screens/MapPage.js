@@ -31,6 +31,8 @@ import { useInsertionEffect } from "react";
 const MapPage = () => {
     const [selectedBeds, setSelectedBeds] = useState("");
     const [selectedBaths, setSelectedBaths] = useState("");
+    const [selectedPrice1, setSelectedPrice1] = useState("");
+    const [selectedPrice2, setSelectedPrice2] = useState("");
 
     const NUMBER_OF_LISTINGS = 10;
     const [listings, setListings] = useState([]);
@@ -57,8 +59,13 @@ const MapPage = () => {
     const handleBedBathFilterChange = (beds, baths) => {
         setSelectedBeds(beds);
         setSelectedBaths(baths);
-        console.log(beds);
-        console.log(baths);
+    };
+
+    const handlePriceFilterChange = (rent1, rent2) => {
+        setSelectedPrice1(rent1);
+        setSelectedPrice2(rent2);
+        console.log("rent 1", rent1);
+        console.log("rent 2", rent2);
     };
 
     useEffect(() => {
@@ -228,6 +235,55 @@ const MapPage = () => {
     //     setFilteredListings(sortedItems);
     // };
 
+    // const handleSearch = () => {
+    //     console.log("Handlesearch");
+
+    //     // Filter based on bed and bath values
+    //     const bedBathFilteredListings = listings.filter((listing) => {
+    //         const matchBeds =
+    //             selectedBeds === "" ||
+    //             listing.bedrooms.toString() === selectedBeds;
+    //         const matchBaths =
+    //             selectedBaths === "" ||
+    //             listing.bathroom.toString() === selectedBaths;
+
+    //         return matchBeds && matchBaths;
+    //     });
+
+    //     // If both bed/bath filter and searchQuery are empty, show all listings
+    //     if (selectedBeds === "" && selectedBaths === "" && searchQuery === "") {
+    //         setFilteredListings(listings.slice(0, visibleListings));
+    //         return;
+    //     }
+
+    //     // Apply Fuse.js search to the bed/bath filtered listings if searchQuery is not empty
+    //     if (searchQuery !== "") {
+    //         const searchedListings = fuse.search(searchQuery, {
+    //             limit: visibleListings,
+    //         });
+    //         const sortedListings = searchedListings.sort(
+    //             (a, b) => a.refIndex - b.refIndex
+    //         );
+    //         const sortedItems = sortedListings.map((obj) => obj.item);
+
+    //         // If bed/bath filter is applied, intersect the search results with the bed/bath filtered listings
+    //         if (selectedBeds !== "" || selectedBaths !== "") {
+    //             const combinedListings = sortedItems.filter((listing) =>
+    //                 bedBathFilteredListings.includes(listing)
+    //             );
+    //             setFilteredListings(combinedListings);
+    //             return;
+    //         }
+
+    //         // If only searchQuery is applied, show the search results
+    //         setFilteredListings(sortedItems);
+    //         return;
+    //     }
+
+    //     // If only bed/bath filter is applied, show the bed/bath filtered listings
+    //     setFilteredListings(bedBathFilteredListings.slice(0, visibleListings));
+    // };
+
     const handleSearch = () => {
         console.log("Handlesearch");
 
@@ -243,13 +299,31 @@ const MapPage = () => {
             return matchBeds && matchBaths;
         });
 
-        // If both bed/bath filter and searchQuery are empty, show all listings
-        if (selectedBeds === "" && selectedBaths === "" && searchQuery === "") {
+        // Filter based on rent range
+        const rentFilteredListings = bedBathFilteredListings.filter(
+            (listing) => {
+                const rentInRange =
+                    (selectedPrice1 === "" ||
+                        listing.rent1 >= selectedPrice1) &&
+                    (selectedPrice2 === "" || listing.rent2 <= selectedPrice2);
+
+                return rentInRange;
+            }
+        );
+
+        // If both bed/bath filter, rent range, and searchQuery are empty, show all listings
+        if (
+            selectedBeds === "" &&
+            selectedBaths === "" &&
+            selectedPrice1 === "" &&
+            selectedPrice2 === "" &&
+            searchQuery === ""
+        ) {
             setFilteredListings(listings.slice(0, visibleListings));
             return;
         }
 
-        // Apply Fuse.js search to the bed/bath filtered listings if searchQuery is not empty
+        // Apply Fuse.js search to the rent filtered listings if searchQuery is not empty
         if (searchQuery !== "") {
             const searchedListings = fuse.search(searchQuery, {
                 limit: visibleListings,
@@ -259,10 +333,15 @@ const MapPage = () => {
             );
             const sortedItems = sortedListings.map((obj) => obj.item);
 
-            // If bed/bath filter is applied, intersect the search results with the bed/bath filtered listings
-            if (selectedBeds !== "" || selectedBaths !== "") {
+            // If bed/bath filter or rent range is applied, intersect the search results with the filtered listings
+            if (
+                selectedBeds !== "" ||
+                selectedBaths !== "" ||
+                selectedPrice1 !== "" ||
+                selectedPrice2 !== ""
+            ) {
                 const combinedListings = sortedItems.filter((listing) =>
-                    bedBathFilteredListings.includes(listing)
+                    rentFilteredListings.includes(listing)
                 );
                 setFilteredListings(combinedListings);
                 return;
@@ -273,8 +352,8 @@ const MapPage = () => {
             return;
         }
 
-        // If only bed/bath filter is applied, show the bed/bath filtered listings
-        setFilteredListings(bedBathFilteredListings.slice(0, visibleListings));
+        // If only bed/bath filter or rent range is applied, show the filtered listings
+        setFilteredListings(rentFilteredListings.slice(0, visibleListings));
     };
 
     useEffect(() => {
@@ -365,7 +444,10 @@ const MapPage = () => {
                         onFilterChange={handleBedBathFilterChange}
                         onSearch={handleSearch}
                     />
-                    <FilterPrice />
+                    <FilterPrice
+                        onFilterChange={handlePriceFilterChange}
+                        onSearch={handleSearch}
+                    />
                 </div>
                 <div className="map-page-listings">
                     <div className="map-container">
