@@ -20,6 +20,11 @@
   gap: 0.5rem;
 }
 
+#listing-block-details-address {
+  position: relative;
+  top: 0.5rem;
+}
+
 .listing-block-info-break {
   margin: 1rem 0 0.5rem 0;
   width: 85%;
@@ -53,7 +58,13 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  gap: 2rem;
+  gap: 0.5rem;
+}
+
+#listing-block-details-phone {
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
 }
 
 .listing-block-details-rating {

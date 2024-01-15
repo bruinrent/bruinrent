@@ -75,6 +75,7 @@ const MapPage = () => {
         bathroom: data.bath,
         latLong: data.latLong,
         imageUrls: [data.image],
+        phone: data.phone,
       }));
       const sortedListingData = listingsData.sort((a, b) =>
         a.address.localeCompare(b.address)
@@ -138,8 +139,10 @@ const MapPage = () => {
         rent2: doc.data().rent2,
         bed: doc.data().bedrooms,
         bath: doc.data().baths,
-        image: doc.data().imageUrls ? doc.data().imageUrls[0] : null,
+        image:
+          doc.data().imageUrls[0] != undefined ? doc.data().imageUrls[0] : null,
         latLong: doc.data().latLong || null,
+        phone: doc.data().phone,
       },
     }));
     console.log(listingsData);
@@ -306,10 +309,12 @@ const MapPage = () => {
                     key={listing.id}
                     url={`/apartment/${listing.id}`}
                     address={listing.address}
-                    s
                     bedrooms={listing.bedrooms}
                     bathroom={listing.baths}
+                    rent1={listing.rent1}
+                    rent2={listing.rent2}
                     imageUrl={listing.imageUrls ? listing.imageUrls[0] : null}
+                    phone={listing.phone}
                     className="address-list-item"
                   />
                 ))}

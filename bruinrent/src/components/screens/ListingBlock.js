@@ -12,7 +12,10 @@ const ListingBlock = ({
   address,
   bedrooms,
   bathroom,
+  rent1,
+  rent2,
   imageUrl,
+  phone,
 }) => {
   const [ref, inView] = useInView();
   const listingBlockSpring = useSpring({
@@ -35,8 +38,15 @@ const ListingBlock = ({
         )}
         <div className="listing-block-info">
           <div className="listing-block-details">
-            <text id="listing-block-info-rent">$900 - 2,000/mo</text>
-            <text>1 - 3 Beds</text>
+            {rent1 && rent2 ? (
+              <text id="listing-block-info-rent">
+                ${rent1} - {rent2}/mo
+              </text>
+            ) : (
+              <text id="listing-block-info-rent">${rent1}/mo</text>
+            )}
+
+            <text>{bedrooms} Beds</text>
             <text>
               <FaWalking />
               10 min to Bruin Plaza
@@ -44,18 +54,18 @@ const ListingBlock = ({
           </div>
           <hr className="listing-block-info-break" />
           <div className="listing-block-details">
-            <text>The Atrium</text>
-            <text>{address}</text>
+            {/* <text>The Atrium</text> */}
+            <text id="listing-block-details-address">{address}</text>
             <div className="listing-block-details-review">
-              <text>
+              <text id="listing-block-details-phone">
                 <MdOutlinePhoneIphone />
-                (310) 123 - 456
+                {phone}
               </text>
               <div>
                 <div className="listing-block-details-rating">
-                  <text>4.7</text>
+                  <text>0.0</text>
                 </div>
-                <text id="listing-block-details-num-rating">43 Reviews</text>
+                <text id="listing-block-details-num-rating">0 Reviews</text>
               </div>
             </div>
           </div>
