@@ -16,7 +16,7 @@ import {
   getDoc,
 } from "firebase/firestore";
 import InfiniteScroll from "react-infinite-scroll-component";
-import AddressBlock from "./AddressBlock.js";
+import ListingBlock from "./ListingBlock.js";
 import GoogleMap from "../GoogleMap.js";
 import Header from "../Header.jsx";
 import Fuse from "fuse.js";
@@ -79,6 +79,7 @@ const MapPage = () => {
         bathroom: data.bath,
         latLong: data.latLong,
         imageUrls: [data.image],
+        phone: data.phone,
       }));
       const sortedListingData = listingsData.sort((a, b) =>
         a.address.localeCompare(b.address)
@@ -144,6 +145,7 @@ const MapPage = () => {
         bath: doc.data().baths,
         image: doc.data().imageUrls[0] ? doc.data().imageUrls[0] : null,
         latLong: doc.data().latLong || null,
+        phone: doc.data().phone,
       },
     }));
     console.log(listingsData);
@@ -253,7 +255,7 @@ const MapPage = () => {
     return (
       <div className="address-list">
         {displayedListings.map((listing, index) => (
-          <AddressBlock
+          <ListingBlock
             url={`/apartment/${listing.id}`}
             address={listing.address}
             s
@@ -447,14 +449,16 @@ const MapPage = () => {
             >
               {filteredListings &&
                 filteredListings.map((listing) => (
-                  <AddressBlock
+                  <ListingBlock
                     key={listing.id}
                     url={`/apartment/${listing.id}`}
                     address={listing.address}
-                    s
                     bedrooms={listing.bedrooms}
                     bathroom={listing.baths}
+                    rent1={listing.rent1}
+                    rent2={listing.rent2}
                     imageUrl={listing.imageUrls ? listing.imageUrls[0] : null}
+                    phone={listing.phone}
                     className="address-list-item"
                   />
                 ))}
