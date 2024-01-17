@@ -41,6 +41,26 @@
   background: #fff;
 }
 
+
+
+.map-page-price-filter {
+  width: 6.%;
+  margin-left: 2%;
+  border-radius: 1rem;
+  border: 2px solid #89d2f3;
+  padding: 0.5rem;
+  background: #fff;
+}
+
+.map-page-filters-filter {
+  width: 7.%;
+  margin-left: 2%;
+  border-radius: 1rem;
+  border: 2px solid #89d2f3;
+  padding: 0.5rem;
+  background: #fff;
+}
+
 .map-page-listings {
   display: flex;
   flex-direction: row;
@@ -51,12 +71,12 @@
 
 .map-container {
   margin-top: 10px;
-  width: 80%;
+  width: 65%;
 }
 
 .address-list-container {
   height: 100%;
-  width: 20%; /* Width of the scrolling window */
+  width: 35%; /* Width of the scrolling window */
   box-sizing: border-box; /* Include padding and border in width calculation */
   position: relative;
   bottom: 3.5rem;
@@ -100,29 +120,29 @@
 
 @media screen and (max-width: 1200px) {
   .map-page-search-bar {
-    width: 73.5%;
+    width: 60%;
   }
 
   .map-container {
-    width: 75%;
+    width: 60%;
   }
 
   .address-list-container {
-    width: 25%; /* Width of the scrolling window */
+    width: 40%; /* Width of the scrolling window */
   }
 }
 
 @media screen and (max-width: 1000px) {
   .map-page-search-bar {
-    width: 68%;
+    width: 50%;
   }
 
   .map-container {
-    width: 70%;
+    width: 50;
   }
 
   .address-list-container {
-    width: 30%; /* Width of the scrolling window */
+    width: 50%; /* Width of the scrolling window */
   }
 }
 

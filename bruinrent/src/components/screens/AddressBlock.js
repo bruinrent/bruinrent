@@ -30,7 +30,7 @@ const AddressBlock = ({
         )}
         <p className="address-block-apartment">{address}</p>
         <p className="address-block-details">
-          {bedrooms} Bed {bathroom} Bath{" "}
+          {bedrooms} Bed | {bathroom} Bath{" "}
         </p>
       </Link>
     </animated.div>
