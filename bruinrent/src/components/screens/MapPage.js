@@ -35,6 +35,8 @@ const MapPage = () => {
     const [selectedPrice1, setSelectedPrice1] = useState("");
     const [selectedPrice2, setSelectedPrice2] = useState("");
 
+    const [selectedReviewJSON, setSelectedReviewJSON] = useState(null);
+
     const NUMBER_OF_LISTINGS = 10;
     const [listings, setListings] = useState([]);
     const [hasMoreListings, setHasMoreListings] = useState(true);
@@ -612,6 +614,15 @@ const MapPage = () => {
                         placeholder="Search address"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+
+                    <FilterBed
+                        onFilterChange={handleBedBathFilterChange}
+                        onSearch={handleSearch}
+                    />
+                    <FilterPrice
+                        onFilterChange={handlePriceFilterChange}
+                        onSearch={handleSearch}
                     />
                 </div>
                 <div className="map-page-listings">
