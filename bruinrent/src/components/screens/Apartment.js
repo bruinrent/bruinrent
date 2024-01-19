@@ -37,6 +37,7 @@ const ApartmentPage = () => {
   const { id } = useParams();
   const [imageFiles, setImageFiles] = useState({});
   const [latLong, setLatLong] = useState([]);
+  const [reviewData, setReviewData] = useState([]);
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -64,6 +65,7 @@ const ApartmentPage = () => {
     checkedApartmentFeatureLabels: [],
     checkedBuildingFeatureLabels: [],
     imageUrls: [],
+    reviews:[]
   });
 
   useEffect(() => {
@@ -80,6 +82,7 @@ const ApartmentPage = () => {
           const data = docSnapshot.data();
           // Update your component state with the fetched data
           setApartmentData(data);
+          console.log("RAW DATA: " + JSON.stringify(data))
         } else {
           console.error("Document doesn't exist:");
         }
@@ -104,6 +107,12 @@ const ApartmentPage = () => {
     }
   }, [apartmentData.address]);
 
+useEffect(() => {
+    if (apartmentData) {
+     console.log("Apartment Data: " + JSON.stringify(apartmentData)) 
+    }
+  }, [apartmentData]);
+
   useEffect(() => {
     if (apartmentData.imageUrls) {
       const images = apartmentData.imageUrls.map((url) => ({
@@ -115,6 +124,47 @@ const ApartmentPage = () => {
       //
     }
   }, [apartmentData.imageUrls]);
+
+useEffect(() => {
+    if (apartmentData.reviews) {
+      console.log("reviewData: " + JSON.stringify(apartmentData.reviews));
+
+
+      apartmentData.reviews.forEach( (reviewID) => {
+        try {
+          // Assuming you have a reference to the document in Firestore
+          const reviewDocRef = doc(firestore, "reviews", reviewID);
+  
+          // Fetch the data from Firestore
+          getDoc(reviewDocRef).then( docSnapshot => {
+            if (docSnapshot.exists()) {
+              const data = docSnapshot.data();
+              console.log("RAW Review data: " + JSON.stringify(data))
+              const reviewToAdd = {
+                date: data.SubmissionTime,
+                review: data.Review,
+              };
+              console.log("Review to ad: " + JSON.stringify(reviewToAdd))
+setReviewData(prevReviews => [...prevReviews, reviewToAdd]);
+  
+              
+            } else {
+              console.error("Document doesn't exist:");
+            }
+          })
+          // NEED TO MAKE SURE THIS REMOVING ASYNC ISNT MESSING UP THE FACT THAT IT RETURNS A PROMISE NOW MAYBE INSTEAD OF THE ACTUAL SNAPSHOT
+          
+        } catch (error) {
+          console.error("Error fetching data from Firebase:", error);
+        }
+      });
+      
+
+      //
+    }
+  }, [apartmentData.reviews]);
+
+
 
   useEffect(() => {
     console.log("latlong updated, latlong: " + latLong);
@@ -146,48 +196,7 @@ const ApartmentPage = () => {
   // Note: Headers inside or outside boxes?
 
   // Test data for review block
-  const reviewData = [
-    {
-      date: "Jan. 01, 2023",
-      review:
-        "Lorem ipsum dolor sit amet consectetur adipiscing elit nibh augue tortor, est mollis non dui bibendum imperdiet urna convallis magna sodales, vitae facilisis dapibus fermentum hendrerit vulputate sed ",
-    },
-    {
-      date: "Dec. 10, 2022",
-      review:
-        "Lorem ipsum dolor sit amet consectetur adipiscing elit nibh augue tortor, est mollis non dui bibendum imperdiet urna convallis magna sodales, vitae facilisis dapibus fermentum hendrerit vulputate sed ",
-    },
-    {
-      date: "Dec. 10, 2022",
-      review:
-        "Lorem ipsum dolor sit amet consectetur adipiscing elit nibh augue tortor, est mollis non dui bibendum imperdiet urna convallis magna sodales, vitae facilisis dapibus fermentum hendrerit vulputate sed ",
-    },
-    {
-      date: "Dec. 10, 2022",
-      review:
-        "Lorem ipsum dolor sit amet consectetur adipiscing elit nibh augue tortor, est mollis non dui bibendum imperdiet urna convallis magna sodales, vitae facilisis dapibus fermentum hendrerit vulputate sed ",
-    },
-    {
-      date: "Dec. 03, 2022",
-      review:
-        "Lorem ipsum dolor sit amet consectetur adipiscing elit nibh augue tortor, est mollis non dui bibendum imperdiet urna convallis magna sodales, vitae facilisis dapibus fermentum hendrerit vulputate sed ",
-    },
-    {
-      date: "Dec. 01, 2022",
-      review:
-        "Lorem ipsum dolor sit amet consectetur adipiscing elit nibh augue tortor, est mollis non dui bibendum imperdiet urna convallis magna sodales, vitae facilisis dapibus fermentum hendrerit vulputate sed ",
-    },
-    {
-      date: "Dec. 01, 2022",
-      review:
-        "Lorem ipsum dolor sit amet consectetur adipiscing elit nibh augue tortor, est mollis non dui bibendum imperdiet urna convallis magna sodales, vitae facilisis dapibus fermentum hendrerit vulputate sed ",
-    },
-    {
-      date: "Dec. 01, 2022",
-      review:
-        "Lorem ipsum dolor sit amet consectetur adipiscing elit nibh augue tortor, est mollis non dui bibendum imperdiet urna convallis magna sodales, vitae facilisis dapibus fermentum hendrerit vulputate sed ",
-    },
-  ];
+  
   const NUM_REVIEWS_PER_PAGE = 3;
   const MAX_NUM_REVIEW_PAGES = Math.ceil(
     reviewData.length / NUM_REVIEWS_PER_PAGE
