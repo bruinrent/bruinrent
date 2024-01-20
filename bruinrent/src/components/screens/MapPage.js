@@ -572,7 +572,7 @@ const MapPage = () => {
                         ": " +
                         JSON.stringify(listingData, null, 4)
                 );
-                // await setDoc(listingDocRef, listingData);
+                await setDoc(listingDocRef, listingData);
             } else {
                 //orphan review
             }
@@ -583,6 +583,7 @@ const MapPage = () => {
                     ": " +
                     JSON.stringify(actualNewReviews[reviewKey], null, 4)
             );
+            await setDoc(doc(firestore,"reviews",reviewKey), actualNewReviews[reviewKey]);
         }
     };
 
