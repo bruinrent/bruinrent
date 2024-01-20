@@ -38,6 +38,14 @@ const ApartmentPage = () => {
   const [imageFiles, setImageFiles] = useState({});
   const [latLong, setLatLong] = useState([]);
   const [reviewData, setReviewData] = useState([]);
+  const [reviewStats, setReviewStats] = useState({
+    "Count": 0,
+    "Overall": -1,
+    "Landlord": -1,
+    "Noise": -1,
+    "Location": -1,
+    "Cleanliness": -1
+  })
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -125,44 +133,84 @@ useEffect(() => {
     }
   }, [apartmentData.imageUrls]);
 
+
+const average = array => array.reduce((a, b) => a + b) / array.length;
+
 useEffect(() => {
-    if (apartmentData.reviews) {
+  const fetchData = async () => {
+    if (apartmentData.reviews && apartmentData.reviews.length > 0) {
       console.log("reviewData: " + JSON.stringify(apartmentData.reviews));
+      let r_count = 0;
+      let r_value = [];
+      let r_land = [];
+      let r_noise = [];
+      let r_clean = [];
+      let r_location = [];
 
-
-      apartmentData.reviews.forEach( (reviewID) => {
+      const fetchReviewData = async (reviewID) => {
         try {
-          // Assuming you have a reference to the document in Firestore
+          console.log("Processing review: " + reviewID);
           const reviewDocRef = doc(firestore, "reviews", reviewID);
-  
-          // Fetch the data from Firestore
-          getDoc(reviewDocRef).then( docSnapshot => {
-            if (docSnapshot.exists()) {
-              const data = docSnapshot.data();
-              console.log("RAW Review data: " + JSON.stringify(data))
-              const reviewToAdd = {
-                date: data.SubmissionTime,
-                review: data.Review,
-              };
-              console.log("Review to ad: " + JSON.stringify(reviewToAdd))
-setReviewData(prevReviews => [...prevReviews, reviewToAdd]);
-  
-              
-            } else {
-              console.error("Document doesn't exist:");
-            }
-          })
-          // NEED TO MAKE SURE THIS REMOVING ASYNC ISNT MESSING UP THE FACT THAT IT RETURNS A PROMISE NOW MAYBE INSTEAD OF THE ACTUAL SNAPSHOT
-          
+          const docSnapshot = await getDoc(reviewDocRef);
+
+          if (docSnapshot.exists()) {
+            const data = docSnapshot.data();
+            console.log("RAW Review data: " + JSON.stringify(data));
+            const reviewToAdd = {
+              date: data.SubmissionTime,
+              review: data.Review,
+            };
+            r_clean.push(parseInt(data.ScoreCleanliness));
+            r_count++;
+            r_land.push(parseInt(data.ScoreLandlord));
+            r_noise.push(parseInt(data.ScoreNoise));
+            r_location.push(parseInt(data.ScoreLocation));
+            r_value.push(parseInt(data.ScoreOverall));
+            console.log(r_clean);
+            console.log(r_land);
+            console.log(r_noise);
+            console.log(r_location);
+            console.log(r_value);
+
+            console.log("Review to add: " + JSON.stringify(reviewToAdd));
+            setReviewData((prevReviews) => [...prevReviews, reviewToAdd]);
+          } else {
+            console.error("Document doesn't exist:");
+          }
         } catch (error) {
           console.error("Error fetching data from Firebase:", error);
         }
-      });
-      
+      };
 
-      //
+      try {
+        await Promise.all(apartmentData.reviews.map(async (reviewID) => {
+          await fetchReviewData(reviewID);
+        }));
+
+        console.log("About to average");
+        const finalScoreCleanliness = average(r_clean);
+        const finalScoreLandlord = average(r_land);
+        const finalScoreNoise = average(r_noise);
+        const finalScoreLocation = average(r_location);
+        const finalScoreValue = average(r_value);
+        console.log("FinalLL" + finalScoreLandlord);
+        setReviewStats({
+          Count: r_count,
+          Overall: parseFloat(finalScoreValue.toFixed(1)),
+          Landlord: parseFloat(finalScoreLandlord.toFixed(1)),
+          Noise: parseFloat(finalScoreNoise.toFixed(1)),
+          Location: parseFloat(finalScoreLocation.toFixed(1)),
+          Cleanliness: parseFloat(finalScoreCleanliness.toFixed(1)),
+        });
+      } catch (error) {
+        console.error("Error processing reviews:", error);
+      }
     }
-  }, [apartmentData.reviews]);
+  };
+
+  fetchData();
+}, [apartmentData.reviews]);
+
 
 
 
@@ -440,28 +488,28 @@ setReviewData(prevReviews => [...prevReviews, reviewToAdd]);
           </div>
           <div id="apartment-homepage-main-review">
             <div id="review-header" className="rating-block">
-              <div className="rating">4.2</div>
-              <h1>10 Reviews</h1>
+              <div className="rating">{(reviewStats.Overall == -1 ? "?" : reviewStats.Overall)}</div>
+              <h1>{(reviewStats.Count > 0 ? reviewStats.Count : "No")} {(reviewStats.Count == 1 ? " Review" : " Reviews")}</h1>
             </div>
             <div id="detailed-ratings">
-              <div className="rating-block">
-                <div className="rating">4.2</div>
+              {/* <div className="rating-block">
+                <div className="rating">{reviewStats.Value}</div>
                 <h2>Value</h2>
-              </div>
+              </div> */}
               <div className="rating-block">
-                <div className="rating">4.2</div>
+                <div className="rating">{(reviewStats.Landlord == -1 ? "?" : String(reviewStats.Landlord))}</div>
                 <h2>Landlord</h2>
               </div>
               <div className="rating-block">
-                <div className="rating">4.2</div>
+                <div className="rating">{(reviewStats.Noise== -1 ? "?" : reviewStats.Noise)}</div>
                 <h2>Noise</h2>
               </div>
               <div className="rating-block">
-                <div className="rating">3.0</div>
+                <div className="rating">{(reviewStats.Location== -1 ? "?" : reviewStats.Location)}</div>
                 <h2>Location</h2>
               </div>
               <div className="rating-block">
-                <div className="rating">3.0</div>
+                <div className="rating">{(reviewStats.Cleanliness== -1 ? "?" : reviewStats.Cleanliness)}</div>
                 <h2>Cleaniness</h2>
               </div>
             </div>
