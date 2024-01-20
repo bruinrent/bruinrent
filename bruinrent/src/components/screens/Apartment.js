@@ -160,12 +160,12 @@ useEffect(() => {
               date: data.SubmissionTime,
               review: data.Review,
             };
-            r_clean.push(data.ScoreCleanliness);
+            r_clean.push(parseInt(data.ScoreCleanliness));
             r_count++;
-            r_land.push(data.ScoreLandlord);
-            r_noise.push(data.ScoreNoise);
-            r_location.push(data.ScoreLocation);
-            r_value.push(data.ScoreOverall);
+            r_land.push(parseInt(data.ScoreLandlord));
+            r_noise.push(parseInt(data.ScoreNoise));
+            r_location.push(parseInt(data.ScoreLocation));
+            r_value.push(parseInt(data.ScoreOverall));
             console.log(r_clean);
             console.log(r_land);
             console.log(r_noise);
@@ -193,14 +193,14 @@ useEffect(() => {
         const finalScoreNoise = average(r_noise);
         const finalScoreLocation = average(r_location);
         const finalScoreValue = average(r_value);
-
+        console.log("FinalLL" + finalScoreLandlord);
         setReviewStats({
           Count: r_count,
-          Overall: finalScoreValue,
-          Landlord: finalScoreLandlord,
-          Noise: finalScoreNoise,
-          Location: finalScoreLocation,
-          Cleanliness: finalScoreCleanliness,
+          Overall: parseFloat(finalScoreValue.toFixed(1)),
+          Landlord: parseFloat(finalScoreLandlord.toFixed(1)),
+          Noise: parseFloat(finalScoreNoise.toFixed(1)),
+          Location: parseFloat(finalScoreLocation.toFixed(1)),
+          Cleanliness: parseFloat(finalScoreCleanliness.toFixed(1)),
         });
       } catch (error) {
         console.error("Error processing reviews:", error);
@@ -497,7 +497,7 @@ useEffect(() => {
                 <h2>Value</h2>
               </div> */}
               <div className="rating-block">
-                <div className="rating">{(reviewStats.Landlord == -1 ? "?" : reviewStats.Landlord)}</div>
+                <div className="rating">{(reviewStats.Landlord == -1 ? "?" : String(reviewStats.Landlord))}</div>
                 <h2>Landlord</h2>
               </div>
               <div className="rating-block">
