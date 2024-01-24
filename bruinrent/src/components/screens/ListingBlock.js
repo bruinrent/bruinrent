@@ -61,12 +61,12 @@ const ListingBlock = ({
                 <MdOutlinePhoneIphone />
                 {phone}
               </text>
-              <div>
+              {/* <div>
                 <div className="listing-block-details-rating">
                   <text>0.0</text>
                 </div>
                 <text id="listing-block-details-num-rating">0 Reviews</text>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
