@@ -65,7 +65,7 @@ function App() {
                     <Route path="/MapPage" element={<MapPage />} />
                     <Route path="/ListingPage" element={<ListingPage />} />
                     <Route path="/apartment/:id" element={<Apartment />} />
-                    <Route path="/ReviewPage" element={<TallyEmbed />} />
+                    <Route path="/ReviewPage" element={<ReviewPage />} />
                     <Route path="/account" element={<Account />} />
                     {/* <Route path="/Apartment" element={<Apartment />} /> */}
                 </Routes>
