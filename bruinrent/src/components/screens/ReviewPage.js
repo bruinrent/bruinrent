@@ -5,11 +5,12 @@ import Header from "../Header.jsx";
 import { useNavigate } from "react-router-dom";
 
 import RatingStars from "../RatingStars.js";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, doc, } from "firebase/firestore";
 import { app, firestore } from "../../firebase.js";
 import { async } from "@firebase/util";
 import { useAuthContext } from "../AuthContext.js";
 import addressToLongLat from "../addressToLongLat.js";
+import { getCurrentDateTime, processAndAddReview } from "../ReviewUploadUtil.js";
 
 //import { star} from "react-star-ratings";
 
@@ -29,12 +30,12 @@ const ReviewPage = ({ addReview }) => {
     const [review, setReview] = useState("");
     const [address, setAddress] = useState("");
     const [apartmentName, setApartmentName] = useState("");
-    const [totalMonthlyRent, setTotalMonthlyRent] = useState(null);
+    const [totalMonthlyRent, setTotalMonthlyRent] = useState(undefined);
     const [residentName, setResidentName] = useState("");
     const [residentEmail, setResidentEmail] = useState("");
     const [isAnonymous, setIsAnonymous] = useState(false);
-    const [beds, setBeds] = useState(null);
-    const [baths, setBaths] = useState(null);
+    const [beds, setBeds] = useState(undefined);
+    const [baths, setBaths] = useState(undefined);
 
     // const [firstName, setFirstName] = useState("");
     // const [lastName, setLastName] = useState("");
@@ -64,26 +65,43 @@ const ReviewPage = ({ addReview }) => {
         e.preventDefault();
 
         try {
-            const longLat = await addressToLongLat(address);
+            // const longLat = await addressToLongLat(address);
 
-            const latLong = [longLat[1], longLat[0]];
-
+            // const latLong = [longLat[1], longLat[0]];
+            const docID = doc(collection(firestore, "reviews")).id;
+            const dateTime = getCurrentDateTime();
+            
             const formData = {
-                address: address,
-                latLong: latLong,
-                review: review,
-                rating: rating,
-                userInfo: userInfo,
+                SubmissionID: docID,
+                RespondentID: "WebForm",
+                SubmissionTime: dateTime,
+                Name: residentName,
+                Email: residentEmail,
+                Year : userInfo,
+                Anonymous: String(isAnonymous),
+                Address: address,
+                ApartmentName: apartmentName,
+                Bedrooms: String(beds),
+                Bathrooms: String(baths),
+                TotalRent: String(totalMonthlyRent),
+                Review: review,
+                ScoreOverall: rating.overall,
+                ScoreLandlord: rating.landlord,
+                ScoreCleanliness: rating.cleanliness,
+                ScoreNoise: rating.noise,
+                ScoreLocation: rating.location
             };
+            processAndAddReview([formData]);
 
-            const collectionRef = collection(
-                firestore,
-                `users/${user.uid}/reviews`
-            );
+            // const collectionRef = collection(
+            //     firestore,
+            //     `users/${user.uid}/reviews`
+            // );
 
-            const docRef = await addDoc(collectionRef, formData);
+            // const docRef = await addDoc(collectionRef, formData);
 
-            console.log("Document written with ID: ", docRef.id);
+            // console.log("Document written with ID: ", docRef.id);
+
 
             navigate("/");
 

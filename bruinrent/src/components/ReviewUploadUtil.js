@@ -8,15 +8,22 @@ import {
     setDoc,
     doc,
     getDoc,
+    runTransaction
 } from "firebase/firestore";
 import { firestore } from "../firebase.js";
 import { addressToLatLong } from "./addressToLongLat.js";
 
 const processAndAddReview = async (jsonData) => {
-    console.log("process and add review call");
+const reviewsTocRef = doc(firestore, "reference", "reviews-toc");
 
-    const reviewsTocRef = doc(firestore, "reference", "reviews-toc");
-    const reviewsTocData = (await getDoc(reviewsTocRef)).data();
+    try {
+        await runTransaction(firestore, async (transaction) => {
+    console.log("process and add review call");
+            const newOrphans = []
+            const matching = []
+            const duplicates = []
+    
+    const reviewsTocData = (await transaction.get(reviewsTocRef)).data();
     console.log("Reviews toc: " + JSON.stringify(reviewsTocData, null, 4));
 
     // Turn array of reviews to object of objects of reviews where submission id is key, and removed
@@ -37,6 +44,7 @@ const processAndAddReview = async (jsonData) => {
             reviewsTocData[key] =
                 objectOfObjectsNewReviews[key].SubmissionTime;
         } else {
+            duplicates.push(key)
             console.log(
                 "Duplicate found: " +
                     key +
@@ -54,7 +62,6 @@ const processAndAddReview = async (jsonData) => {
     );
 
     // Update reviewsToc with new data
-    await setDoc(reviewsTocRef, reviewsTocData);
 
     // Add all latlongs to new reviews, and add empty parents
     for (const key in actualNewReviews) {
@@ -70,7 +77,7 @@ const processAndAddReview = async (jsonData) => {
 
     // Fetch listingsToc
     const listingsTocData = (
-        await getDoc(doc(firestore, "reference", "listings-toc"))
+        await transaction.get(doc(firestore, "reference", "listings-toc"))
     ).data();
     console.log(
         "Listings toc: " + JSON.stringify(listingsTocData, null, 4)
@@ -101,6 +108,7 @@ const processAndAddReview = async (jsonData) => {
             );
             // 1. If found existing listing in listings toc, add listing ID to reviews' parents list
             actualNewReviews[reviewKey].parents.push(matchingListingID);
+            matching.push(reviewKey)
 
             // 2. If found existing listing, also add review ID to parent listing's reviews list in actual listing document
             // a) get listing's data
@@ -109,7 +117,7 @@ const processAndAddReview = async (jsonData) => {
                 "listings",
                 matchingListingID
             );
-            const listingSnapshot = await getDoc(listingDocRef);
+            const listingSnapshot = await transaction.get(listingDocRef);
             const listingData = listingSnapshot.data();
             // b) Edit data to add
             if (!("reviews" in listingData)) {
@@ -123,9 +131,11 @@ const processAndAddReview = async (jsonData) => {
                     ": " +
                     JSON.stringify(listingData, null, 4)
             );
-            await setDoc(listingDocRef, listingData);
+            await transaction.set(listingDocRef, listingData);
         } else {
             //orphan review
+            console.warn(`Orphan review! ${reviewKey}`)
+            newOrphans.push(reviewKey)
         }
         // Write doc
         console.log(
@@ -134,8 +144,18 @@ const processAndAddReview = async (jsonData) => {
                 ": " +
                 JSON.stringify(actualNewReviews[reviewKey], null, 4)
         );
-        await setDoc(doc(firestore,"reviews",reviewKey), actualNewReviews[reviewKey]);
+        reviewsTocData.orphans = reviewsTocData.orphans.concat(newOrphans)
+        await transaction.set(doc(firestore,"reviews",reviewKey), actualNewReviews[reviewKey]);
+        await transaction.set(reviewsTocRef, reviewsTocData);
+        console.log("-------------- REPORT -------------- ")
+        console.log(`${matching.length} Matching: ${matching} \n ${newOrphans.length} Orphans: ${newOrphans}`)
+        if (duplicates.length > 0) {console.log(`${duplicates.length} Duplicates: ${duplicates}`)}
     }
+
+});
+} catch (error) {
+    console.error("Transaction failed: ", error);
+}
 };
 
 const cleanInvalidCharacters = (jsonString) => {
@@ -155,5 +175,23 @@ const cleanInvalidCharacters = (jsonString) => {
     return cleanedJsonString;
 };
 
+const getCurrentDateTime = () => {
+    const now = new Date();
+  
+    // Get individual components of the date and time
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+    const day = String(now.getDate()).padStart(2, '0');
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+  
+    // Create the formatted string
+    const formattedDateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  
+    return formattedDateTime;
+  };
+
+export {getCurrentDateTime}
 export {processAndAddReview};
 export {cleanInvalidCharacters};

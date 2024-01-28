@@ -165,7 +165,7 @@ const MapPage = () => {
                 rent2: doc.data().rent2,
                 bed: doc.data().bedrooms,
                 bath: doc.data().baths,
-                image: doc.data().imageUrls ? doc.data().imageUrls[0] : null,
+                image: doc.data().imageUrls[0] ? doc.data().imageUrls[0] : null,
                 latLong: doc.data().latLong || null,
             },
         }));
