@@ -14,6 +14,7 @@ import {
   getDocs,
   query,
   limit,
+  orderBy,
 } from "firebase/firestore";
 
 import { Link } from "react-router-dom";
@@ -33,7 +34,6 @@ const Homepage = () => {
     to: {
       opacity: titleInView ? 1 : 0,
       height: titleInView ? 80 : 0,
-      x: titleInView ? 0 : 20,
     },
     config: { mass: 5, tension: 2000, friction: 200, duration: 300 },
   });
@@ -43,6 +43,7 @@ const Homepage = () => {
     const fetchListings = async () => {
       const q = query(
         collection(firestore, "listings"),
+        orderBy("reviews"),
         limit(NUMBER_OF_POP_LISTINGS)
       );
       const snapshot = await getDocs(q);
