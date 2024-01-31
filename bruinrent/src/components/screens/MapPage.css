@@ -87,6 +87,7 @@
 
 .address-list-item {
   transition: filter 250ms;
+  width: 100%;
 }
 
 .address-list-item:hover {
