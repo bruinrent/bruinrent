@@ -38,6 +38,15 @@ const Homepage = () => {
     config: { mass: 5, tension: 2000, friction: 200, duration: 300 },
   });
 
+  const filterForApartmentsWithRent = (apartmentData) => {
+    // Filter for apartments with both rent ranges
+    // return apartmentData.rent1 != "" && apartmentData.rent2 != "";
+    // Filter for apartments with one rent ranges
+    // return apartmentData.rent1;
+    // Return all apartments for now
+    return true;
+  };
+
   useEffect(() => {
     // Fetch data from Firestore and set it in the state
     const fetchListings = async () => {
@@ -51,7 +60,8 @@ const Homepage = () => {
         id: doc.id, // Include the document ID as 'id'
         ...doc.data(), // Include other data from the document
       }));
-      setListings(listingsData);
+
+      setListings(listingsData.filter(filterForApartmentsWithRent));
     };
     fetchListings();
   }, []);
