@@ -43,7 +43,7 @@ const ListingBlock = ({
                 ${rent1} - {rent2}/mo
               </text>
             ) : (
-              <text id="listing-block-info-rent">${rent1}/mo</text>
+              <text id="listing-block-info-rent">Call for Price</text>
             )}
 
             <text>{bedrooms} Beds</text>
