@@ -9,6 +9,7 @@ import Header from "../Header.jsx";
 import Box from "@mui/material/Box/index.js";
 import Modal from "@mui/material/Modal/index.js";
 import ApartmentReviewBlock from "./ApartmentReviewBlock.jsx";
+import { Link } from "react-router-dom";
 // firebase stuff
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { firestore } from "../../firebase.js";
@@ -562,7 +563,9 @@ const ApartmentPage = () => {
                 className="review-pagination-buttons"
               />
             </div>
-            <button id="leave-review-button">Leave a Review</button>
+            <Link to="/ReviewPage">
+              <button id="leave-review-button">Leave a Review</button>
+            </Link>
           </div>
         </div>
       </div>
