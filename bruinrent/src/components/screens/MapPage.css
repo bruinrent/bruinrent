@@ -15,10 +15,46 @@
 }
 
 .map-page-search-bar {
-  width: 78.5%;
+  width: 28.5%;
   border-radius: 1rem;
   border: 2px solid #89d2f3;
   padding: 0.5rem;
+}
+
+.map-page-price-filter {
+  width: 6%;
+  margin-left: 2%;
+  border-radius: 1rem;
+  border: 2px solid #89d2f3;
+  padding: 0.5rem;
+  background: #fff;
+}
+
+.map-page-filters-filter {
+  width: 7%;
+  margin-left: 2%;
+  border-radius: 1rem;
+  border: 2px solid #89d2f3;
+  padding: 0.5rem;
+  background: #fff;
+}
+
+.map-page-price-filter {
+  width: 6%;
+  margin-left: 2%;
+  border-radius: 1rem;
+  border: 2px solid #89d2f3;
+  padding: 0.5rem;
+  background: #fff;
+}
+
+.map-page-filters-filter {
+  width: 7%;
+  margin-left: 2%;
+  border-radius: 1rem;
+  border: 2px solid #89d2f3;
+  padding: 0.5rem;
+  background: #fff;
 }
 
 .map-page-listings {
@@ -31,12 +67,12 @@
 
 .map-container {
   margin-top: 10px;
-  width: 80%;
+  width: 65%;
 }
 
 .address-list-container {
   height: 100%;
-  width: 20%; /* Width of the scrolling window */
+  width: 35%; /* Width of the scrolling window */
   box-sizing: border-box; /* Include padding and border in width calculation */
   position: relative;
   bottom: 3.5rem;
@@ -51,6 +87,7 @@
 
 .address-list-item {
   transition: filter 250ms;
+  width: 100%;
 }
 
 .address-list-item:hover {
@@ -80,35 +117,39 @@
 
 @media screen and (max-width: 1200px) {
   .map-page-search-bar {
-    width: 73.5%;
+    width: 34%;
   }
 
   .map-container {
-    width: 75%;
+    width: 60%;
   }
 
   .address-list-container {
-    width: 25%; /* Width of the scrolling window */
+    width: 40%; /* Width of the scrolling window */
   }
 }
 
 @media screen and (max-width: 1000px) {
   .map-page-search-bar {
-    width: 68%;
+    width: 27%;
   }
 
   .map-container {
-    width: 70%;
+    width: 50;
   }
 
   .address-list-container {
-    width: 30%; /* Width of the scrolling window */
+    width: 50%; /* Width of the scrolling window */
   }
 }
 
 @media screen and (max-width: 600px) {
   .map-page-search {
     justify-content: center;
+  }
+
+  .map-page-search-bar {
+    width: 25%;
   }
 
   .map-container {
@@ -128,4 +169,21 @@
     flex-direction: column; /* Stack address blocks vertically */
     gap: 2rem;
   }
+}
+
+.dropdown-bed {
+  position: absolute;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: rgba(255, 255, 255, 1);
+  width: 9rem;
+  height: 9rem;
+  padding: 1rem 0.5rem 1rem 0.5rem;
+  border-radius: 1.2rem;
+  z-index: 1;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
+  transition: visibility 500ms;
 }

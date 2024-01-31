@@ -1,0 +1,25 @@
+#apartment-review-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+#apartment-review-date {
+  font-family: Lato;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 17px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: rgba(157, 157, 157, 1);
+}
+
+#apartment-review-desc {
+  font-family: Lato;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 17px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: rgba(0, 0, 0, 1);
+}
