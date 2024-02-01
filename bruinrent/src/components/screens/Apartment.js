@@ -361,7 +361,7 @@ const ApartmentPage = () => {
               <text>{apartmentData.addressDesc}</text>
             </div>
             <hr className="horizontal-line" />
-            <div className="info-block">
+            {/* <div className="info-block">
               <h1>Floor Plans</h1>
               <table>
                 <tr>
@@ -390,7 +390,7 @@ const ApartmentPage = () => {
                 </tr>
               </table>
             </div>
-            <hr className="horizontal-line" />
+            <hr className="horizontal-line" /> */}
             <div className="info-block">
               <h1>Contact This Property</h1>
               {apartmentData.phone && (
@@ -479,11 +479,11 @@ const ApartmentPage = () => {
                 <GoogleMap markers={markers} mapHeight="50vh" />
               </div>
             </div>
-            <hr className="horizontal-line" />
+            {/* <hr className="horizontal-line" />
             <div className="info-block">
               <h1>Transportation</h1>
               <text>TO BE FILLED</text>
-            </div>
+            </div> */}
           </div>
           <div id="apartment-homepage-main-review">
             <div id="review-header" className="rating-block">
