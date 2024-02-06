@@ -4,41 +4,77 @@
   width: 100%;
 }
 
-.rating-details {
-  display: flex;
-  flex-direction: column; /* To stack elements vertically */
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  padding-top: 3rem;
-  /* min-height: 100vh; */
-  width: 100%;
-  text-align: center;
+.review-page-main-container {
+  padding: 2rem 0;
   border-top: 1px solid rgba(175, 175, 175, 0.5);
-  flex: content;
-}
-
-.write-review-container {
   display: flex;
   flex-direction: column; /* To stack elements vertically */
+  gap: 2rem;
   align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  padding-top: 3rem;
-  /* min-height: 100vh; */
   width: 100%;
-  text-align: center;
-  flex: content;
 }
 
-.leave-review-text {
+.review-page-main-container h1 {
   color: #00bff6;
-  text-align: center;
-  font-family: Lato;
   font-size: 1.75rem;
-  font-style: normal;
   font-weight: 700;
-  line-height: normal;
+}
+
+.review-page-section {
+  display: flex;
+  flex-direction: column; /* To stack elements vertically */
+  gap: 0.75rem;
+  align-items: center;
+  width: 100%;
+}
+
+.review-page-section h2 {
+  color: #00bff6;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.review-page-section textarea {
+  width: 50%;
+  height: 2.5rem;
+  flex-shrink: 0;
+  border-radius: 1rem;
+  border: 3px solid #89d2f3;
+  padding: 0.5rem 0.75rem 0.25rem 0.75rem;
+}
+
+.review-page-input-details {
+  width: 25%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.review-page-input-details h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.25rem;
+  letter-spacing: 0em;
+}
+
+.review-page-input-details input,
+select {
+  border: 3px solid rgba(137, 210, 243, 1);
+  border-radius: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  width: 50%;
+}
+
+.review-page-input-details input:focus,
+select:focus {
+  outline: none;
+}
+
+.review-page-input-details input:invalid {
+  border: 3px solid rgb(243, 137, 137);
+  border-radius: 0.75rem;
+  padding: 0.25rem 0.5rem;
 }
 
 .review-text {
@@ -57,64 +93,27 @@
   padding: 0.75rem;
 }
 
-.address-review-text {
-  /* margin-top: 2rem;
-  vertical-align: top;
-  width: 10%;
-  max-height: 3.5rem; 
-  overflow-y: auto;
-  flex-shrink: 0;
-  fill: #fff;
-  stroke-width: 3px;
-  stroke: #89d2f3;
-  border-radius: 15px;
-  border: 3px solid #89d2f3;
-  background: #fff;
-  padding: 0.75rem; */
-
-  width: 50%;
-  height: 2.5rem;
-  flex-shrink: 0;
-  border-radius: 1rem;
-  border: 3px solid #89d2f3;
-  padding: 0.5rem 0.75rem 0.25rem 0.75rem;
+@media screen and (max-width: 1200px) {
+  .review-page-input-details {
+    width: 50%;
+  }
 }
 
-.resident-info-year {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 30%;
-  padding-top: 1rem;
-}
-
-#resident-year {
-  width: 60%;
-  height: 2.5rem;
-  border-radius: 0.85rem;
-  border: 3px solid #89d2f3;
-}
-
-@media screen and (max-width: 1060px) {
-  .write-review-container {
-    padding-top: 0;
+@media screen and (max-width: 600px) {
+  .review-page-main-container {
+    padding: 1rem 1.5rem;
   }
-
-  .address-review-text {
-    width: 80%;
-  }
-
-  .review-text {
-    width: 80%;
-  }
-
-  .resident-info-year {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    width: 75%;
+  .review-page-section {
     gap: 0.5rem;
+  }
+  .review-page-section textarea {
+    width: 100%;
+  }
+  .review-page-input-details {
+    width: 100%;
+  }
+  .review-page-input-details input,
+  select {
+    width: 40%;
   }
 }
