@@ -5,15 +5,17 @@ import Header from "../Header.jsx";
 import { useNavigate } from "react-router-dom";
 
 import RatingStars from "../RatingStars.js";
-import { collection, addDoc, doc, setDoc, getDoc} from "firebase/firestore";
+import { collection, addDoc, doc, setDoc, getDoc, updateDoc, arrayUnion} from "firebase/firestore";
 import { app, firestore} from "../../firebase.js";
 import { async } from "@firebase/util";
 import { useAuthContext } from "../AuthContext.js";
 import addressToLongLat from "../addressToLongLat.js";
 import { getCurrentDateTime, processAndAddReview } from "../ReviewUploadUtil.js";
-import VirtualizedSelect from 'react-virtualized-select'
+
+import Select from 'react-select';
 
 const ReviewPage = ({ addReview }) => {
+   
     const navigate = useNavigate();
     const [rating, setRating] = useState({
         overall: 0,
@@ -54,8 +56,11 @@ const ReviewPage = ({ addReview }) => {
         }
     }, [user]);
 
-
+    useEffect(() => {
+        console.log(JSON.stringify(selectedAddressOption))
+    }, [selectedAddressOption])
     useEffect( () => {
+        console.log('use effect')
         const fetchListings = async () => {
 
             const tocData = (
@@ -67,15 +72,11 @@ const ReviewPage = ({ addReview }) => {
             }));
 
             setAddressOptions(listingsData)
-
-
-
-
         }
         fetchListings();
 
 
-    })
+    }, [])
 
     const handleRatingChange = (category, newRating) => {
         // Update the rating for the specific category
@@ -92,18 +93,19 @@ const ReviewPage = ({ addReview }) => {
             // const longLat = await addressToLongLat(address);
 
             // const latLong = [longLat[1], longLat[0]];
-            const docID = doc(collection(firestore, "reviews")).id;
+            const reviewDoc = doc(collection(firestore, "reviews"));
+            const reviewDocID = reviewDoc.id
             const dateTime = getCurrentDateTime();
             
-            const formData = {
-                SubmissionID: docID,
+            const reviewData = {
+                SubmissionID: reviewDocID,
                 RespondentID: "WebForm",
                 SubmissionTime: dateTime,
                 Name: residentName,
                 Email: residentEmail,
                 Year : userInfo,
                 Anonymous: String(isAnonymous),
-                Address: selectedAddressOption.address,
+                Address: selectedAddressOption.label,
                 ApartmentName: apartmentName,
                 Bedrooms: String(beds),
                 Bathrooms: String(baths),
@@ -113,9 +115,14 @@ const ReviewPage = ({ addReview }) => {
                 ScoreLandlord: rating.landlord,
                 ScoreCleanliness: rating.cleanliness,
                 ScoreNoise: rating.noise,
-                ScoreLocation: rating.location
+                ScoreLocation: rating.location,
+                parents: [selectedAddressOption.value]
             };
-            processAndAddReview([formData]);
+            // Update the parent to reference the review
+            updateDoc(doc(firestore, 'listings', selectedAddressOption.value), {reviews: arrayUnion(reviewDocID)})
+
+            // Create the review document with its data
+            setDoc(reviewDoc, reviewData)
 
             // const collectionRef = collection(
             //     firestore,
@@ -125,11 +132,9 @@ const ReviewPage = ({ addReview }) => {
             // const docRef = await addDoc(collectionRef, formData);
 
             // console.log("Document written with ID: ", docRef.id);
-
-
             navigate("/");
 
-            console.log(formData);
+            console.log(reviewData);
         } catch (error) {
             console.error("Error:", error.message);
 
@@ -160,15 +165,10 @@ const ReviewPage = ({ addReview }) => {
                         </text>
                         <div className="write-review-container">
                             <text className="title-text">Address</text>
-                            {/*<textarea
-                                className="address-review-text"
-                                type="address"
-                                value={address}
-                                onChange={(e) => setAddress(e.target.value)}
-            />*/}
-                            <VirtualizedSelect
+                            <Select
+                                className="address-dropdown"
                                 options={addressOptions}
-                                onChange={(e) => setSelectedAddressOption(e.target.value)}
+                                onChange={setSelectedAddressOption}
                                 value={selectedAddressOption}
                             />
                             <text className="title-text">Apartment Name</text>
