@@ -5,14 +5,13 @@ import Header from "../Header.jsx";
 import { useNavigate } from "react-router-dom";
 
 import RatingStars from "../RatingStars.js";
-import { collection, addDoc, doc, } from "firebase/firestore";
-import { app, firestore } from "../../firebase.js";
+import { collection, addDoc, doc, setDoc, getDoc} from "firebase/firestore";
+import { app, firestore} from "../../firebase.js";
 import { async } from "@firebase/util";
 import { useAuthContext } from "../AuthContext.js";
 import addressToLongLat from "../addressToLongLat.js";
 import { getCurrentDateTime, processAndAddReview } from "../ReviewUploadUtil.js";
-
-//import { star} from "react-star-ratings";
+import VirtualizedSelect from 'react-virtualized-select'
 
 const ReviewPage = ({ addReview }) => {
     const navigate = useNavigate();
@@ -36,6 +35,8 @@ const ReviewPage = ({ addReview }) => {
     const [isAnonymous, setIsAnonymous] = useState(false);
     const [beds, setBeds] = useState(undefined);
     const [baths, setBaths] = useState(undefined);
+    const [addressOptions, setAddressOptions] = useState([])
+    const [selectedAddressOption, setSelectedAddressOption] = useState({})
 
     // const [firstName, setFirstName] = useState("");
     // const [lastName, setLastName] = useState("");
@@ -52,6 +53,29 @@ const ReviewPage = ({ addReview }) => {
             console.log("USER ID: " + user.uid);
         }
     }, [user]);
+
+
+    useEffect( () => {
+        const fetchListings = async () => {
+
+            const tocData = (
+            await getDoc(doc(firestore, "reference", "listings-toc"))
+            ).data();
+            const listingsData = Object.entries(tocData).map(([id, data]) => ({
+              value: id,
+              label: data.address
+            }));
+
+            setAddressOptions(listingsData)
+
+
+
+
+        }
+        fetchListings();
+
+
+    })
 
     const handleRatingChange = (category, newRating) => {
         // Update the rating for the specific category
@@ -79,7 +103,7 @@ const ReviewPage = ({ addReview }) => {
                 Email: residentEmail,
                 Year : userInfo,
                 Anonymous: String(isAnonymous),
-                Address: address,
+                Address: selectedAddressOption.address,
                 ApartmentName: apartmentName,
                 Bedrooms: String(beds),
                 Bathrooms: String(baths),
@@ -136,11 +160,16 @@ const ReviewPage = ({ addReview }) => {
                         </text>
                         <div className="write-review-container">
                             <text className="title-text">Address</text>
-                            <textarea
+                            {/*<textarea
                                 className="address-review-text"
                                 type="address"
                                 value={address}
                                 onChange={(e) => setAddress(e.target.value)}
+            />*/}
+                            <VirtualizedSelect
+                                options={addressOptions}
+                                onChange={(e) => setSelectedAddressOption(e.target.value)}
+                                value={selectedAddressOption}
                             />
                             <text className="title-text">Apartment Name</text>
                             <textarea
