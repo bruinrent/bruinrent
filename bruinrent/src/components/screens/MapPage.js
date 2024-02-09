@@ -10,6 +10,9 @@ import FilterPrice from "../FilterButtonPrice.js";
 
 import { FaChevronDown } from "react-icons/fa/index.esm.js";
 
+
+
+
 import {
   collection,
   getDocs,
@@ -229,6 +232,8 @@ const MapPage = () => {
     handleSearch();
   }, [searchQuery]);
 
+
+  // #region OLD COMMENTED OUT SEARCH FEATURES
   // const handleSearch = () => {
   //     console.log("Handlesearch");
   //     if (searchQuery == 0) {
@@ -298,6 +303,8 @@ const MapPage = () => {
   //     // If only bed/bath filter is applied, show the bed/bath filtered listings
   //     setFilteredListings(bedBathFilteredListings.slice(0, visibleListings));
   // };
+  // #endregion
+
 
   const handleSearch = () => {
     console.log("Handlesearch");

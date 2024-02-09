@@ -469,6 +469,8 @@ const ApartmentPage = () => {
                 </div>
               </div>
             </div>
+            <text>Walk to Bruin Plaza: 15-20 min</text>
+
             <hr className="horizontal-line" />
             <div className="info-block">
               <h1>Property Location</h1>
@@ -481,9 +483,8 @@ const ApartmentPage = () => {
             </div>
             {/* <hr className="horizontal-line" />
             <div className="info-block">
-              <h1>Transportation</h1>
-              <text>TO BE FILLED</text>
-            </div> */}
+              <h1>Transportation</h1> */}
+            {/* </div>  */}
           </div>
           <div id="apartment-homepage-main-review">
             <div id="review-header" className="rating-block">
