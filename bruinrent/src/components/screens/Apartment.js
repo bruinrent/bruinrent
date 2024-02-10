@@ -361,36 +361,34 @@ const ApartmentPage = () => {
               <text>{apartmentData.addressDesc}</text>
             </div>
             <hr className="horizontal-line" />
-            {/* <div className="info-block">
-              <h1>Floor Plans</h1>
-              <table>
-                <tr>
-                  <th># Bedrooms</th>
-                  <th>Rent</th>
-                  <th># Baths</th>
-                  <th>Size</th>
-                </tr>
-                <tr>
-                  <td>Studio</td>
-                  <td>$2,000</td>
-                  <td>1 Bath</td>
-                  <td>500 sqft</td>
-                </tr>
-                <tr>
-                  <td>1 Bedroom</td>
-                  <td>$3,000 - $3,500</td>
-                  <td>2 Bath</td>
-                  <td>1000 sqft</td>
-                </tr>
-                <tr>
-                  <td>2 Bedrooms</td>
-                  <td>$4,500</td>
-                  <td>2 Bath</td>
-                  <td>1,500 sqft</td>
-                </tr>
-              </table>
-            </div>
-            <hr className="horizontal-line" /> */}
+            {apartmentData.units.length > 0 && (
+              <>
+                <div className="info-block">
+                  <h1>Floor Plans</h1>
+                  <table>
+                    <tr>
+                      <th># Bedrooms</th>
+                      <th>Rent</th>
+                      <th># Baths</th>
+                      <th>Size</th>
+                    </tr>
+                    {apartmentData.units.map((unitInfo) => (
+                      <tr>
+                        <th>{unitInfo.bedrooms}</th>
+                        <th>
+                          {unitInfo.rent1 && unitInfo.rent2
+                            ? `${unitInfo.rent1} - ${unitInfo.rent2}`
+                            : `${unitInfo.rent1}`}
+                        </th>
+                        <th>{unitInfo.baths}</th>
+                        {unitInfo.size !== "" && <th>{unitInfo.size}</th>}
+                      </tr>
+                    ))}
+                  </table>
+                </div>
+                <hr className="horizontal-line" />
+              </>
+            )}
             <div className="info-block">
               <h1>Contact This Property</h1>
               {apartmentData.phone && (
