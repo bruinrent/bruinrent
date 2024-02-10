@@ -352,6 +352,7 @@ const ListingPage = () => {
       imageUrls,
       checkedBuildingFeatureLabels,
       checkedApartmentFeatureLabels,
+      reviews: [],
     };
 
     // Write the form data to the Firestore collection

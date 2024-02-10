@@ -5,8 +5,8 @@ import Header from "../Header.jsx";
 import { useNavigate } from "react-router-dom";
 
 import RatingStars from "../RatingStars.js";
-import { collection, addDoc, doc } from "firebase/firestore";
-import { app, firestore } from "../../firebase.js";
+import { collection, addDoc, doc, setDoc, getDoc, updateDoc, arrayUnion} from "firebase/firestore";
+import { app, firestore} from "../../firebase.js";
 import { async } from "@firebase/util";
 import { useAuthContext } from "../AuthContext.js";
 import addressToLongLat from "../addressToLongLat.js";
@@ -15,30 +15,33 @@ import {
   processAndAddReview,
 } from "../ReviewUploadUtil.js";
 
-//import { star} from "react-star-ratings";
+import Select from 'react-select';
 
 const ReviewPage = ({ addReview }) => {
-  const navigate = useNavigate();
-  const [rating, setRating] = useState({
-    overall: 0,
-    cleanliness: 0,
-    noise: 0,
-    landlord: 0,
-    location: 0,
-  });
-  const [userInfo, setUserInfo] = useState({
-    year: "freshman",
-  });
-  const { user } = useAuthContext();
-  const [review, setReview] = useState("");
-  const [address, setAddress] = useState("");
-  const [apartmentName, setApartmentName] = useState("");
-  const [totalMonthlyRent, setTotalMonthlyRent] = useState(undefined);
-  const [residentName, setResidentName] = useState("");
-  const [residentEmail, setResidentEmail] = useState("");
-  const [isAnonymous, setIsAnonymous] = useState(false);
-  const [beds, setBeds] = useState(undefined);
-  const [baths, setBaths] = useState(undefined);
+    const navigate = useNavigate();
+    const [rating, setRating] = useState({
+        overall: 0,
+        cleanliness: 0,
+        noise: 0,
+        landlord: 0,
+        location: 0,
+    });
+    const [userInfo, setUserInfo] = useState({
+        year: "freshman",
+    });
+    const { user } = useAuthContext();
+    const [review, setReview] = useState("");
+    const [address, setAddress] = useState("");
+    const [apartmentName, setApartmentName] = useState("");
+    const [totalMonthlyRent, setTotalMonthlyRent] = useState(undefined);
+    const [residentName, setResidentName] = useState("");
+    const [residentEmail, setResidentEmail] = useState("");
+    const [isAnonymous, setIsAnonymous] = useState(false);
+    const [beds, setBeds] = useState(undefined);
+    const [baths, setBaths] = useState(undefined);
+    const [addressOptions, setAddressOptions] = useState([])
+    const [selectedAddressOption, setSelectedAddressOption] = useState({})
+
 
   // const [firstName, setFirstName] = useState("");
   // const [lastName, setLastName] = useState("");
@@ -56,60 +59,82 @@ const ReviewPage = ({ addReview }) => {
     }
   }, [user]);
 
-  const handleRatingChange = (category, newRating) => {
-    // Update the rating for the specific category
-    setRating((prevRating) => ({
-      ...prevRating,
-      [category]: newRating,
-    }));
-  };
+    useEffect(() => {
+        console.log(JSON.stringify(selectedAddressOption))
+    }, [selectedAddressOption])
+    useEffect( () => {
+        console.log('use effect')
+        const fetchListings = async () => {
+
+            const tocData = (
+            await getDoc(doc(firestore, "reference", "listings-toc"))
+            ).data();
+            const listingsData = Object.entries(tocData).map(([id, data]) => ({
+              value: id,
+              label: data.address
+            }));
+
+            setAddressOptions(listingsData)
+        }
+        fetchListings();
+
+
+    }, [])
+
+    const handleRatingChange = (category, newRating) => {
+        // Update the rating for the specific category
+        setRating((prevRating) => ({
+            ...prevRating,
+            [category]: newRating,
+        }));
+    };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      // const longLat = await addressToLongLat(address);
+            const reviewDoc = doc(collection(firestore, "reviews"));
+            const reviewDocID = reviewDoc.id
+            const dateTime = getCurrentDateTime();
+            
+            const reviewData = {
+                SubmissionID: reviewDocID,
+                RespondentID: "WebForm",
+                SubmissionTime: dateTime,
+                Name: residentName,
+                Email: residentEmail,
+                Year : userInfo,
+                Anonymous: String(isAnonymous),
+                Address: selectedAddressOption.label,
+                ApartmentName: apartmentName,
+                Bedrooms: String(beds),
+                Bathrooms: String(baths),
+                TotalRent: String(totalMonthlyRent),
+                Review: review,
+                ScoreOverall: rating.overall,
+                ScoreLandlord: rating.landlord,
+                ScoreCleanliness: rating.cleanliness,
+                ScoreNoise: rating.noise,
+                ScoreLocation: rating.location,
+                parents: [selectedAddressOption.value]
+            };
+            // Update the parent to reference the review
+            updateDoc(doc(firestore, 'listings', selectedAddressOption.value), {reviews: arrayUnion(reviewDocID)})
 
-      // const latLong = [longLat[1], longLat[0]];
-      const docID = doc(collection(firestore, "reviews")).id;
-      const dateTime = getCurrentDateTime();
+            // Create the review document with its data
+            setDoc(reviewDoc, reviewData)
 
-      const formData = {
-        SubmissionID: docID,
-        RespondentID: "WebForm",
-        SubmissionTime: dateTime,
-        Name: residentName,
-        Email: residentEmail,
-        Year: userInfo,
-        Anonymous: String(isAnonymous),
-        Address: address,
-        ApartmentName: apartmentName,
-        Bedrooms: String(beds),
-        Bathrooms: String(baths),
-        TotalRent: String(totalMonthlyRent),
-        Review: review,
-        ScoreOverall: rating.overall,
-        ScoreLandlord: rating.landlord,
-        ScoreCleanliness: rating.cleanliness,
-        ScoreNoise: rating.noise,
-        ScoreLocation: rating.location,
-      };
-      processAndAddReview([formData]);
 
-      // const collectionRef = collection(
-      //     firestore,
-      //     `users/${user.uid}/reviews`
-      // );
+     
 
-      // const docRef = await addDoc(collectionRef, formData);
+            // console.log("Document written with ID: ", docRef.id);
+            navigate("/");
 
-      // console.log("Document written with ID: ", docRef.id);
+            console.log(reviewData);
+        } catch (error) {
+            console.error("Error:", error.message);
 
-      navigate("/");
-
-      console.log(formData);
-    } catch (error) {
-      console.error("Error:", error.message);
 
       // alert("Error: Invalid address. Please enter a valid address.");
     }
@@ -135,10 +160,11 @@ const ReviewPage = ({ addReview }) => {
         <h1 className="leave-review-text">Leave a Review</h1>
         <div className="review-page-section">
           <h2>Address</h2>
-          <textarea
-            type="address"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
+          <Select
+              className="address-dropdown"
+              options={addressOptions}
+              onChange={setSelectedAddressOption}
+              value={selectedAddressOption}
           />
         </div>
         <div className="review-page-section">

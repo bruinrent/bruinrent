@@ -49,7 +49,7 @@ const ListingBlock = ({
             <text>{bedrooms} Beds</text>
             <text>
               <FaWalking />
-              10 min to Bruin Plaza
+              15 min to Bruin Plaza
             </text>
           </div>
           <hr className="listing-block-info-break" />
