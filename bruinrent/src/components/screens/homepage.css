@@ -99,6 +99,7 @@
 
 .homepage-body-listing-item {
   transition: transform 300ms;
+  width: fit-content;
 }
 
 .homepage-body-listing-item:hover {

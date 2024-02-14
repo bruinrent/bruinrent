@@ -229,6 +229,10 @@ img {
   gap: 0.7rem;
 }
 
+a {
+  text-decoration: none;
+}
+
 #leave-review-button {
   width: 190px;
   height: 50px;

@@ -14,6 +14,7 @@ import {
   getDocs,
   query,
   limit,
+  orderBy,
 } from "firebase/firestore";
 
 import { Link } from "react-router-dom";
@@ -33,16 +34,25 @@ const Homepage = () => {
     to: {
       opacity: titleInView ? 1 : 0,
       height: titleInView ? 80 : 0,
-      x: titleInView ? 0 : 20,
     },
     config: { mass: 5, tension: 2000, friction: 200, duration: 300 },
   });
+
+  const filterForApartmentsWithRent = (apartmentData) => {
+    // Filter for apartments with both rent ranges
+    // return apartmentData.rent1 != "" && apartmentData.rent2 != "";
+    // Filter for apartments with one rent ranges
+    // return apartmentData.rent1;
+    // Return all apartments for now
+    return true;
+  };
 
   useEffect(() => {
     // Fetch data from Firestore and set it in the state
     const fetchListings = async () => {
       const q = query(
         collection(firestore, "listings"),
+        orderBy("reviews"),
         limit(NUMBER_OF_POP_LISTINGS)
       );
       const snapshot = await getDocs(q);
@@ -50,7 +60,8 @@ const Homepage = () => {
         id: doc.id, // Include the document ID as 'id'
         ...doc.data(), // Include other data from the document
       }));
-      setListings(listingsData);
+
+      setListings(listingsData.filter(filterForApartmentsWithRent));
     };
     fetchListings();
   }, []);

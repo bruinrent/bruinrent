@@ -28,10 +28,15 @@ const AddressBlock = ({
         ) : (
           <img className="address-block-image" src={apart1} alt="Stock Image" />
         )}
-        <p className="address-block-apartment">{address}</p>
-        <p className="address-block-details">
-          {bedrooms} Bed | {bathroom} Bath{" "}
-        </p>
+        <div id="address-block-info">
+          <div>
+            <p className="address-block-apartment">{address}</p>
+            <p className="address-block-details">
+              {bedrooms} Bed | {bathroom} Bath{" "}
+            </p>
+          </div>
+          <div id="address-block-circle"></div>
+        </div>
       </Link>
     </animated.div>
   );

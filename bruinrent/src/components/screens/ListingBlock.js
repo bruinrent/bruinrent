@@ -43,13 +43,13 @@ const ListingBlock = ({
                 ${rent1} - {rent2}/mo
               </text>
             ) : (
-              <text id="listing-block-info-rent">${rent1}/mo</text>
+              <text id="listing-block-info-rent">Call for Price</text>
             )}
 
             <text>{bedrooms} Beds</text>
             <text>
               <FaWalking />
-              10 min to Bruin Plaza
+              15 min to Bruin Plaza
             </text>
           </div>
           <hr className="listing-block-info-break" />
@@ -61,12 +61,12 @@ const ListingBlock = ({
                 <MdOutlinePhoneIphone />
                 {phone}
               </text>
-              <div>
+              {/* <div>
                 <div className="listing-block-details-rating">
                   <text>0.0</text>
                 </div>
                 <text id="listing-block-details-num-rating">0 Reviews</text>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
