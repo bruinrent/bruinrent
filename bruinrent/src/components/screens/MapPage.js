@@ -351,10 +351,12 @@ const MapPage = () => {
         const bedBathFilteredListings = listings.filter((listing) => {
             const matchBeds =
                 selectedBeds === "" ||
-                listing.bedrooms.toString() === selectedBeds;
+                (listing.bedrooms &&
+                    listing.bedrooms.toString() === selectedBeds);
             const matchBaths =
                 selectedBaths === "" ||
-                listing.bathroom.toString() === selectedBaths;
+                (listing.bathroom &&
+                    listing.bathroom.toString() === selectedBaths);
 
             return matchBeds && matchBaths;
         });
@@ -425,40 +427,74 @@ const MapPage = () => {
         setFilteredListings(listings.slice(0, visibleListings));
     }, [listings]);
     // Displaying markers
+
     useEffect(() => {
-        // const displayedListings =
-        //   searchQuery.length > 0 ? filteredListings : listings;
         if (searchQuery.length > 0) {
-            setMarkers([]);
+            setMarkers([]); // Clear markers if there's a search query
         }
-        // console.log(
-        //   `Displayed listings for marker setting useeffect: ${displayedListings}`
-        // );
-        filteredListings.forEach((listing) => {
-            if (listing.latLong) {
-                console.log(listing.latLong);
-                console.log(listing.id);
-                // need to add to useeffect array
-                setMarkers((markers) => [
-                    ...markers,
-                    {
-                        lat: listing.latLong[0],
-                        lng: listing.latLong[1],
-                        text: listing.address,
-                        id: listing.id,
-                    },
-                ]);
-                // markers.push( {lat:listing.latLong[0], lng:listing.latLong[1],text:listing.address} );
-            }
-        });
-        console.log({ markers });
+        setMarkers(
+            filteredListings
+                .filter(
+                    (listing) => listing.latLong && listing.latLong.length > 0
+                ) // Filter out listings with latLong data length of 0
+                .map((listing) => ({
+                    lat: listing.latLong[0],
+                    lng: listing.latLong[1],
+                    text: listing.address,
+                    id: listing.id,
+                }))
+        );
     }, [filteredListings]);
+
+    // useEffect(() => {
+    //     // const displayedListings =
+    //     //   searchQuery.length > 0 ? filteredListings : listings;
+    //     if (searchQuery.length > 0) {
+    //         setMarkers([]);
+    //     }
+    //     // console.log(
+    //     //   `Displayed listings for marker setting useeffect: ${displayedListings}`
+    //     // );
+    //     filteredListings.forEach((listing) => {
+    //         if (listing.latLong) {
+    //             console.log(listing.latLong);
+    //             console.log(listing.id);
+    //             // need to add to useeffect array
+    //             setMarkers((markers) => [
+    //                 ...markers,
+    //                 {
+    //                     lat: listing.latLong[0],
+    //                     lng: listing.latLong[1],
+    //                     text: listing.address,
+    //                     id: listing.id,
+    //                 },
+    //             ]);
+    //             // markers.push( {lat:listing.latLong[0], lng:listing.latLong[1],text:listing.address} );
+    //         }
+    //     });
+    //     console.log({ markers });
+    // }, [filteredListings]);
 
     const AddressList = () => {
         const displayedListings =
             searchQuery.length > 0
                 ? filteredListings
                 : listings.slice(0, visibleListings);
+
+        // Sort the listings so that those from the "listings" collection appear first
+        const sortedListings = displayedListings.sort((a, b) => {
+            // Check if the listing is from the "listings" collection
+            const isListingAFromListings = a.id.startsWith("listings");
+            const isListingBFromListings = b.id.startsWith("listings");
+
+            if (isListingAFromListings && !isListingBFromListings) {
+                return -1; // a comes before b
+            } else if (!isListingAFromListings && isListingBFromListings) {
+                return 1; // b comes before a
+            } else {
+                return 0; // maintain the order
+            }
+        });
         return (
             <div className="address-list">
                 {displayedListings.map((listing, index) => (
