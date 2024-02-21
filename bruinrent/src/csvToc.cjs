@@ -20,9 +20,8 @@ async function createCsvTocCollection() {
             csvTocData[doc.id] = {
                 address: data.address || "",
                 rent1: data.rent1 || "",
-                rent2: data.rent2 || "",
-                bedrooms: data.bed || "",
-                bathroom: data.bath || "",
+                bedrooms: data.bedrooms || "",
+                bathroom: data.baths || "",
                 latLong: data.latLong || "",
                 imageUrls: data.imageUrls ? [data.imageUrls[0]] : [],
             };

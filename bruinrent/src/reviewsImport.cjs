@@ -33,6 +33,7 @@ const initializeDocuments = async () => {
                         addressDesc: "", // Initialize other fields to empty strings
                         size: "",
                         bedrooms: "",
+                        baths: "",
                         rent1: "",
                         rent2: "",
                         units: "",
@@ -73,6 +74,9 @@ const processCSV = async () => {
                 const {
                     "Submission ID": submissionID,
                     "Apartment Address": address,
+                    Bedrooms: bedrooms,
+                    Bathrooms: baths,
+                    "Rent (total for the entire unit)": rent1,
                 } = row;
 
                 const querySnapshot = await db
@@ -83,6 +87,9 @@ const processCSV = async () => {
                     await doc.ref.update({
                         reviews:
                             admin.firestore.FieldValue.arrayUnion(submissionID),
+                        baths: baths,
+                        bedrooms: bedrooms,
+                        rent1: rent1,
                     });
                     console.log(`Updated reviews for ${address}`);
                 });
