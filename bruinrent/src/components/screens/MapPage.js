@@ -136,26 +136,34 @@ const MapPage = () => {
                 const combinedListingsData =
                     listingsData.concat(csvListingsData);
 
-                // Separate listings with and without rent
-                const listingsWithRent = combinedListingsData.filter(
-                    (listing) => listing.rent1 !== "" && listing.rent2 !== ""
-                );
-                const listingsWithoutRent = combinedListingsData.filter(
-                    (listing) => listing.rent1 === "" || listing.rent2 === ""
+                // Sort listings to display apartments with latLong first
+                const sortedListings = combinedListingsData.sort((a, b) =>
+                    a.latLong && a.latLong.length > 0 ? -1 : 1
                 );
 
-                // Sort listings
-                const sortedListingsWithRent = listingsWithRent.sort((a, b) =>
-                    a.address.localeCompare(b.address)
-                );
-                const sortedListingsWithoutRent = listingsWithoutRent.sort(
-                    (a, b) => a.address.localeCompare(b.address)
-                );
+                // Set listings state with the sorted data
+                setListings(sortedListings);
 
-                // Set listings state with the combined and sorted data
-                setListings(
-                    sortedListingsWithRent.concat(sortedListingsWithoutRent)
-                );
+                // // Separate listings with and without rent
+                // const listingsWithRent = combinedListingsData.filter(
+                //     (listing) => listing.rent1 !== "" && listing.rent2 !== ""
+                // );
+                // const listingsWithoutRent = combinedListingsData.filter(
+                //     (listing) => listing.rent1 === "" || listing.rent2 === ""
+                // );
+
+                // // Sort listings
+                // const sortedListingsWithRent = listingsWithRent.sort((a, b) =>
+                //     a.address.localeCompare(b.address)
+                // );
+                // const sortedListingsWithoutRent = listingsWithoutRent.sort(
+                //     (a, b) => a.address.localeCompare(b.address)
+                // );
+
+                // // Set listings state with the combined and sorted data
+                // setListings(
+                //     sortedListingsWithRent.concat(sortedListingsWithoutRent)
+                // );
 
                 console.log("Data fetched successfully.");
             } catch (error) {
@@ -481,20 +489,8 @@ const MapPage = () => {
                 ? filteredListings
                 : listings.slice(0, visibleListings);
 
-        // Sort the listings so that those from the "listings" collection appear first
-        const sortedListings = displayedListings.sort((a, b) => {
-            // Check if the listing is from the "listings" collection
-            const isListingAFromListings = a.id.startsWith("listings");
-            const isListingBFromListings = b.id.startsWith("listings");
+        // Filter listings with imageUrls not equal to the specific URL
 
-            if (isListingAFromListings && !isListingBFromListings) {
-                return -1; // a comes before b
-            } else if (!isListingAFromListings && isListingBFromListings) {
-                return 1; // b comes before a
-            } else {
-                return 0; // maintain the order
-            }
-        });
         return (
             <div className="address-list">
                 {displayedListings.map((listing, index) => (
@@ -554,7 +550,6 @@ const MapPage = () => {
     };
 
     // Process uploaded JSON
-
     return (
         <div className="map-page-container">
             <Header />
