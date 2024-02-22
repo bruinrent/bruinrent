@@ -7,11 +7,9 @@ import { useSpring, animated } from "@react-spring/web";
 import sizeof from "firestore-size";
 import FilterBed from "../FilterButtonBed.js";
 import FilterPrice from "../FilterButtonPrice.js";
+import FilterReviews from "../FilterButtonReviews.js";
 
 import { FaChevronDown } from "react-icons/fa/index.esm.js";
-
-
-
 
 import {
   collection,
@@ -77,6 +75,8 @@ const MapPage = () => {
     console.log("rent 1", rent1);
     console.log("rent 2", rent2);
   };
+
+  const handleReviewsFilterChange = () => {};
 
   useEffect(() => {
     // Fetch data from the "listings" collection in Firestore
@@ -232,7 +232,6 @@ const MapPage = () => {
     handleSearch();
   }, [searchQuery]);
 
-
   // #region OLD COMMENTED OUT SEARCH FEATURES
   // const handleSearch = () => {
   //     console.log("Handlesearch");
@@ -304,7 +303,6 @@ const MapPage = () => {
   //     setFilteredListings(bedBathFilteredListings.slice(0, visibleListings));
   // };
   // #endregion
-
 
   const handleSearch = () => {
     console.log("Handlesearch");
@@ -487,6 +485,10 @@ const MapPage = () => {
           />
           <FilterPrice
             onFilterChange={handlePriceFilterChange}
+            onSearch={handleSearch}
+          />
+          <FilterReviews
+            onFilterChange={handleReviewsFilterChange}
             onSearch={handleSearch}
           />
         </div>
