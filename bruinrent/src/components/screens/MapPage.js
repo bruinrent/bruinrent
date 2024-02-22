@@ -76,6 +76,8 @@ const MapPage = () => {
     console.log("rent 2", rent2);
   };
 
+  const handleReviewsFilterChange = () => {};
+
   useEffect(() => {
     // Fetch data from the "listings" collection in Firestore
     const fetchListings = async () => {
