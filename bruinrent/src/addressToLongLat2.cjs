@@ -1,9 +1,9 @@
-// const masterAddress = "Los Angeles, California, 90024"
-// Focuses Search
+const fetch = require("node-fetch");
+
 const viewbox = "-118.456382,34.076497,-118.435424,34.060784";
 
-export default async function addressToLongLat(input) {
-    console.log(`Fetching foordinates from input ${input}`);
+async function addressToLongLat(input) {
+    console.log(`Fetching coordinates from input ${input}`);
     try {
         const apiUrl = `https://nominatim.openstreetmap.org/search?q=${input}&format=geojson&viewbox=${viewbox}`;
         console.log(apiUrl);
@@ -29,7 +29,9 @@ export default async function addressToLongLat(input) {
     }
 }
 
-export async function addressToLatLong(input) {
+async function addressToLatLong(input) {
     const longLat = await addressToLongLat(input);
     return [longLat[1], longLat[0]];
 }
+
+module.exports = { addressToLongLat, addressToLatLong };

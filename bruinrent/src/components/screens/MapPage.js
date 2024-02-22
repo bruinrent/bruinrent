@@ -76,8 +76,6 @@ const MapPage = () => {
     console.log("rent 2", rent2);
   };
 
-  const handleReviewsFilterChange = () => {};
-
   useEffect(() => {
     // Fetch data from the "listings" collection in Firestore
     const fetchListings = async () => {
@@ -96,39 +94,81 @@ const MapPage = () => {
       //   setLastListing(snapshot.docs[snapshot.docs.length - 1]);
       // }
 
-      const tocData = (
-        await getDoc(doc(firestore, "reference", "listings-toc"))
-      ).data();
-      const listingsData = Object.entries(tocData).map(([id, data]) => ({
-        id,
-        address: data.address,
-        rent1: data.rent1,
-        rent2: data.rent2,
-        bedrooms: data.bed,
-        bathroom: data.bath,
-        latLong: data.latLong,
-        imageUrls: [data.image],
-      }));
+      try {
+        // Fetch data from listings-toc
+        const listingsTocData = (
+          await getDoc(doc(firestore, "reference", "listings-toc"))
+        ).data();
 
-      const listingsWithRent = [];
-      const listingsWithoutRent = [];
+        // Convert listings-toc data to array format
+        const listingsData = Object.entries(listingsTocData).map(
+          ([id, data]) => ({
+            id,
+            address: data.address,
+            rent1: data.rent1,
+            rent2: data.rent2,
+            bedrooms: data.bed,
+            bathroom: data.bath,
+            latLong: data.latLong,
+            imageUrls: [data.image],
+          })
+        );
 
-      for (let i = 0; i < listingsData.length; i++) {
-        if (listingsData[i].rent1 != "" && listingsData[i].rent2 != "") {
-          listingsWithRent.push(listingsData[i]);
-        } else {
-          listingsWithoutRent.push(listingsData[i]);
-        }
+        // Fetch data from csv-toc
+        const csvTocData = (
+          await getDoc(doc(firestore, "reference", "csv-toc"))
+        ).data();
+
+        // Convert csv-toc data to array format
+        const csvListingsData = Object.entries(csvTocData).map(
+          ([id, data]) => ({
+            id,
+            address: data.address,
+            rent1: data.rent1,
+            rent2: data.rent2,
+            bedrooms: data.bed,
+            bathroom: data.bath,
+            latLong: data.latLong,
+            imageUrls: [data.imageUrls],
+          })
+        );
+
+        // Combine listings data from both collections
+        const combinedListingsData = listingsData.concat(csvListingsData);
+
+        // Sort listings to display apartments with latLong first
+        const sortedListings = combinedListingsData.sort((a, b) =>
+          a.latLong && a.latLong.length > 0 ? -1 : 1
+        );
+
+        // Set listings state with the sorted data
+        setListings(sortedListings);
+
+        // // Separate listings with and without rent
+        // const listingsWithRent = combinedListingsData.filter(
+        //     (listing) => listing.rent1 !== "" && listing.rent2 !== ""
+        // );
+        // const listingsWithoutRent = combinedListingsData.filter(
+        //     (listing) => listing.rent1 === "" || listing.rent2 === ""
+        // );
+
+        // // Sort listings
+        // const sortedListingsWithRent = listingsWithRent.sort((a, b) =>
+        //     a.address.localeCompare(b.address)
+        // );
+        // const sortedListingsWithoutRent = listingsWithoutRent.sort(
+        //     (a, b) => a.address.localeCompare(b.address)
+        // );
+
+        // // Set listings state with the combined and sorted data
+        // setListings(
+        //     sortedListingsWithRent.concat(sortedListingsWithoutRent)
+        // );
+
+        console.log("Data fetched successfully.");
+      } catch (error) {
+        console.error("Error fetching data:", error);
       }
-
-      const sortedListingsWithRent = listingsWithRent.sort((a, b) =>
-        a.address.localeCompare(b.address)
-      );
-      const sortedListingsWithoutRent = listingsWithoutRent.sort((a, b) =>
-        a.address.localeCompare(b.address)
-      );
-
-      setListings(sortedListingsWithRent.concat(sortedListingsWithoutRent));
     };
 
     fetchListings();
@@ -231,6 +271,9 @@ const MapPage = () => {
   useEffect(() => {
     handleSearch();
   }, [searchQuery]);
+  useEffect(() => {
+    handleSearch();
+  }, [searchQuery]);
 
   // #region OLD COMMENTED OUT SEARCH FEATURES
   // const handleSearch = () => {
@@ -303,6 +346,10 @@ const MapPage = () => {
   //     setFilteredListings(bedBathFilteredListings.slice(0, visibleListings));
   // };
   // #endregion
+  //     // If only bed/bath filter is applied, show the bed/bath filtered listings
+  //     setFilteredListings(bedBathFilteredListings.slice(0, visibleListings));
+  // };
+  // #endregion
 
   const handleSearch = () => {
     console.log("Handlesearch");
@@ -310,9 +357,11 @@ const MapPage = () => {
     // Filter based on bed and bath values
     const bedBathFilteredListings = listings.filter((listing) => {
       const matchBeds =
-        selectedBeds === "" || listing.bedrooms.toString() === selectedBeds;
+        selectedBeds === "" ||
+        (listing.bedrooms && listing.bedrooms.toString() === selectedBeds);
       const matchBaths =
-        selectedBaths === "" || listing.bathroom.toString() === selectedBaths;
+        selectedBaths === "" ||
+        (listing.bathroom && listing.bathroom.toString() === selectedBaths);
 
       return matchBeds && matchBaths;
     });
@@ -380,40 +429,60 @@ const MapPage = () => {
     setFilteredListings(listings.slice(0, visibleListings));
   }, [listings]);
   // Displaying markers
+
   useEffect(() => {
-    // const displayedListings =
-    //   searchQuery.length > 0 ? filteredListings : listings;
     if (searchQuery.length > 0) {
-      setMarkers([]);
+      setMarkers([]); // Clear markers if there's a search query
     }
-    // console.log(
-    //   `Displayed listings for marker setting useeffect: ${displayedListings}`
-    // );
-    filteredListings.forEach((listing) => {
-      if (listing.latLong) {
-        console.log(listing.latLong);
-        console.log(listing.id);
-        // need to add to useeffect array
-        setMarkers((markers) => [
-          ...markers,
-          {
-            lat: listing.latLong[0],
-            lng: listing.latLong[1],
-            text: listing.address,
-            id: listing.id,
-          },
-        ]);
-        // markers.push( {lat:listing.latLong[0], lng:listing.latLong[1],text:listing.address} );
-      }
-    });
-    console.log({ markers });
+    setMarkers(
+      filteredListings
+        .filter((listing) => listing.latLong && listing.latLong.length > 0) // Filter out listings with latLong data length of 0
+        .map((listing) => ({
+          lat: listing.latLong[0],
+          lng: listing.latLong[1],
+          text: listing.address,
+          id: listing.id,
+        }))
+    );
   }, [filteredListings]);
+
+  // useEffect(() => {
+  //     // const displayedListings =
+  //     //   searchQuery.length > 0 ? filteredListings : listings;
+  //     if (searchQuery.length > 0) {
+  //         setMarkers([]);
+  //     }
+  //     // console.log(
+  //     //   `Displayed listings for marker setting useeffect: ${displayedListings}`
+  //     // );
+  //     filteredListings.forEach((listing) => {
+  //         if (listing.latLong) {
+  //             console.log(listing.latLong);
+  //             console.log(listing.id);
+  //             // need to add to useeffect array
+  //             setMarkers((markers) => [
+  //                 ...markers,
+  //                 {
+  //                     lat: listing.latLong[0],
+  //                     lng: listing.latLong[1],
+  //                     text: listing.address,
+  //                     id: listing.id,
+  //                 },
+  //             ]);
+  //             // markers.push( {lat:listing.latLong[0], lng:listing.latLong[1],text:listing.address} );
+  //         }
+  //     });
+  //     console.log({ markers });
+  // }, [filteredListings]);
 
   const AddressList = () => {
     const displayedListings =
       searchQuery.length > 0
         ? filteredListings
         : listings.slice(0, visibleListings);
+
+    // Filter listings with imageUrls not equal to the specific URL
+
     return (
       <div className="address-list">
         {displayedListings.map((listing, index) => (
@@ -465,7 +534,6 @@ const MapPage = () => {
   };
 
   // Process uploaded JSON
-
   return (
     <div className="map-page-container">
       <Header />
