@@ -344,7 +344,7 @@ const ApartmentPage = () => {
                 {/* NOTE: Probably want to add aspect ratio when rescaling */}
                 <div className="image-group">
                     <div className="individual-img-container">
-                        {apartmentData.imageUrls[0] ? ( // Check if imageUrls[0] exists
+                        {apartmentData.imageUrls && apartmentData.imageUrls[0] ? ( // Check if imageUrls[0] exists
                             <img
                                 src={apartmentData.imageUrls[0]}
                                 alt="Main"
@@ -361,7 +361,7 @@ const ApartmentPage = () => {
 
                     <div className="small-image-container">
                         <div className="individual-small-img-container">
-                            {apartmentData.imageUrls[1] ? ( // Check if imageUrls[0] exists
+                            {apartmentData.imageUrls && apartmentData.imageUrls[1] ? ( // Check if imageUrls[0] exists
                                 <img
                                     src={apartmentData.imageUrls[1]}
                                     alt="Secondary"
@@ -371,7 +371,7 @@ const ApartmentPage = () => {
                             )}
                         </div>
                         <div className="show-all-img-container">
-                            {apartmentData.imageUrls[2] ? ( // Check if imageUrls[0] exists
+                            {apartmentData.imageUrls && apartmentData.imageUrls[2] ? ( // Check if imageUrls[0] exists
                                 <img
                                     src={apartmentData.imageUrls[2]}
                                     alt="Secondary"
@@ -429,7 +429,7 @@ const ApartmentPage = () => {
                             <text>{apartmentData.addressDesc}</text>
                         </div>
                         <hr className="horizontal-line" />
-                        {apartmentData.units.length > 0 && (
+                        {apartmentData.units && apartmentData.units.length > 0 && (
                             <>
                                 <div className="info-block">
                                     <h1>Floor Plans</h1>
@@ -492,7 +492,7 @@ const ApartmentPage = () => {
                                 <div className="details-container">
                                     <h2>Building Features</h2>
                                     <ul>
-                                        {apartmentData.checkedBuildingFeatureLabels.map(
+                                        {apartmentData.checkedBuildingFeatureLabels && apartmentData.checkedBuildingFeatureLabels.map(
                                             (label, index) => (
                                                 <li key={index}>{label}</li>
                                             )
@@ -503,7 +503,7 @@ const ApartmentPage = () => {
                                 <div className="details-container">
                                     <h2>Apartment Features</h2>
                                     <ul>
-                                        {apartmentData.checkedApartmentFeatureLabels.map(
+                                        {apartmentData.checkedApartmentFeatureLabels && apartmentData.checkedApartmentFeatureLabels.map(
                                             (label, index) => (
                                                 <li key={index}>{label}</li>
                                             )

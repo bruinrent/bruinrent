@@ -33,12 +33,15 @@ import {
   processAndAddReview,
   cleanInvalidCharacters,
 } from "../ReviewUploadUtil.js";
+import CheckBox from "./Checkbox.js";
 
 const MapPage = () => {
   const [selectedBeds, setSelectedBeds] = useState("");
   const [selectedBaths, setSelectedBaths] = useState("");
   const [selectedPrice1, setSelectedPrice1] = useState("");
   const [selectedPrice2, setSelectedPrice2] = useState("");
+  // REVIEW FILTERING CHECKBOX LOGIC SHOULD BE OK, change this bool to use
+  const [showWrittenReviews, setShowWrittenReviews] = useState(false);  
 
   const [selectedReviewJSON, setSelectedReviewJSON] = useState(null);
 
@@ -72,11 +75,13 @@ const MapPage = () => {
   const handlePriceFilterChange = (rent1, rent2) => {
     setSelectedPrice1(rent1);
     setSelectedPrice2(rent2);
-    console.log("rent 1", rent1);
-    console.log("rent 2", rent2);
+    // console.log("rent 1", rent1);
+    // console.log("rent 2", rent2);
   };
 
-  const handleReviewsFilterChange = () => {};
+  const handleReviewsFilterChange = () => {
+    
+  };
 
   useEffect(() => {
     // Fetch data from the "listings" collection in Firestore
@@ -113,6 +118,7 @@ const MapPage = () => {
             bathroom: data.bath,
             latLong: data.latLong,
             imageUrls: [data.image],
+            rating: data.rating
           })
         );
 
@@ -132,19 +138,23 @@ const MapPage = () => {
             bathroom: data.bath,
             latLong: data.latLong,
             imageUrls: [data.imageUrls],
+            rating: data.rating || null,
           })
         );
 
         // Combine listings data from both collections
-        const combinedListingsData = listingsData.concat(csvListingsData);
+        // CURRENTLY IGNORING CSB LISTINGS
+        // const combinedListingsData = listingsData.concat(csvListingsData);
+        const combinedListingsData = listingsData;
 
         // Sort listings to display apartments with latLong first
         const sortedListings = combinedListingsData.sort((a, b) =>
           a.latLong && a.latLong.length > 0 ? -1 : 1
         );
 
+        const sortedListingsValidAddresses = sortedListings.filter(listing => listing.address !== null && listing.address !== undefined);
         // Set listings state with the sorted data
-        setListings(sortedListings);
+        setListings(sortedListingsValidAddresses);
 
         // // Separate listings with and without rent
         // const listingsWithRent = combinedListingsData.filter(
@@ -168,6 +178,7 @@ const MapPage = () => {
         // );
 
         console.log("Data fetched successfully.");
+        console.log(`Listings set to: ${JSON.stringify(sortedListings)}`);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -222,15 +233,51 @@ const MapPage = () => {
     // Get ALL listings
     const listingsRef = collection(firestore, "listings");
     const snapshot = await getDocs(listingsRef);
+    
+    let id_to_rating = {}
+    // For each document ID that has reviews, add to map of document to review array
+    for (const d of snapshot.docs) {
+      console.log(`d: ${JSON.stringify(d.data())}`)
+      const dData = d.data();
+      let dRatings = []
+      if (!('reviews' in dData)) {continue;} 
+      const dReviews = dData.reviews;
+      for (const r of dReviews) {
+        try {
+          const thisReviewData = (await getDoc(doc(firestore, "reviews", r))).data();
+          console.log(thisReviewData.ScoreOverall);
+          dRatings.push(parseInt(thisReviewData.ScoreOverall));
+        } catch (error) {
+          console.error(`Error retrieving review ${r}: ${error}`);
+        }
+      }
+      const averagedRating = (dRatings.reduce((acc, next) => acc + next, 0))/dRatings.length
+      id_to_rating[d.id] = averagedRating;
+      
+    }
+    for (const [key, value] of Object.entries(id_to_rating)) {
+      console.log(`Average rating for ${key} is ${value}`);
+    }
+    // Now I have an ID to valid reviews array map
+    
+    // Make new map: ID to rating
+    // Iterate through each ID in the first map
+      // Make array of ratings 
+      // Iterate through each review of this listing's array 
+        // Retrieve overall review, add to array
+      //average the array and set this ID's value to the average rating
+    
+    
     const listingsData = snapshot.docs.map((doc) => ({
       [doc.id]: {
-        address: doc.data().address,
-        rent1: doc.data().rent1,
-        rent2: doc.data().rent2,
-        bed: doc.data().bedrooms,
-        bath: doc.data().baths,
-        image: doc.data().imageUrls[0] ? doc.data().imageUrls[0] : null,
+        address: doc.data().address || null,
+        rent1: doc.data().rent1 || null,
+        rent2: doc.data().rent2 || null,
+        bed: doc.data().bedrooms|| null,
+        bath: doc.data().baths|| null,
+        image: doc.data().imageUrls ? (doc.data().imageUrls[0] ? doc.data().imageUrls[0] : null) : null,
         latLong: doc.data().latLong || null,
+        rating: id_to_rating[doc.id] || null,
       },
     }));
     console.log(listingsData);
@@ -239,9 +286,7 @@ const MapPage = () => {
       return { ...accumulator, ...currentObject };
     }, {});
 
-    // Now combinedData has the structure you want
-    console.log(combinedData);
-    const collectionRef = collection(firestore, "reference"); // Replace "listings" with your collection name
+    console.log("Combined Data (TO WRITE): " + JSON.stringify(combinedData));
 
     try {
       await setDoc(doc(firestore, "reference", "listings-toc"), combinedData);
@@ -383,7 +428,8 @@ const MapPage = () => {
       selectedBaths === "" &&
       selectedPrice1 === "" &&
       selectedPrice2 === "" &&
-      searchQuery === ""
+      searchQuery === "" &&
+      showWrittenReviews == false
     ) {
       setFilteredListings(listings.slice(0, visibleListings));
       return;
@@ -398,7 +444,9 @@ const MapPage = () => {
         (a, b) => a.refIndex - b.refIndex
       );
       const sortedItems = sortedListings.map((obj) => obj.item);
-
+      if (showWrittenReviews == true) {
+        sortedItems = sortedItems.filter((listing) => listing.rating != null);
+      }
       // If bed/bath filter or rent range is applied, intersect the search results with the filtered listings
       if (
         selectedBeds !== "" ||
@@ -594,6 +642,7 @@ const MapPage = () => {
                     imageUrl={listing.imageUrls ? listing.imageUrls[0] : null}
                     phone={listing.phone}
                     className="address-list-item"
+                    rating={listing.rating}
                   />
                 ))}
             </InfiniteScroll>

@@ -16,6 +16,7 @@ const ListingBlock = ({
   rent2,
   imageUrl,
   phone,
+  rating
 }) => {
   const [ref, inView] = useInView();
   const listingBlockSpring = useSpring({
@@ -44,7 +45,8 @@ const ListingBlock = ({
               </text>
             ) : (
               <text id="listing-block-info-rent">Call for Price</text>
-            )}
+            )} 
+            {rating ? rating.toFixed(1) + " stars" : "No reviews"}
 
             <text>{bedrooms} Beds</text>
             <text>
