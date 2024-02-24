@@ -1,0 +1,83 @@
+.map-page-reviews-filter {
+  width: 100%;
+  margin-left: 20%; /* Adjust the margin-left value as needed */
+  border-radius: 1rem;
+  border: 2px solid #89d2f3;
+  padding: 0.5rem;
+  background: #fff;
+  position: relative; /* Make the button position relative */
+}
+
+.input-reviews {
+  width: 80%;
+  padding: 0.5rem;
+  border: 2px solid #89d2f3;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.search-button {
+  background-color: #5cb3fd;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.search-button:hover {
+  background-color: #4aa1f3;
+}
+
+.dropdown-reviews {
+  position: absolute;
+  left: 56.5%; /* Adjust the left property as needed */
+  transform: translateX(-50%); /* Center the dropdown under the button */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 1rem;
+  background-color: rgba(255, 255, 255, 1);
+  width: 20rem;
+  height: 10rem;
+  padding: 1rem 0.5rem 1rem 0.5rem;
+  border-radius: 1.2rem;
+  z-index: 1;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
+  transition: visibility 500ms;
+}
+
+.filter-reviews-selection {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.filter-reviews-selection h2 {
+  color: #9d9d9d;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.check-box-label {
+  margin: 0 !important;
+}
+
+#filter-reviews-button {
+  background: rgba(0, 191, 246, 1);
+  border: none;
+  color: rgba(255, 255, 255, 1);
+  text-align: center;
+  width: 12rem;
+  height: 2.5rem;
+  border-radius: 1rem;
+  flex-shrink: 0;
+  transition: transform 300ms, background 400ms;
+}
+
+#filter-reviews-button:hover {
+  transform: scale(1.15);
+  background: rgb(1, 155, 197);
+}

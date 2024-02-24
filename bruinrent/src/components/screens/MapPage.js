@@ -7,11 +7,9 @@ import { useSpring, animated } from "@react-spring/web";
 import sizeof from "firestore-size";
 import FilterBed from "../FilterButtonBed.js";
 import FilterPrice from "../FilterButtonPrice.js";
+import FilterReviews from "../FilterButtonReviews.js";
 
 import { FaChevronDown } from "react-icons/fa/index.esm.js";
-
-
-
 
 import {
   collection,
@@ -35,12 +33,15 @@ import {
   processAndAddReview,
   cleanInvalidCharacters,
 } from "../ReviewUploadUtil.js";
+import CheckBox from "./Checkbox.js";
 
 const MapPage = () => {
   const [selectedBeds, setSelectedBeds] = useState("");
   const [selectedBaths, setSelectedBaths] = useState("");
   const [selectedPrice1, setSelectedPrice1] = useState("");
   const [selectedPrice2, setSelectedPrice2] = useState("");
+  // REVIEW FILTERING CHECKBOX LOGIC SHOULD BE OK, change this bool to use
+  const [showWrittenReviews, setShowWrittenReviews] = useState(false);  
 
   const [selectedReviewJSON, setSelectedReviewJSON] = useState(null);
 
@@ -74,8 +75,12 @@ const MapPage = () => {
   const handlePriceFilterChange = (rent1, rent2) => {
     setSelectedPrice1(rent1);
     setSelectedPrice2(rent2);
-    console.log("rent 1", rent1);
-    console.log("rent 2", rent2);
+    // console.log("rent 1", rent1);
+    // console.log("rent 2", rent2);
+  };
+
+  const handleReviewsFilterChange = () => {
+    
   };
 
   useEffect(() => {
@@ -96,39 +101,87 @@ const MapPage = () => {
       //   setLastListing(snapshot.docs[snapshot.docs.length - 1]);
       // }
 
-      const tocData = (
-        await getDoc(doc(firestore, "reference", "listings-toc"))
-      ).data();
-      const listingsData = Object.entries(tocData).map(([id, data]) => ({
-        id,
-        address: data.address,
-        rent1: data.rent1,
-        rent2: data.rent2,
-        bedrooms: data.bed,
-        bathroom: data.bath,
-        latLong: data.latLong,
-        imageUrls: [data.image],
-      }));
+      try {
+        // Fetch data from listings-toc
+        const listingsTocData = (
+          await getDoc(doc(firestore, "reference", "listings-toc"))
+        ).data();
 
-      const listingsWithRent = [];
-      const listingsWithoutRent = [];
+        // Convert listings-toc data to array format
+        const listingsData = Object.entries(listingsTocData).map(
+          ([id, data]) => ({
+            id,
+            address: data.address,
+            rent1: data.rent1,
+            rent2: data.rent2,
+            bedrooms: data.bed,
+            bathroom: data.bath,
+            latLong: data.latLong,
+            imageUrls: [data.image],
+            rating: data.rating
+          })
+        );
 
-      for (let i = 0; i < listingsData.length; i++) {
-        if (listingsData[i].rent1 != "" && listingsData[i].rent2 != "") {
-          listingsWithRent.push(listingsData[i]);
-        } else {
-          listingsWithoutRent.push(listingsData[i]);
-        }
+        // Fetch data from csv-toc
+        const csvTocData = (
+          await getDoc(doc(firestore, "reference", "csv-toc"))
+        ).data();
+
+        // Convert csv-toc data to array format
+        const csvListingsData = Object.entries(csvTocData).map(
+          ([id, data]) => ({
+            id,
+            address: data.address,
+            rent1: data.rent1,
+            rent2: data.rent2,
+            bedrooms: data.bed,
+            bathroom: data.bath,
+            latLong: data.latLong,
+            imageUrls: [data.imageUrls],
+            rating: data.rating || null,
+          })
+        );
+
+        // Combine listings data from both collections
+        // CURRENTLY IGNORING CSB LISTINGS
+        // const combinedListingsData = listingsData.concat(csvListingsData);
+        const combinedListingsData = listingsData;
+
+        // Sort listings to display apartments with latLong first
+        const sortedListings = combinedListingsData.sort((a, b) =>
+          a.latLong && a.latLong.length > 0 ? -1 : 1
+        );
+
+        const sortedListingsValidAddresses = sortedListings.filter(listing => listing.address !== null && listing.address !== undefined);
+        // Set listings state with the sorted data
+        setListings(sortedListingsValidAddresses);
+
+        // // Separate listings with and without rent
+        // const listingsWithRent = combinedListingsData.filter(
+        //     (listing) => listing.rent1 !== "" && listing.rent2 !== ""
+        // );
+        // const listingsWithoutRent = combinedListingsData.filter(
+        //     (listing) => listing.rent1 === "" || listing.rent2 === ""
+        // );
+
+        // // Sort listings
+        // const sortedListingsWithRent = listingsWithRent.sort((a, b) =>
+        //     a.address.localeCompare(b.address)
+        // );
+        // const sortedListingsWithoutRent = listingsWithoutRent.sort(
+        //     (a, b) => a.address.localeCompare(b.address)
+        // );
+
+        // // Set listings state with the combined and sorted data
+        // setListings(
+        //     sortedListingsWithRent.concat(sortedListingsWithoutRent)
+        // );
+
+        console.log("Data fetched successfully.");
+        console.log(`Listings set to: ${JSON.stringify(sortedListings)}`);
+      } catch (error) {
+        console.error("Error fetching data:", error);
       }
-
-      const sortedListingsWithRent = listingsWithRent.sort((a, b) =>
-        a.address.localeCompare(b.address)
-      );
-      const sortedListingsWithoutRent = listingsWithoutRent.sort((a, b) =>
-        a.address.localeCompare(b.address)
-      );
-
-      setListings(sortedListingsWithRent.concat(sortedListingsWithoutRent));
     };
 
     fetchListings();
@@ -180,15 +233,51 @@ const MapPage = () => {
     // Get ALL listings
     const listingsRef = collection(firestore, "listings");
     const snapshot = await getDocs(listingsRef);
+    
+    let id_to_rating = {}
+    // For each document ID that has reviews, add to map of document to review array
+    for (const d of snapshot.docs) {
+      console.log(`d: ${JSON.stringify(d.data())}`)
+      const dData = d.data();
+      let dRatings = []
+      if (!('reviews' in dData)) {continue;} 
+      const dReviews = dData.reviews;
+      for (const r of dReviews) {
+        try {
+          const thisReviewData = (await getDoc(doc(firestore, "reviews", r))).data();
+          console.log(thisReviewData.ScoreOverall);
+          dRatings.push(parseInt(thisReviewData.ScoreOverall));
+        } catch (error) {
+          console.error(`Error retrieving review ${r}: ${error}`);
+        }
+      }
+      const averagedRating = (dRatings.reduce((acc, next) => acc + next, 0))/dRatings.length
+      id_to_rating[d.id] = averagedRating;
+      
+    }
+    for (const [key, value] of Object.entries(id_to_rating)) {
+      console.log(`Average rating for ${key} is ${value}`);
+    }
+    // Now I have an ID to valid reviews array map
+    
+    // Make new map: ID to rating
+    // Iterate through each ID in the first map
+      // Make array of ratings 
+      // Iterate through each review of this listing's array 
+        // Retrieve overall review, add to array
+      //average the array and set this ID's value to the average rating
+    
+    
     const listingsData = snapshot.docs.map((doc) => ({
       [doc.id]: {
-        address: doc.data().address,
-        rent1: doc.data().rent1,
-        rent2: doc.data().rent2,
-        bed: doc.data().bedrooms,
-        bath: doc.data().baths,
-        image: doc.data().imageUrls[0] ? doc.data().imageUrls[0] : null,
+        address: doc.data().address || null,
+        rent1: doc.data().rent1 || null,
+        rent2: doc.data().rent2 || null,
+        bed: doc.data().bedrooms|| null,
+        bath: doc.data().baths|| null,
+        image: doc.data().imageUrls ? (doc.data().imageUrls[0] ? doc.data().imageUrls[0] : null) : null,
         latLong: doc.data().latLong || null,
+        rating: id_to_rating[doc.id] || null,
       },
     }));
     console.log(listingsData);
@@ -197,9 +286,7 @@ const MapPage = () => {
       return { ...accumulator, ...currentObject };
     }, {});
 
-    // Now combinedData has the structure you want
-    console.log(combinedData);
-    const collectionRef = collection(firestore, "reference"); // Replace "listings" with your collection name
+    console.log("Combined Data (TO WRITE): " + JSON.stringify(combinedData));
 
     try {
       await setDoc(doc(firestore, "reference", "listings-toc"), combinedData);
@@ -231,7 +318,9 @@ const MapPage = () => {
   useEffect(() => {
     handleSearch();
   }, [searchQuery]);
-
+  useEffect(() => {
+    handleSearch();
+  }, [searchQuery]);
 
   // #region OLD COMMENTED OUT SEARCH FEATURES
   // const handleSearch = () => {
@@ -304,7 +393,10 @@ const MapPage = () => {
   //     setFilteredListings(bedBathFilteredListings.slice(0, visibleListings));
   // };
   // #endregion
-
+  //     // If only bed/bath filter is applied, show the bed/bath filtered listings
+  //     setFilteredListings(bedBathFilteredListings.slice(0, visibleListings));
+  // };
+  // #endregion
 
   const handleSearch = () => {
     console.log("Handlesearch");
@@ -312,9 +404,11 @@ const MapPage = () => {
     // Filter based on bed and bath values
     const bedBathFilteredListings = listings.filter((listing) => {
       const matchBeds =
-        selectedBeds === "" || listing.bedrooms.toString() === selectedBeds;
+        selectedBeds === "" ||
+        (listing.bedrooms && listing.bedrooms.toString() === selectedBeds);
       const matchBaths =
-        selectedBaths === "" || listing.bathroom.toString() === selectedBaths;
+        selectedBaths === "" ||
+        (listing.bathroom && listing.bathroom.toString() === selectedBaths);
 
       return matchBeds && matchBaths;
     });
@@ -334,7 +428,8 @@ const MapPage = () => {
       selectedBaths === "" &&
       selectedPrice1 === "" &&
       selectedPrice2 === "" &&
-      searchQuery === ""
+      searchQuery === "" &&
+      showWrittenReviews == false
     ) {
       setFilteredListings(listings.slice(0, visibleListings));
       return;
@@ -349,7 +444,9 @@ const MapPage = () => {
         (a, b) => a.refIndex - b.refIndex
       );
       const sortedItems = sortedListings.map((obj) => obj.item);
-
+      if (showWrittenReviews == true) {
+        sortedItems = sortedItems.filter((listing) => listing.rating != null);
+      }
       // If bed/bath filter or rent range is applied, intersect the search results with the filtered listings
       if (
         selectedBeds !== "" ||
@@ -382,40 +479,60 @@ const MapPage = () => {
     setFilteredListings(listings.slice(0, visibleListings));
   }, [listings]);
   // Displaying markers
+
   useEffect(() => {
-    // const displayedListings =
-    //   searchQuery.length > 0 ? filteredListings : listings;
     if (searchQuery.length > 0) {
-      setMarkers([]);
+      setMarkers([]); // Clear markers if there's a search query
     }
-    // console.log(
-    //   `Displayed listings for marker setting useeffect: ${displayedListings}`
-    // );
-    filteredListings.forEach((listing) => {
-      if (listing.latLong) {
-        console.log(listing.latLong);
-        console.log(listing.id);
-        // need to add to useeffect array
-        setMarkers((markers) => [
-          ...markers,
-          {
-            lat: listing.latLong[0],
-            lng: listing.latLong[1],
-            text: listing.address,
-            id: listing.id,
-          },
-        ]);
-        // markers.push( {lat:listing.latLong[0], lng:listing.latLong[1],text:listing.address} );
-      }
-    });
-    console.log({ markers });
+    setMarkers(
+      filteredListings
+        .filter((listing) => listing.latLong && listing.latLong.length > 0) // Filter out listings with latLong data length of 0
+        .map((listing) => ({
+          lat: listing.latLong[0],
+          lng: listing.latLong[1],
+          text: listing.address,
+          id: listing.id,
+        }))
+    );
   }, [filteredListings]);
+
+  // useEffect(() => {
+  //     // const displayedListings =
+  //     //   searchQuery.length > 0 ? filteredListings : listings;
+  //     if (searchQuery.length > 0) {
+  //         setMarkers([]);
+  //     }
+  //     // console.log(
+  //     //   `Displayed listings for marker setting useeffect: ${displayedListings}`
+  //     // );
+  //     filteredListings.forEach((listing) => {
+  //         if (listing.latLong) {
+  //             console.log(listing.latLong);
+  //             console.log(listing.id);
+  //             // need to add to useeffect array
+  //             setMarkers((markers) => [
+  //                 ...markers,
+  //                 {
+  //                     lat: listing.latLong[0],
+  //                     lng: listing.latLong[1],
+  //                     text: listing.address,
+  //                     id: listing.id,
+  //                 },
+  //             ]);
+  //             // markers.push( {lat:listing.latLong[0], lng:listing.latLong[1],text:listing.address} );
+  //         }
+  //     });
+  //     console.log({ markers });
+  // }, [filteredListings]);
 
   const AddressList = () => {
     const displayedListings =
       searchQuery.length > 0
         ? filteredListings
         : listings.slice(0, visibleListings);
+
+    // Filter listings with imageUrls not equal to the specific URL
+
     return (
       <div className="address-list">
         {displayedListings.map((listing, index) => (
@@ -467,7 +584,6 @@ const MapPage = () => {
   };
 
   // Process uploaded JSON
-
   return (
     <div className="map-page-container">
       <Header />
@@ -487,6 +603,10 @@ const MapPage = () => {
           />
           <FilterPrice
             onFilterChange={handlePriceFilterChange}
+            onSearch={handleSearch}
+          />
+          <FilterReviews
+            onFilterChange={handleReviewsFilterChange}
             onSearch={handleSearch}
           />
         </div>
@@ -522,6 +642,7 @@ const MapPage = () => {
                     imageUrl={listing.imageUrls ? listing.imageUrls[0] : null}
                     phone={listing.phone}
                     className="address-list-item"
+                    rating={listing.rating}
                   />
                 ))}
             </InfiniteScroll>
