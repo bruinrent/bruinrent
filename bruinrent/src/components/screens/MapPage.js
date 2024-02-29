@@ -146,15 +146,27 @@ const MapPage = () => {
         // CURRENTLY IGNORING CSB LISTINGS
         // const combinedListingsData = listingsData.concat(csvListingsData);
         const combinedListingsData = listingsData;
+        const combinedListingsValidAddresses = combinedListingsData.filter(listing => listing.address !== null && listing.address !== undefined);
+
 
         // Sort listings to display apartments with latLong first
-        const sortedListings = combinedListingsData.sort((a, b) =>
-          a.latLong && a.latLong.length > 0 ? -1 : 1
+        const sortedListings = combinedListingsValidAddresses.sort((a, b) =>
+            {if ( (a.rent2 && a.rent2.length > 0) && (a.rating != null)) {
+              return -1;
+            } else if (a.rent2 && a.rent2.length > 0 && !(b.rent2 && b.rent2.length >0)) {
+              return -1;
+            } else if (b.rent2 && b.rent2.length > 0 && !(a.rent2 && a.rent2.length >0)) {
+              return 1;
+            } else if (a.rating == null) {
+              return 1;
+            } else if (b.rating == null) {
+              return -1;
+            }
+          }
         );
 
-        const sortedListingsValidAddresses = sortedListings.filter(listing => listing.address !== null && listing.address !== undefined);
         // Set listings state with the sorted data
-        setListings(sortedListingsValidAddresses);
+        setListings(sortedListings);
 
         // // Separate listings with and without rent
         // const listingsWithRent = combinedListingsData.filter(
@@ -605,10 +617,10 @@ const MapPage = () => {
             onFilterChange={handlePriceFilterChange}
             onSearch={handleSearch}
           />
-          <FilterReviews
+          {/*<FilterReviews
             onFilterChange={handleReviewsFilterChange}
             onSearch={handleSearch}
-          />
+          />*/}
         </div>
         <div className="map-page-listings">
           <div className="map-container">
