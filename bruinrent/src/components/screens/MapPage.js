@@ -147,27 +147,40 @@ const MapPage = () => {
                 const combinedListingsData =
                     listingsData.concat(csvListingsData);
                 // const combinedListingsData = listingsData;
-        const combinedListingsValidAddresses = combinedListingsData.filter(listing => listing.address !== null && listing.address !== undefined);
+                const combinedListingsValidAddresses =
+                    combinedListingsData.filter(
+                        (listing) =>
+                            listing.address !== null &&
+                            listing.address !== undefined
+                    );
 
+                // Sort listings to display apartments with latLong first
+                const sortedListings = combinedListingsValidAddresses.sort(
+                    (a, b) => {
+                        if (a.rent2 && a.rent2.length > 0 && a.rating != null) {
+                            return -1;
+                        } else if (
+                            a.rent2 &&
+                            a.rent2.length > 0 &&
+                            !(b.rent2 && b.rent2.length > 0)
+                        ) {
+                            return -1;
+                        } else if (
+                            b.rent2 &&
+                            b.rent2.length > 0 &&
+                            !(a.rent2 && a.rent2.length > 0)
+                        ) {
+                            return 1;
+                        } else if (a.rating == null) {
+                            return 1;
+                        } else if (b.rating == null) {
+                            return -1;
+                        }
+                    }
+                );
 
-        // Sort listings to display apartments with latLong first
-        const sortedListings = combinedListingsValidAddresses.sort((a, b) =>
-            {if ( (a.rent2 && a.rent2.length > 0) && (a.rating != null)) {
-              return -1;
-            } else if (a.rent2 && a.rent2.length > 0 && !(b.rent2 && b.rent2.length >0)) {
-              return -1;
-            } else if (b.rent2 && b.rent2.length > 0 && !(a.rent2 && a.rent2.length >0)) {
-              return 1;
-            } else if (a.rating == null) {
-              return 1;
-            } else if (b.rating == null) {
-              return -1;
-            }
-          }
-        );
-
-        // Set listings state with the sorted data
-        setListings(sortedListings);
+                // Set listings state with the sorted data
+                setListings(sortedListings);
 
                 // // Separate listings with and without rent
                 // const listingsWithRent = combinedListingsData.filter(
@@ -534,7 +547,7 @@ const MapPage = () => {
                         address={listing.address}
                         s
                         bedrooms={listing.bedrooms}
-                        bathroom={listing.baths}
+                        bathroom={listing.bathroom}
                         imageUrl={
                             listing.imageUrls ? listing.imageUrls[0] : null
                         }
@@ -598,62 +611,66 @@ const MapPage = () => {
                         onChange={(e) => setSearchQuery(e.target.value)}
                     />
 
-          <FilterBed
-            onFilterChange={handleBedBathFilterChange}
-            onSearch={handleSearch}
-          />
-          <FilterPrice
-            onFilterChange={handlePriceFilterChange}
-            onSearch={handleSearch}
-          />
-          {/*<FilterReviews
+                    <FilterBed
+                        onFilterChange={handleBedBathFilterChange}
+                        onSearch={handleSearch}
+                    />
+                    <FilterPrice
+                        onFilterChange={handlePriceFilterChange}
+                        onSearch={handleSearch}
+                    />
+                    {/*<FilterReviews
             onFilterChange={handleReviewsFilterChange}
             onSearch={handleSearch}
           />*/}
-        </div>
-        <div className="map-page-listings">
-          <div className="map-container">
-            <GoogleMap markers={markers} mapHeight="100%" />
-          </div>
-          <div className="address-list-container">
-            <InfiniteScroll
-              dataLength={filteredListings.length}
-              next={loadMoreListings}
-              hasMore={hasMoreListings}
-              loader={
-                filteredListings.length == 0 ? (
-                  <h1>No results</h1>
-                ) : (
-                  <h1>End of results</h1>
-                )
-              }
-              className="address-list"
-              height="89vh"
-            >
-              {filteredListings &&
-                filteredListings.map((listing) => (
-                  <ListingBlock
-                    key={listing.id}
-                    url={`/apartment/${listing.id}`}
-                    address={listing.address}
-                    bedrooms={listing.bedrooms}
-                    bathroom={listing.baths}
-                    rent1={listing.rent1}
-                    rent2={listing.rent2}
-                    imageUrl={listing.imageUrls ? listing.imageUrls[0] : null}
-                    phone={listing.phone}
-                    className="address-list-item"
-                    rating={listing.rating}
-                  />
-                ))}
-            </InfiniteScroll>
-          </div>
-        </div>
-        {isAdmin && (
-          <button onClick={handleAdminButton}>
-            ADMIN FUNCTION: Reload Table of Contents
-          </button>
-        )}
+                </div>
+                <div className="map-page-listings">
+                    <div className="map-container">
+                        <GoogleMap markers={markers} mapHeight="100%" />
+                    </div>
+                    <div className="address-list-container">
+                        <InfiniteScroll
+                            dataLength={filteredListings.length}
+                            next={loadMoreListings}
+                            hasMore={hasMoreListings}
+                            loader={
+                                filteredListings.length == 0 ? (
+                                    <h1>No results</h1>
+                                ) : (
+                                    <h1>End of results</h1>
+                                )
+                            }
+                            className="address-list"
+                            height="89vh"
+                        >
+                            {filteredListings &&
+                                filteredListings.map((listing) => (
+                                    <ListingBlock
+                                        key={listing.id}
+                                        url={`/apartment/${listing.id}`}
+                                        address={listing.address}
+                                        bedrooms={listing.bedrooms}
+                                        bathroom={listing.bathroom}
+                                        rent1={listing.rent1}
+                                        rent2={listing.rent2}
+                                        imageUrl={
+                                            listing.imageUrls
+                                                ? listing.imageUrls[0]
+                                                : null
+                                        }
+                                        phone={listing.phone}
+                                        className="address-list-item"
+                                        rating={listing.rating}
+                                    />
+                                ))}
+                        </InfiniteScroll>
+                    </div>
+                </div>
+                {isAdmin && (
+                    <button onClick={handleAdminButton}>
+                        ADMIN FUNCTION: Reload Table of Contents
+                    </button>
+                )}
 
                 {isAdmin && (
                     <div>
