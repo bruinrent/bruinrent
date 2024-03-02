@@ -53,7 +53,11 @@ const ListingBlock = ({
                     <div className="listing-block-details">
                         {rent1 && rent2 ? (
                             <text id="listing-block-info-rent">
-                                ${rent1} - {rent2}/mo
+                                ${rent1} - ${rent2}/mo
+                            </text>
+                        ) : rent1 ? (
+                            <text id="listing-block-info-rent">
+                                ${rent1}/mo
                             </text>
                         ) : (
                             <text id="listing-block-info-rent">
