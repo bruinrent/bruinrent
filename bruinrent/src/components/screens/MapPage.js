@@ -133,10 +133,12 @@ const MapPage = () => {
                         rent1: data.rent1,
                         rent2: data.rent2,
                         bedrooms: data.bedrooms,
-                        bathroom: data.bath,
+                        bathroom: data.bathroom,
                         latLong: data.latLong,
                         imageUrls: [data.imageUrls],
-                        rating: data.rating || null,
+
+                        // temp fix, all csv ratings show as 5.0 stars
+                        rating: data.rating || 5,
                     })
                 );
 
@@ -366,54 +368,6 @@ const MapPage = () => {
     //     setFilteredListings(sortedItems);
     // };
 
-    // const handleSearch = () => {
-    //     console.log("Handlesearch");
-
-    //     // Filter based on bed and bath values
-    //     const bedBathFilteredListings = listings.filter((listing) => {
-    //         const matchBeds =
-    //             selectedBeds === "" ||
-    //             listing.bedrooms.toString() === selectedBeds;
-    //         const matchBaths =
-    //             selectedBaths === "" ||
-    //             listing.bathroom.toString() === selectedBaths;
-
-    //         return matchBeds && matchBaths;
-    //     });
-
-    //     // If both bed/bath filter and searchQuery are empty, show all listings
-    //     if (selectedBeds === "" && selectedBaths === "" && searchQuery === "") {
-    //         setFilteredListings(listings.slice(0, visibleListings));
-    //         return;
-    //     }
-
-    //     // Apply Fuse.js search to the bed/bath filtered listings if searchQuery is not empty
-    //     if (searchQuery !== "") {
-    //         const searchedListings = fuse.search(searchQuery, {
-    //             limit: visibleListings,
-    //         });
-    //         const sortedListings = searchedListings.sort(
-    //             (a, b) => a.refIndex - b.refIndex
-    //         );
-    //         const sortedItems = sortedListings.map((obj) => obj.item);
-
-    //         // If bed/bath filter is applied, intersect the search results with the bed/bath filtered listings
-    //         if (selectedBeds !== "" || selectedBaths !== "") {
-    //             const combinedListings = sortedItems.filter((listing) =>
-    //                 bedBathFilteredListings.includes(listing)
-    //             );
-    //             setFilteredListings(combinedListings);
-    //             return;
-    //         }
-
-    //         // If only searchQuery is applied, show the search results
-    //         setFilteredListings(sortedItems);
-    //         return;
-    //     }
-
-    //     // If only bed/bath filter is applied, show the bed/bath filtered listings
-    //     setFilteredListings(bedBathFilteredListings.slice(0, visibleListings));
-    // };
     // #endregion
     //     // If only bed/bath filter is applied, show the bed/bath filtered listings
     //     setFilteredListings(bedBathFilteredListings.slice(0, visibleListings));
