@@ -156,7 +156,13 @@ const MapPage = () => {
           const bRent = parseInt(b.rent1);
 
           if (aRent && bRent) {
-            return aRent > bRent ? -1 : 1;
+            if (a.rating && b.rating) {
+              return a.rating > b.rating ? -1 : 1;
+            } else if (a.rating) {
+              return -1;
+            } else {
+              return 1;
+            }
           } else if (aRent) {
             return -1;
           } else {
