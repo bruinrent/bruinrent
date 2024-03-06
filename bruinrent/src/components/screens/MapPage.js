@@ -581,10 +581,10 @@ const MapPage = () => {
             onFilterChange={handlePriceFilterChange}
             onSearch={handleSearch}
           />
-          {/*<FilterReviews
+          <FilterReviews
             onFilterChange={handleReviewsFilterChange}
             onSearch={handleSearch}
-          />*/}
+          />
         </div>
         <div className="map-page-listings">
           <div className="map-container">
