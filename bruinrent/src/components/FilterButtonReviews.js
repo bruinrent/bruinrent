@@ -8,6 +8,7 @@ import "@smastrom/react-rating/style.css";
 
 const FilterReviews = ({ onFilterChange, onSearch }) => {
   const [isReviewsDownOpen, setisReviewsDownOpen] = useState(false);
+  const [isReviewFilterSel, setIsReviewFilterSel] = useState(false);
   const [price1, setPrice1] = useState("");
   const [price2, setPrice2] = useState("");
 
@@ -30,7 +31,7 @@ const FilterReviews = ({ onFilterChange, onSearch }) => {
 
   const onRatingChange = () => {};
 
-  const handleSearch = () => {
+  const handleFilter = () => {
     // console.log(`Searching for ${beds} beds and ${baths} baths`);
     onSearch();
     onFilterChange(price1, price2);
@@ -97,10 +98,15 @@ const FilterReviews = ({ onFilterChange, onSearch }) => {
           itemStyles={ratingStarStyle}
         />
         <div className="filter-reviews-selection">
-          <CheckBox />
+          <CheckBox
+            checked={isReviewFilterSel}
+            onChange={() => setIsReviewFilterSel(!isReviewFilterSel)}
+          />
           <h2>Show Properties with Written Reviews</h2>
         </div>
-        <button id="filter-reviews-button">Apply</button>
+        <button id="filter-reviews-button" onClick={() => handleFilter()}>
+          Apply
+        </button>
       </animated.div>
     </div>
   );

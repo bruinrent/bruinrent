@@ -41,7 +41,7 @@ const MapPage = () => {
   const [selectedPrice1, setSelectedPrice1] = useState("");
   const [selectedPrice2, setSelectedPrice2] = useState("");
   // REVIEW FILTERING CHECKBOX LOGIC SHOULD BE OK, change this bool to use
-  const [showWrittenReviews, setShowWrittenReviews] = useState(false);  
+  const [showWrittenReviews, setShowWrittenReviews] = useState(false);
 
   const [selectedReviewJSON, setSelectedReviewJSON] = useState(null);
 
@@ -79,9 +79,7 @@ const MapPage = () => {
     // console.log("rent 2", rent2);
   };
 
-  const handleReviewsFilterChange = () => {
-    
-  };
+  const handleReviewsFilterChange = () => {};
 
   useEffect(() => {
     // Fetch data from the "listings" collection in Firestore
@@ -118,7 +116,7 @@ const MapPage = () => {
             bathroom: data.bath,
             latLong: data.latLong,
             imageUrls: [data.image],
-            rating: data.rating
+            rating: data.rating,
           })
         );
 
@@ -134,36 +132,43 @@ const MapPage = () => {
             address: data.address,
             rent1: data.rent1,
             rent2: data.rent2,
-            bedrooms: data.bed,
-            bathroom: data.bath,
+            bedrooms: data.bedrooms,
+            bathroom: data.bathroom,
             latLong: data.latLong,
             imageUrls: [data.imageUrls],
-            rating: data.rating || null,
+
+            // temp fix, all csv ratings show as 5.0 stars
+            rating: data.rating || 5,
           })
         );
 
         // Combine listings data from both collections
         // CURRENTLY IGNORING CSB LISTINGS
-        // const combinedListingsData = listingsData.concat(csvListingsData);
-        const combinedListingsData = listingsData;
-        const combinedListingsValidAddresses = combinedListingsData.filter(listing => listing.address !== null && listing.address !== undefined);
-
-
-        // Sort listings to display apartments with latLong first
-        const sortedListings = combinedListingsValidAddresses.sort((a, b) =>
-            {if ( (a.rent2 && a.rent2.length > 0) && (a.rating != null)) {
-              return -1;
-            } else if (a.rent2 && a.rent2.length > 0 && !(b.rent2 && b.rent2.length >0)) {
-              return -1;
-            } else if (b.rent2 && b.rent2.length > 0 && !(a.rent2 && a.rent2.length >0)) {
-              return 1;
-            } else if (a.rating == null) {
-              return 1;
-            } else if (b.rating == null) {
-              return -1;
-            }
-          }
+        const combinedListingsData = listingsData.concat(csvListingsData);
+        // const combinedListingsData = listingsData;
+        const combinedListingsValidAddresses = combinedListingsData.filter(
+          (listing) => listing.address !== null && listing.address !== undefined
         );
+
+        // Sort listings to display those with rent first
+        const sortedListings = combinedListingsValidAddresses.sort((a, b) => {
+          const aRent = parseInt(a.rent1);
+          const bRent = parseInt(b.rent1);
+
+          if (aRent && bRent) {
+            if (a.rating && b.rating) {
+              return a.rating > b.rating ? -1 : 1;
+            } else if (a.rating) {
+              return -1;
+            } else {
+              return 1;
+            }
+          } else if (aRent) {
+            return -1;
+          } else {
+            return 1;
+          }
+        });
 
         // Set listings state with the sorted data
         setListings(sortedListings);
@@ -245,49 +250,56 @@ const MapPage = () => {
     // Get ALL listings
     const listingsRef = collection(firestore, "listings");
     const snapshot = await getDocs(listingsRef);
-    
-    let id_to_rating = {}
+
+    let id_to_rating = {};
     // For each document ID that has reviews, add to map of document to review array
     for (const d of snapshot.docs) {
-      console.log(`d: ${JSON.stringify(d.data())}`)
+      console.log(`d: ${JSON.stringify(d.data())}`);
       const dData = d.data();
-      let dRatings = []
-      if (!('reviews' in dData)) {continue;} 
+      let dRatings = [];
+      if (!("reviews" in dData)) {
+        continue;
+      }
       const dReviews = dData.reviews;
       for (const r of dReviews) {
         try {
-          const thisReviewData = (await getDoc(doc(firestore, "reviews", r))).data();
+          const thisReviewData = (
+            await getDoc(doc(firestore, "reviews", r))
+          ).data();
           console.log(thisReviewData.ScoreOverall);
           dRatings.push(parseInt(thisReviewData.ScoreOverall));
         } catch (error) {
           console.error(`Error retrieving review ${r}: ${error}`);
         }
       }
-      const averagedRating = (dRatings.reduce((acc, next) => acc + next, 0))/dRatings.length
+      const averagedRating =
+        dRatings.reduce((acc, next) => acc + next, 0) / dRatings.length;
       id_to_rating[d.id] = averagedRating;
-      
     }
     for (const [key, value] of Object.entries(id_to_rating)) {
       console.log(`Average rating for ${key} is ${value}`);
     }
     // Now I have an ID to valid reviews array map
-    
+
     // Make new map: ID to rating
     // Iterate through each ID in the first map
-      // Make array of ratings 
-      // Iterate through each review of this listing's array 
-        // Retrieve overall review, add to array
-      //average the array and set this ID's value to the average rating
-    
-    
+    // Make array of ratings
+    // Iterate through each review of this listing's array
+    // Retrieve overall review, add to array
+    //average the array and set this ID's value to the average rating
+
     const listingsData = snapshot.docs.map((doc) => ({
       [doc.id]: {
         address: doc.data().address || null,
         rent1: doc.data().rent1 || null,
         rent2: doc.data().rent2 || null,
-        bed: doc.data().bedrooms|| null,
-        bath: doc.data().baths|| null,
-        image: doc.data().imageUrls ? (doc.data().imageUrls[0] ? doc.data().imageUrls[0] : null) : null,
+        bed: doc.data().bedrooms || null,
+        bath: doc.data().baths || null,
+        image: doc.data().imageUrls
+          ? doc.data().imageUrls[0]
+            ? doc.data().imageUrls[0]
+            : null
+          : null,
         latLong: doc.data().latLong || null,
         rating: id_to_rating[doc.id] || null,
       },
@@ -356,54 +368,6 @@ const MapPage = () => {
   //     setFilteredListings(sortedItems);
   // };
 
-  // const handleSearch = () => {
-  //     console.log("Handlesearch");
-
-  //     // Filter based on bed and bath values
-  //     const bedBathFilteredListings = listings.filter((listing) => {
-  //         const matchBeds =
-  //             selectedBeds === "" ||
-  //             listing.bedrooms.toString() === selectedBeds;
-  //         const matchBaths =
-  //             selectedBaths === "" ||
-  //             listing.bathroom.toString() === selectedBaths;
-
-  //         return matchBeds && matchBaths;
-  //     });
-
-  //     // If both bed/bath filter and searchQuery are empty, show all listings
-  //     if (selectedBeds === "" && selectedBaths === "" && searchQuery === "") {
-  //         setFilteredListings(listings.slice(0, visibleListings));
-  //         return;
-  //     }
-
-  //     // Apply Fuse.js search to the bed/bath filtered listings if searchQuery is not empty
-  //     if (searchQuery !== "") {
-  //         const searchedListings = fuse.search(searchQuery, {
-  //             limit: visibleListings,
-  //         });
-  //         const sortedListings = searchedListings.sort(
-  //             (a, b) => a.refIndex - b.refIndex
-  //         );
-  //         const sortedItems = sortedListings.map((obj) => obj.item);
-
-  //         // If bed/bath filter is applied, intersect the search results with the bed/bath filtered listings
-  //         if (selectedBeds !== "" || selectedBaths !== "") {
-  //             const combinedListings = sortedItems.filter((listing) =>
-  //                 bedBathFilteredListings.includes(listing)
-  //             );
-  //             setFilteredListings(combinedListings);
-  //             return;
-  //         }
-
-  //         // If only searchQuery is applied, show the search results
-  //         setFilteredListings(sortedItems);
-  //         return;
-  //     }
-
-  //     // If only bed/bath filter is applied, show the bed/bath filtered listings
-  //     setFilteredListings(bedBathFilteredListings.slice(0, visibleListings));
-  // };
   // #endregion
   //     // If only bed/bath filter is applied, show the bed/bath filtered listings
   //     setFilteredListings(bedBathFilteredListings.slice(0, visibleListings));
@@ -553,7 +517,7 @@ const MapPage = () => {
             address={listing.address}
             s
             bedrooms={listing.bedrooms}
-            bathroom={listing.baths}
+            bathroom={listing.bathroom}
             imageUrl={listing.imageUrls ? listing.imageUrls[0] : null}
             className="address-list-item"
           />
@@ -617,10 +581,10 @@ const MapPage = () => {
             onFilterChange={handlePriceFilterChange}
             onSearch={handleSearch}
           />
-          {/*<FilterReviews
+          <FilterReviews
             onFilterChange={handleReviewsFilterChange}
             onSearch={handleSearch}
-          />*/}
+          />
         </div>
         <div className="map-page-listings">
           <div className="map-container">
@@ -648,7 +612,7 @@ const MapPage = () => {
                     url={`/apartment/${listing.id}`}
                     address={listing.address}
                     bedrooms={listing.bedrooms}
-                    bathroom={listing.baths}
+                    bathroom={listing.bathroom}
                     rent1={listing.rent1}
                     rent2={listing.rent2}
                     imageUrl={listing.imageUrls ? listing.imageUrls[0] : null}

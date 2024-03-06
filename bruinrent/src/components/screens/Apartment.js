@@ -344,7 +344,8 @@ const ApartmentPage = () => {
                 {/* NOTE: Probably want to add aspect ratio when rescaling */}
                 <div className="image-group">
                     <div className="individual-img-container">
-                        {apartmentData.imageUrls && apartmentData.imageUrls[0] ? ( // Check if imageUrls[0] exists
+                        {apartmentData.imageUrls &&
+                        apartmentData.imageUrls[0] ? ( // Check if imageUrls[0] exists
                             <img
                                 src={apartmentData.imageUrls[0]}
                                 alt="Main"
@@ -361,7 +362,8 @@ const ApartmentPage = () => {
 
                     <div className="small-image-container">
                         <div className="individual-small-img-container">
-                            {apartmentData.imageUrls && apartmentData.imageUrls[1] ? ( // Check if imageUrls[0] exists
+                            {apartmentData.imageUrls &&
+                            apartmentData.imageUrls[1] ? ( // Check if imageUrls[0] exists
                                 <img
                                     src={apartmentData.imageUrls[1]}
                                     alt="Secondary"
@@ -371,7 +373,8 @@ const ApartmentPage = () => {
                             )}
                         </div>
                         <div className="show-all-img-container">
-                            {apartmentData.imageUrls && apartmentData.imageUrls[2] ? ( // Check if imageUrls[0] exists
+                            {apartmentData.imageUrls &&
+                            apartmentData.imageUrls[2] ? ( // Check if imageUrls[0] exists
                                 <img
                                     src={apartmentData.imageUrls[2]}
                                     alt="Secondary"
@@ -429,37 +432,47 @@ const ApartmentPage = () => {
                             <text>{apartmentData.addressDesc}</text>
                         </div>
                         <hr className="horizontal-line" />
-                        {apartmentData.units && apartmentData.units.length > 0 && (
-                            <>
-                                <div className="info-block">
-                                    <h1>Floor Plans</h1>
-                                    <table>
-                                        <tr>
-                                            <th># Bedrooms</th>
-                                            <th>Rent</th>
-                                            <th># Baths</th>
-                                            <th>Size</th>
-                                        </tr>
-                                        {apartmentData.units.map((unitInfo) => (
+                        {apartmentData.units &&
+                            apartmentData.units.length > 0 && (
+                                <>
+                                    <div className="info-block">
+                                        <h1>Floor Plans</h1>
+                                        <table>
                                             <tr>
-                                                <th>{unitInfo.bedrooms}</th>
-                                                <th>
-                                                    {unitInfo.rent1 &&
-                                                    unitInfo.rent2
-                                                        ? `${unitInfo.rent1} - ${unitInfo.rent2}`
-                                                        : `${unitInfo.rent1}`}
-                                                </th>
-                                                <th>{unitInfo.baths}</th>
-                                                {unitInfo.size !== "" && (
-                                                    <th>{unitInfo.size}</th>
-                                                )}
+                                                <th># Bedrooms</th>
+                                                <th>Rent</th>
+                                                <th># Baths</th>
+                                                <th>Size</th>
                                             </tr>
-                                        ))}
-                                    </table>
-                                </div>
-                                <hr className="horizontal-line" />
-                            </>
-                        )}
+                                            {apartmentData.units.map(
+                                                (unitInfo) => (
+                                                    <tr>
+                                                        <th>
+                                                            {unitInfo.bedrooms}
+                                                        </th>
+                                                        <th>
+                                                            {unitInfo.rent1 &&
+                                                            unitInfo.rent2
+                                                                ? `${unitInfo.rent1} - ${unitInfo.rent2}`
+                                                                : `${unitInfo.rent1}`}
+                                                        </th>
+                                                        <th>
+                                                            {unitInfo.baths}
+                                                        </th>
+                                                        {unitInfo.size !==
+                                                            "" && (
+                                                            <th>
+                                                                {unitInfo.size}
+                                                            </th>
+                                                        )}
+                                                    </tr>
+                                                )
+                                            )}
+                                        </table>
+                                    </div>
+                                    <hr className="horizontal-line" />
+                                </>
+                            )}
                         <div className="info-block">
                             <h1>Contact This Property</h1>
                             {apartmentData.phone && (
@@ -492,22 +505,24 @@ const ApartmentPage = () => {
                                 <div className="details-container">
                                     <h2>Building Features</h2>
                                     <ul>
-                                        {apartmentData.checkedBuildingFeatureLabels && apartmentData.checkedBuildingFeatureLabels.map(
-                                            (label, index) => (
-                                                <li key={index}>{label}</li>
-                                            )
-                                        )}
+                                        {apartmentData.checkedBuildingFeatureLabels &&
+                                            apartmentData.checkedBuildingFeatureLabels.map(
+                                                (label, index) => (
+                                                    <li key={index}>{label}</li>
+                                                )
+                                            )}
                                     </ul>
                                 </div>
 
                                 <div className="details-container">
                                     <h2>Apartment Features</h2>
                                     <ul>
-                                        {apartmentData.checkedApartmentFeatureLabels && apartmentData.checkedApartmentFeatureLabels.map(
-                                            (label, index) => (
-                                                <li key={index}>{label}</li>
-                                            )
-                                        )}
+                                        {apartmentData.checkedApartmentFeatureLabels &&
+                                            apartmentData.checkedApartmentFeatureLabels.map(
+                                                (label, index) => (
+                                                    <li key={index}>{label}</li>
+                                                )
+                                            )}
                                     </ul>
                                 </div>
                             </div>
